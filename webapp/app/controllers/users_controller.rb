@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
   
+  def index
+    @title = "LifeHelpr - Dashboard"
+    require_user
+  end
+  
   def new
+    require_no_user
     @title = "LifeHelpr - Register"
     @user = User.new
   end
@@ -17,15 +23,19 @@ class UsersController < ApplicationController
   end
   
   def edit
+    require_user
     @title = "LifeHelpr - Edit Account"
     @user = current_user
+    @settings = @user.setting
   end
   
   def update
+    require_user
     @title = "LifeHelpr - Edit Accout"
     @user = current_user
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "Successfully updated user info"
+    @settings = @user.setting
+    if @settings.update_attributes(params[:settings])
+      flash[:notice] = "Successfully updated user settings"
       redirect_to root_url
     else
       render :action => 'edit'

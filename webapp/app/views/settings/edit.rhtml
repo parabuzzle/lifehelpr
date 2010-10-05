@@ -1,0 +1,33 @@
+
+	<h1>Edit Account Settings</h1>
+	
+	<% form_for @settings do |f|%>
+		<%=f.error_messages%>
+		<div id="loginform">
+		<p>
+			<%= f.label :first_name %><br/>
+			<%= f.text_field :first_name%>
+		</p>
+		<p>
+			<%= f.label :last_name %><br/>
+			<%= f.text_field :last_name%>
+		</p>
+		<p>
+			<%= f.label :pager_email %><br/>
+			<%= f.text_field :pager_email%>
+		</p>
+		<p>
+			<%= f.label :email_reminders %><br/>
+			<%= f.check_box :email_reminders %>
+		</p>
+		<p>
+			<%= f.label :page_reminders %><br/>
+			<%= f.check_box :page_reminders %>
+		</p>
+		<p>
+			<%= f.label :marketing_mail %><br/>
+			<%= f.check_box :marketing_mail %>
+		</p>
+		<p><%= f.submit "Submit"%></p>
+	<% end %>
+</div>

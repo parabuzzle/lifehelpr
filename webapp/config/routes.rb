@@ -41,9 +41,11 @@ ActionController::Routing::Routes.draw do |map|
   map.login "login", :controller => "user_sessions", :action => 'new'
   map.logout "logout", :controller => "user_sessions", :action => 'destroy'
   map.register "register", :controller => "users", :action => "new"
-  map.settings "settings", :controller => "users", :action => "edit"
+  map.settings "settings", :controller => "settings", :action => "edit"
   map.resources :users
   map.resources :user_sessions
+  map.resources :settings
+  map.resources :todos
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
   map.root :controller => 'site', :action => 'index'
