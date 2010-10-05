@@ -7,6 +7,7 @@ class SettingsController < ApplicationController
   end
   
   def update
+    #attr_accessor :default_reminder_schedule, :first_name, :last_name, :pager_email, :email_reminders, :page_reminders, :marketing_mail
     require_user
     @title = "LifeHelpr - Edit Settings"
     @user = current_user

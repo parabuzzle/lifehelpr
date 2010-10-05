@@ -1,0 +1,6 @@
+<h1>My Todo List</h1>
+<div class="item"><%=link_to("Add", :action => 'new')%></div>
+
+<%for todo in @todos%>
+<div class="item"><%=link_to(todo.subject, :action => 'view', :id=>todo.id)%> | <%=link_to("edit", :action=>'edit', :id=>todo.id)%></div>
+<%end%>

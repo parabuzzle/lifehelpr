@@ -42,7 +42,11 @@
 				<%end%>
 			</div>
 			<div class="clear"></div>
-    		
+    		<ul>
+				<li><%=link_to("Home", :controller => "site", :action => 'index')%></li>
+				<li><%=link_to("Dashboard", :controller => "users", :action => 'index')%></li>
+				<li><%=link_to("Todos", :controller => "todos", :action => 'index')%></li>
+			</ul>
 			<%= @content_for_layout %>
 		</div><!-- content -->
 	</div> <!-- container-->

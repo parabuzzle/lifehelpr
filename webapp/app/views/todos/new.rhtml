@@ -1,0 +1,16 @@
+<h1>New Todo</h1>
+
+	<% form_for @todo do |f|%>
+		<%=f.error_messages%>
+		<div id="loginform">
+		<p>
+			<%= f.label :subject %><br/>
+			<%= f.text_field :subject%>
+		</p>
+		<p>
+			<%= f.label :desc %><br/>
+			<%= f.text_field :desc%>
+		</p>
+		<p><%= f.submit "Submit"%></p>
+	<% end %>
+</div>
