@@ -1,0 +1,78 @@
+<%starttime = Time.now.to_f %>
+<!DOCTYPE HTML PUBLIC "!//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title><%= @title %></title>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<%= stylesheet_link_tag "app" %>
+	<!--[if IE]>
+		<%= stylesheet_link_tag "ie" %>
+		<%= javascript_include_tag 'unitpngfix'%>
+	<![endif]-->
+  </head>
+  
+  <body>
+	<div id="container">
+		<div id="content">
+			<% if flash[:notice] %>
+			   <div id="notice"><%= flash[:notice] %></div>
+			<% end %>
+			<% if flash[:error] %>
+			    <div id="error"><%= flash[:error] %></div>
+			<% end %>
+    	
+			<%= @content_for_layout %>
+		</div><!-- content -->
+	</div> <!-- container-->
+	<div id="footer">
+		<div id="copyright">Copyright &copy; <%=Time.now.year%> by lifehelpr.com</div>
+		<div class="clear"></div>
+	</div><!-- footer -->
+    
+    <% if ENV["RAILS_ENV"] == "development"%>
+    <!-- Dev stuff (outside container) -->
+    <div id="debug", class="white">
+		<a href='#' onclick="jQuery('#params_debug_info').toggle();return false;">params</a> |
+		<a href='#' onclick="jQuery('#session_debug_info').toggle();return false;">session</a> |
+		<a href='#' onclick="jQuery('#env_debug_info').toggle();return false;">env</a> |
+		<a href='#' onclick="jQuery('#request_debug_info').toggle();return false;">request</a>    
+      <fieldset id="params_debug_info" class="debug_info" style="display:none;">
+        <legend>params</legend>
+        <%= debug(params) %>
+      </fieldset>
+      <fieldset id="session_debug_info" class="debug_info" style="display:none;">
+        <legend>session</legend>
+        <%= debug(session) %>
+      </fieldset>
+       <fieldset id="env_debug_info" class="debug_info" style="display:none;">
+        <legend>env</legend>
+        <%= debug(request.env) %>
+      </fieldset>
+      <fieldset id="request_debug_info" class="debug_info" style="display:none;">
+        <legend>request</legend>
+        <%= debug(request) %>
+      </fieldset>
+    </div>
+    <!-- end Dev mode only stuff -->
+    <% end %>
+
+	</div>
+	<!-- javascript -->
+    <%= javascript_include_tag 'jquery.min'%>
+	<%= javascript_include_tag 'facebox'%>
+	<%= javascript_include_tag 'prototype'%>
+	<%= javascript_include_tag 'application' %>
+	<!-- Analytics -->
+	<% if ENV["RAILS_ENV"] == "production"%>
+		
+	<%end%>
+  </body>
+</html>
+<% rtime = Time.now.to_f - starttime%>
+ 
+<% if ENV["RAILS_ENV"] == "development"%>
+<%= [rtime*1000].to_s.to_i %> ms
+<%else%>
+<!-- <%= rtime*1000 %> -->
+<%end%>
