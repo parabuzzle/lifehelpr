@@ -1,6 +1,7 @@
-<h1>Login</h1>
+
+	<h1>Edit Account</h1>
 	
-	<% form_for @user_session do |f|%>
+	<% form_for @user do |f|%>
 		<%=f.error_messages%>
 		<div id="loginform">
 		<p>
@@ -10,6 +11,10 @@
 		<p>
 			<%= f.label :password %><br/>
 			<%= f.password_field :password%>
+		</p>
+		<p>
+			<%= f.label :password_confirmation %><br/>
+			<%= f.password_field :password_confirmation%>
 		</p>
 		<p><%= f.submit "Submit"%></p>
 	<% end %>

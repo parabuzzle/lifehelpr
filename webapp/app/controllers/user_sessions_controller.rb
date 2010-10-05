@@ -1,12 +1,14 @@
 class UserSessionsController < ApplicationController
   def new
+    @title = "LifeHelpr - Login"
     @user_session = UserSession.new
   end
   
   def create
+    @title = "LifeHelpr - Login"
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:notice] = "Successfully logged in"
+      flash[:notice] = "Logged in"
       redirect_to :action => 'index', :controller => 'users'
     else
       render :action => 'new'
@@ -14,6 +16,7 @@ class UserSessionsController < ApplicationController
   end
   
   def destroy
+    @title = "LifeHelpr - Logout"
     @user_session = UserSession.find
     @user_session.destroy
     flash[:notice] = "Logged out"
