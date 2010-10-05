@@ -1,0 +1,6 @@
+Welcome to the site<br/>
+<%if current_user%>
+Hello <%= current_user.email %> <%=link_to('logout', logout_path)%>
+<%else%>
+	<%=link_to('register', new_user_path)%> | <%=link_to('login', login_path)%>
+<%end%>
