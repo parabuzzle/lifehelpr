@@ -16,6 +16,13 @@ class TodosController < ApplicationController
     render :nothing => true
   end
   
+  #def sort
+  #  params[:todos].each_with_index do |id, index|
+  #    Todo.update_all(['position=?', index+1], ['id=?', id])
+  #  end
+  #  render :nothing => true
+  #end
+  
   def view
     @user = current_user
     @todo = Todo.find(params[:id])
@@ -26,6 +33,9 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - New Todo"
     @user = current_user
     @todo = @user.todos.new
+    if params[:facebox]
+      render :layout => false
+    end
   end
   
   def create
@@ -34,7 +44,7 @@ class TodosController < ApplicationController
     @todo = @user.todos.new(params[:todo])
     if @todo.save
       flash[:notice] = "Todo Item Added"
-      redirect_to :action => "view", :id => @todo.id
+      redirect_to :action => "index"
     else
       render :action => 'new'
     end

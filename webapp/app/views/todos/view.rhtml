@@ -1,2 +1,4 @@
-<h1><%=@todo.name%></h1>
-<div class="item"><%=@todo.notes%></div>
+<h1><%=@todo.name%> (<%=link_to('Edit', :action => 'edit', :id => @todo.id)%>)</h1>
+<div class="indent">
+<div class="todo_item"><%=@todo.notes%></div>
+</div>

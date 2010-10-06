@@ -14,6 +14,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
+	list-style-type:none; 
 }
 
 ol {
@@ -172,7 +173,7 @@ img {
 /*todo list classes*/
 .todo_list{}
 .todo_item_even{
-	background: #bbb;
+	background: #ccc;
 }
 .todo_item_odd{
 	background: #ddd;
@@ -180,4 +181,9 @@ img {
 .todo_item {
 	padding: 3px;
 	margin-left: 10px;
+}
+li .handle {
+  font-size: 12px;
+  cursor: move;
+  color: #555;
 }
