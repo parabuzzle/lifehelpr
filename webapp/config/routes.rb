@@ -45,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :user_sessions
   map.resources :settings
-  map.resources :todos
+  map.resources :todos, :collection => { :sort => :post }
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
   map.root :controller => 'site', :action => 'index'

@@ -4,13 +4,22 @@ class TodosController < ApplicationController
   def index
     @title = "LifeHelpr - Todo List"
     @user = current_user
-    @todos = @user.todos.all :conditions => "status == 0"
+    @todos = @user.todos.undone
+  end
+  
+  def sort
+    @user = current_user
+    @user.todos.all(:conditions=>"status == 0").each do | f |
+      f.position = params["todo_list"].index(f.id.to_s)+1
+      f.save
+    end
+    render :nothing => true
   end
   
   def view
     @user = current_user
     @todo = Todo.find(params[:id])
-    @title = "LifeHelpr - #{@todo.subject}"
+    @title = "LifeHelpr - #{@todo.name}"
   end
   
   def new
