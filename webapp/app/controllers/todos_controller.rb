@@ -1,14 +1,13 @@
 class TodosController < ApplicationController
-  
+  before_filter :require_user
+  in_place_edit_for :todo, :subject
   def index
     @title = "LifeHelpr - Todo List"
-    require_user
     @user = current_user
-    @todos = @user.todos
+    @todos = @user.todos.all :conditions => "status == 0"
   end
   
   def view
-    require_user
     @user = current_user
     @todo = Todo.find(params[:id])
     @title = "LifeHelpr - #{@todo.subject}"
@@ -16,13 +15,11 @@ class TodosController < ApplicationController
   
   def new
     @title = "LifeHelpr - New Todo"
-    require_user
     @user = current_user
     @todo = @user.todos.new
   end
   
   def create
-    require_user
     @title = "LifeHelpr - New Todo"
     @user = current_user
     @todo = @user.todos.new(params[:todo])
@@ -34,15 +31,30 @@ class TodosController < ApplicationController
     end
   end
   
+  def mark_done
+    @title = "LifeHelpr - Mark Done"
+    @user = current_user
+    @todo = Todo.find(params[:id])
+    if request.post?
+      @todo.status = 1
+      if @todo.save
+        flash[:notice] = "Marked Complete"
+      else
+        flash[:error] = "couldn't mark complete"
+      end
+      redirect_to :action=>'index'
+    else
+      redirect_to :action => 'view', :id=>@todo.id
+    end
+  end
+  
   def edit
-    require_user
     @title = "LifeHelpr - Edit Item"
     @user = current_user
     @todo = Todo.find(params[:id])
   end
   
   def update
-    require_user
     @title = "LifeHelpr - Edit Item"
     @user = current_user
     @todo = Todo.find(params[:id])

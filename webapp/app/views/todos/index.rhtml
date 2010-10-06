@@ -1,6 +1,14 @@
 <h1>My Todo List</h1>
-<div class="item"><%=link_to("Add", :action => 'new')%></div>
-
-<%for todo in @todos%>
-<div class="item"><%=link_to(todo.subject, :action => 'view', :id=>todo.id)%> | <%=link_to("edit", :action=>'edit', :id=>todo.id)%></div>
-<%end%>
+<div class="indent">
+	<div class="item"><%=link_to("Add New", :action => 'new')%></div>
+	<div class="pad15"></div>
+	<div class="todo_list">
+	<%for todo in @todos%>
+	<div class="<%=cycle('todo_item_odd', 'todo_item_even')%>">
+		<div class="todo_item">
+			<%=link_to(todo.subject, :action => 'view', :id=>todo.id)%> | <%=link_to("edit", :action=>'edit', :id=>todo.id)%> | <%=link_to('done', {:action=>'mark_done', :id=>todo.id}, :method => 'post')%>
+		</div><!--todo_item-->
+	</div><!-- todo_item_odd/even -->
+	<%end%>
+	</div><!-- todo_list -->
+</div><!--indent -->
