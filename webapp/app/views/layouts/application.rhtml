@@ -6,6 +6,7 @@
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	<%= stylesheet_link_tag "app" %>
+	<%= stylesheet_link_tag "facebox"%>
 	<!--[if IE]>
 		<%= stylesheet_link_tag "ie" %>
 		<%= javascript_include_tag 'unitpngfix'%>
@@ -15,6 +16,10 @@
 	<%= javascript_include_tag 'facebox'%>
 	<%= javascript_include_tag 'prototype'%>
 	<%= javascript_include_tag 'application' %>
+	<%= javascript_include_tag 'effects' %>
+	<%= javascript_include_tag 'dragdrop' %>
+	<%= javascript_include_tag 'controls' %>
+	
   </head>
   
   <body>
@@ -28,7 +33,7 @@
 		<div id="logo">LifeHelpr</div>
 	</div>
 	<div id="container">
-		<div id="content">
+		<div id="main">
 			<%if current_user%>
 				<div id="helloblk">
 					<%=current_user.email%>
@@ -38,13 +43,23 @@
 				<%if current_user%>
 				<%=link_to('settings', settings_path)%> | <%=link_to('logout', logout_path)%>
 				<%else%>
-					<%=link_to('register', register_path)%> | <%=link_to('login', login_path)%>
+					<%=link_to('register', register_path, :rel => 'facebox')%> | <%=link_to('login', login_path, :rel => 'facebox')%>
 				<%end%>
 			</div>
 			<div class="clear"></div>
-    		
-			<%= @content_for_layout %>
-		</div><!-- content -->
+			<%if current_user%>
+				<div id="leftnav">
+    				<ul>
+						<li><%=link_to("Home", :controller => "site", :action => 'index')%></li>
+						<li><%=link_to("Dashboard", :controller => "users", :action => 'index')%></li>
+						<li><%=link_to("Todos", :controller => "todos", :action => 'index')%></li>
+					</ul>
+				</div>
+			<%end%>
+			<div id="content">
+				<%= @content_for_layout %>
+			</div><!-- content -->
+		</div><!--main-->
 	</div> <!-- container-->
 	<div id="footer">
 		<div id="copyright">Copyright &copy; <%=Time.now.year%> by lifehelpr.com</div>
@@ -77,7 +92,7 @@
     </div>
     <!-- end Dev mode only stuff -->
     <% end %>
-
+	
 	</div>
 	<!-- Analytics -->
 	<% if ENV["RAILS_ENV"] == "production"%>

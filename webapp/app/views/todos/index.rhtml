@@ -1,0 +1,16 @@
+<h1>My Todo List</h1>
+<div class="indent">
+	<div id="my-link"><%=link_to("Add New", :action => 'new')%></div>
+	<div class="pad15"></div>
+	
+	<ul id="todo_list">
+	  <% @todos.each do |f| %>
+	    <li id="item_<%= f.id %>" class="<%=cycle('todo_item_odd', 'todo_item_even')%>">
+		<%=link_to('[x]', {:action =>'mark_done', :id=>f.id}, :method=>'post', :confirm => 'Are you sure you want to mark this complete?')%> <span class="handle">[drag]</span>
+	      <%= h(f.name) %> <span class="handle">(<%=link_to('notes', :action => 'view', :id => f.id)%>)</span>
+	    </li>
+	  <% end %>
+	</ul>
+	</div><!-- todo_list -->
+	<%= sortable_element("todo_list", :url => sort_todos_path, :handle => "handle") %>
+</div><!--indent -->

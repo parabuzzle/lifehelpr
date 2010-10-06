@@ -15,6 +15,7 @@ class CreateUsers < ActiveRecord::Migration
       t.column :last_login_at, :datetime
       t.column :current_login_ip, :string
       t.column :last_login_ip, :string
+      t.column :invites, :int, :default => 0
       t.column :is_admin, :boolean, :null => false, :default =>false
       t.timestamps
     end

@@ -3,6 +3,9 @@ class UserSessionsController < ApplicationController
     @title = "LifeHelpr - Login"
     require_no_user
     @user_session = UserSession.new
+    if params[:facebox]
+      render :template => false
+    end
   end
   
   def create

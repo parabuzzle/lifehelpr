@@ -1,9 +1,16 @@
 class User < ActiveRecord::Base
   acts_as_authentic
-  #attr_accessor :email, :crypted_password, :remember_token
+  #attr_accessor :password, :password_confirmation
   
   has_one :setting
   has_many :beta_invites
   has_many :todos
+  after_create :build_setting, :add_invites
+  
+  NUM_INVITES = 3
+  def add_invites(num=NUM_INVITES)
+    self.invites = self.invites + num
+    return self.save
+  end
   
 end

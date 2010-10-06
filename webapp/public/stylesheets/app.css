@@ -14,6 +14,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
+	list-style-type:none; 
 }
 
 ol {
@@ -33,7 +34,6 @@ h1 {
 	font-weight:bold;
 	font-size:32px;
 	margin-bottom: 14px;
-	margin-top:10px;
 }
 
 h2 {
@@ -95,11 +95,17 @@ img {
 	min-height: 500px;
 	margin:auto;
 	background:#fff;
-	width:96%;
+	width: 96%;
+}
+
+#main {
+	padding: 10px;
 }
 
 #content {
-	padding: 10px;
+	margin-left: 225px;
+	background:#fff;
+	min-height: 500px;
 }
 
 #header {
@@ -118,6 +124,16 @@ img {
 #nav {
 	float:right;
 }
+#leftnav{
+	float:left;
+	background:#eee;
+	width: 200px;
+	border: #333 solid 1px;
+	padding: 10px;
+}
+#leftnav > ul {
+	padding-left:20px;
+}
 #helloblk {
 	float:left;
 }
@@ -133,12 +149,7 @@ img {
 }
 
 #loginform {
-	width:223px;
-	margin:auto;
-}
-
-.clear {
-	clear:both;
+	margin-left: 20px;
 }
 
 #errorExplanation {
@@ -147,4 +158,32 @@ img {
 	width:575px;
 	margin:auto;
 	padding:20px;
+}
+/*General formatting classes*/
+.indent {
+	margin-left: 10px;
+}
+.pad15{
+	padding:15px;
+}
+.clear {
+	clear:both;
+}
+
+/*todo list classes*/
+.todo_list{}
+.todo_item_even{
+	background: #ccc;
+}
+.todo_item_odd{
+	background: #ddd;
+}
+.todo_item {
+	padding: 3px;
+	margin-left: 10px;
+}
+li .handle {
+  font-size: 12px;
+  cursor: move;
+  color: #555;
 }
