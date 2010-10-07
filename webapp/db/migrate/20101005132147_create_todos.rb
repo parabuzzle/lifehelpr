@@ -3,7 +3,7 @@ class CreateTodos < ActiveRecord::Migration
     create_table :todos do |t|
       t.column :user_id, :int, :null => false
       t.column :name, :string
-      t.column :notes, :sting
+      t.column :notes, :string
       t.column :status, :int, :null => false, :default => 0
       t.column :duedate, :datetime
       t.column :reminder_schedule, :string
