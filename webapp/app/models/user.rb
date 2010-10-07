@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
     return self.save
   end
   
+  def available_invites
+    return self.invites - self.beta_invites.count
+  end
+  
 end

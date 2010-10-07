@@ -10,6 +10,10 @@ class BetaInvite < ActiveRecord::Base
     end
   end
   
+  def invite_user
+    return User.find_by_beta_token(self.beta_token)
+  end
+  
   def make_beta_token
     size = 4
     tok = pronouncable_random(size)

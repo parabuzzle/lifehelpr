@@ -155,6 +155,7 @@ img {
 }
 
 #loginform {
+	width:500px;
 	padding: 5px;
 	margin:auto;
 	text-align:center;

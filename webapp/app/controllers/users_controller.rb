@@ -16,11 +16,18 @@ class UsersController < ApplicationController
   
   def create
     @title = "LifeHelpr - Register"
-    @user = User.new(params[:user])
-    if @user.save
-      flash[:notice] = "Registration Successful"
-      redirect_to root_url
+    @beta = BetaInvite.find_by_beta_token(params[:user][:beta_token])
+    if @beta and @beta.email_address == params[:user][:email]
+      @user = User.new(params[:user])
+      if @user.save
+        flash[:notice] = "Registration Successful"
+        redirect_to root_url
+      else
+        flash[:error] = "An error occured, please try again"
+        render :action => 'new'
+      end
     else
+      flash[:error] = "Your beta code and email address don't match please check them and try again"
       render :action => 'new'
     end
   end
