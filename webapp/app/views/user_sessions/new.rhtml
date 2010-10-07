@@ -1,16 +1,18 @@
 <h1>Login</h1>
-	
+<div id="loginform">
 	<% form_for @user_session do |f|%>
-		<%=f.error_messages%>
-		<div id="loginform">
-		<p>
-			<%= f.label :email %><br/>
-			<%= f.text_field :email%>
-		</p>
-		<p>
-			<%= f.label :password %><br/>
-			<%= f.password_field :password%>
-		</p>
-		<p><%= f.submit "Submit"%></p>
+		<table style="margin:auto;">
+			<tr>
+				<td align=right>Email:</td>
+				<td><%= f.text_field :email%></td>
+			</tr>
+			<tr>
+				<td align=right>Password:</td>
+				<td><%= f.password_field :password%></td>
+			</tr>
+			<tr>
+				<td colspan=2 align=right><%= f.submit "Login"%></td>
+			</tr>
+		</table>
 	<% end %>
 </div>

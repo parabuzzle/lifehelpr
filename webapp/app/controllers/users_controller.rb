@@ -9,6 +9,9 @@ class UsersController < ApplicationController
     require_no_user
     @title = "LifeHelpr - Register"
     @user = User.new
+    if params[:facebox]
+      render :layout=>false
+    end
   end
   
   def create

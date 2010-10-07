@@ -95,7 +95,9 @@ img {
 	min-height: 500px;
 	margin:auto;
 	background:#fff;
-	width: 96%;
+	width: 960px;
+	border: #333 solid 1px;
+	border-top:none;
 }
 
 #main {
@@ -103,9 +105,7 @@ img {
 }
 
 #content {
-	margin-left: 225px;
 	background:#fff;
-	min-height: 500px;
 }
 
 #header {
@@ -122,13 +122,19 @@ img {
 	font-size: 35px;
 }
 #nav {
+	text-align:right;
 	float:right;
 }
-#leftnav{
+#top_nav {
+
+}
+#top_nav li {
 	float:left;
-	background:#eee;
+	padding: 3px;
+}
+#leftnav{
+	float:right;
 	width: 200px;
-	border: #333 solid 1px;
 	padding: 10px;
 }
 #leftnav > ul {
@@ -149,7 +155,12 @@ img {
 }
 
 #loginform {
-	margin-left: 20px;
+	padding: 5px;
+	margin:auto;
+	text-align:center;
+}
+#loginform td {
+	padding: 1px;
 }
 
 #errorExplanation {
