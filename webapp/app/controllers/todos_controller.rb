@@ -9,7 +9,7 @@ class TodosController < ApplicationController
   
   def sort
     @user = current_user
-    @user.todos.all(:conditions=>"status == 0").each do | f |
+    @user.todos.undone.each do | f |
       f.position = params["todo_list"].index(f.id.to_s)+1
       f.save
     end
