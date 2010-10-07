@@ -79,15 +79,18 @@ img {
 #notice{
 	background: #CCF;
 	padding:10px;
-	width:100%;
-	margin:auto;
+	text-align:left;
+	width:500px;
+	margin-bottom:20px;
 	border: 1px solid #aaa;
 }
 #error{
 	background: #ffff55;
 	padding:10px;
-	width:100%;
-	margin:auto;
+	color:red;
+	text-align:left;
+	width:500px;
+	margin-bottom:20px;
 	border: 1px solid #333;
 }
 

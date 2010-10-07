@@ -57,7 +57,7 @@ class TodosController < ApplicationController
     if request.post?
       @todo.status = 1
       if @todo.save
-        flash[:notice] = "Marked Complete"
+        flash[:notice] = "#{@todo.name} is done!"
       else
         flash[:error] = "couldn't mark complete"
       end

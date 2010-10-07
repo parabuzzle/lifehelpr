@@ -23,12 +23,6 @@
   </head>
   
   <body>
-	<% if flash[:notice] %>
-	   <div id="notice"><%= flash[:notice] %></div>
-	<% end %>
-	<% if flash[:error] %>
-	    <div id="error"><%= flash[:error] %></div>
-	<% end %>
 	<div id="header">
 		<div id="logo">LifeHelpr</div>
 	</div>
@@ -57,6 +51,12 @@
 			</div>
 			<div class="clear"></div>
 			<div id="content">
+				<% if flash[:notice] %>
+				   <div id="notice"><%= flash[:notice] %></div>
+				<% end %>
+				<% if flash[:error] %>
+				    <div id="error"><%= flash[:error] %></div>
+				<% end %>
 				<%= @content_for_layout %>
 			</div><!-- content -->
 		</div><!--main-->
