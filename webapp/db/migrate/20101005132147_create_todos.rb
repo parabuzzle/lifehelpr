@@ -4,9 +4,9 @@ class CreateTodos < ActiveRecord::Migration
       t.column :user_id, :int, :null => false
       t.column :name, :string
       t.column :notes, :string
-      t.column :status, :int, :null => false, :default => 0
+      t.column :status, :boolean, :null => false, :default => false
       t.column :duedate, :datetime
-      t.column :reminder_schedule, :string
+      t.column :deleted, :boolean, :null => false, :default => false
       t.column :email_reminder, :boolean
       t.column :page_reminder, :boolean
       t.column :position, :int

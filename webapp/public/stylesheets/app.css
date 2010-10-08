@@ -22,7 +22,7 @@ ol {
 }
 
 body {
-	background-color: #6CF;
+	background-color: #eee;
 	margin: 0px;
 	padding: 0px;
 	color: #333;
@@ -99,7 +99,7 @@ img {
 	margin:auto;
 	background:#fff;
 	width: 960px;
-	border: #333 solid 1px;
+
 	border-top:none;
 }
 
@@ -156,9 +156,16 @@ img {
 #copyright {
 	padding: 20px;
 }
-
+#login {
+	margin:auto;
+	width: 650px;
+}
+#login_explain {
+	color: #777;
+	font-weight: none;
+	padding:5px;
+}
 #loginform {
-	width:500px;
 	padding: 5px;
 	margin:auto;
 	text-align:center;
@@ -188,10 +195,14 @@ img {
 /*todo list classes*/
 .todo_list{}
 .todo_item_even{
-	background: #ccc;
+	background-color: #bbb;
+	background-image:url('/images/bamboo_even.jpg');
+	padding:2px;
 }
 .todo_item_odd{
-	background: #ddd;
+	padding:2px;
+	background-image:url('/images/bamboo_odd.jpg');
+	background-color: #ccc;
 }
 .todo_item {
 	padding: 3px;

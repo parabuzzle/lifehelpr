@@ -1,10 +1,18 @@
 class TodosController < ApplicationController
   before_filter :require_user
-  in_place_edit_for :todo, :subject
+  in_place_edit_for Todo, :name
+
   def index
     @title = "LifeHelpr - Todo List"
     @user = current_user
-    @todos = @user.todos.undone
+    @todos = @user.todos.all
+  end
+  
+  def set_todo_name
+    @todo = Todo.find(params[:id])
+    @todo.name = params[:value]
+    @todo.save
+    render :inline => @todo.name
   end
   
   def sort
@@ -50,12 +58,33 @@ class TodosController < ApplicationController
     end
   end
   
+  def delete
+    if request.post?
+      @todo = Todo.find(params[:id])
+      @todo.deleted = true
+      if @todo.save
+        flash[:notice] = "Todo has been deleted"
+      else
+        flash[:error] = "Something when wrong with your delete"
+      end
+      redirect_to :action => 'index'
+    else
+      redirect_to :action => 'view', :id => params[:id]
+    end
+  end
+  
   def mark_done
     @title = "LifeHelpr - Mark Done"
     @user = current_user
     @todo = Todo.find(params[:id])
     if request.post?
-      @todo.status = 1
+      old_value = params[:task][:completed]
+      if old_value == 'false'
+        @todo.status = true
+      end
+      if old_value == 'true'
+        @todo.status = false
+      end
       if @todo.save
         flash[:notice] = "#{@todo.name} is done!"
       else

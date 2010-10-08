@@ -1,28 +1,40 @@
 
 <h1>Register</h1>
-<div id="loginform">
-	This site is currently on invite only beta at this time. <br/>Follow us on <a href="http://twitter.com/lifehelpr">twitter</a> to find out when we go live <br/>or<br/>request a beta code.<br/><br/>
+<div id="login">
+<div id="loginform" class="fright">
 	<% form_for @user do |f|%>
 		<table style="margin:auto;">
 			<tr>
-				<td align=right>Email:</td>
+				<td align='left'>Email:</td>
+			</tr>
+			<tr>
 				<td><%= f.text_field :email, :value=>params[:email]%></td>
 			</tr>
 			<tr>
-				<td align=right>Password:</td>
+				<td align="left">Password:</td>
+			</tr>
+			<tr>
 				<td><%= f.password_field :password%></td>
 			</tr>
 			<tr>
-				<td align=right>Confirm Password:</td>
+				<td align="left">Confirm Password:</td>
+			</tr>
+			<tr>
 				<td><%= f.password_field :password_confirmation%></td>
 			</tr>
 			<tr>
-				<td align=right>Beta Code:</td>
+				<td align="left">Beta Code:</td>
+			</tr>
+			<tr>
 				<td><%= f.text_field :beta_token, :value =>params[:beta_token]%></td>
 			</tr>
 			<tr>
-				<td colspan=2 align=right><%= f.submit "Submit"%></td>
+				<td align='right'><%= f.submit "Submit"%></td>
 			</tr>
 		</table>
 	<% end %>
+</div>
+<div id="login_explain">
+	Sorry, LifeHelpr is Invite-Only beta at the moment. <br/>Follow us on <a href="http://twitter.com/lifehelpr">twitter</a> to find out how to get invited.
+</div>
 </div>
