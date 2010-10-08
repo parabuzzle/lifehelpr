@@ -25,7 +25,7 @@
   
   <body>
 	<div id="header">
-		<div id="logo">LifeHelpr</div>
+		<div id="logo"><%=image_tag('sketch_logo_trans_white.gif')%></div>
 	</div>
 	<div id="container">
 		<div id="main">
@@ -40,7 +40,7 @@
 					<div id="top_nav">
 						<ul>
 							<li><%=link_to("dashboard", :controller => "users", :action => 'index')%> |</li>
-							<li><%=link_to("todo list", :controller => "todos", :action => 'index')%> |</li>
+							<li><%=link_to("todos", :controller => "todos", :action => 'index')%> |</li>
 							<li><%=link_to('settings', settings_path)%> |</li>
 							<li><%=link_to('logout', logout_path)%></li>
 						</ul>
