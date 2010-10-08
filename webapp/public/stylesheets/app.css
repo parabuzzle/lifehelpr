@@ -192,17 +192,27 @@ img {
 	clear:both;
 }
 
+#top_nav li {
+	background:#eee;
+}
+
+#top_nav a:hover {
+	background: #aaa;
+}
+ 
 /*todo list classes*/
-.todo_list{}
+.todo_list{
+	border: 1px solid #ddd;
+}
 .todo_item_even{
-	background-color: #bbb;
-	background-image:url('/images/bamboo_even.jpg');
+	background-color: #eee;
+	/*background-image:url('/images/bamboo_even.jpg');*/
 	padding:2px;
 }
 .todo_item_odd{
 	padding:2px;
-	background-image:url('/images/bamboo_odd.jpg');
-	background-color: #ccc;
+	/*background-image:url('/images/bamboo_odd.jpg');*/
+	background-color: #fff;
 }
 .todo_item {
 	padding: 3px;
