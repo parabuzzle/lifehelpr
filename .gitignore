@@ -3,3 +3,5 @@ webapp/tmp/*
 webapp/log/*
 *.sqlite3
 webapp/db/schema.rb
+webapp/config/database.yml
+webapp/config/siteprops.yml
