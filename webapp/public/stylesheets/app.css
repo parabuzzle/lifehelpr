@@ -1,0 +1,225 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+	list-style-type:none; 
+}
+
+ol {
+	margin-left:40px;
+}
+
+body {
+	background-color: #eee;
+	margin: 0px;
+	padding: 0px;
+	color: #333;
+	font-weight:bold;
+	font-family: helvetica;
+}
+
+h1 {
+	font-weight:bold;
+	font-size:32px;
+	margin-bottom: 14px;
+}
+
+h2 {
+	font-weight:bold;
+	font-size:22px;
+	margin-bottom: 12px;
+}
+
+p {
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+a {
+	text-decoration: none;
+	color: #009;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #333;
+}
+
+img {
+	border: 0px;
+}
+
+.small {
+	font-size: 10px;
+}
+.medium {
+	font-size: 14px;
+}
+.right {
+	text-align:right;
+}
+.fright {
+	float:right;
+}
+.fleft {
+	float:left;
+}
+#notice{
+	background: #CCF;
+	padding:10px;
+	text-align:left;
+	width:500px;
+	margin-bottom:20px;
+	border: 1px solid #aaa;
+}
+#error{
+	background: #ffff55;
+	padding:10px;
+	color:red;
+	text-align:left;
+	width:500px;
+	margin-bottom:20px;
+	border: 1px solid #333;
+}
+
+#container {
+	min-height: 500px;
+	margin:auto;
+	background:#fff;
+	width: 960px;
+
+	border-top:none;
+}
+
+#main {
+	padding: 10px;
+}
+
+#content {
+	background:#fff;
+}
+
+#header {
+	color: #fff;
+	min-height: 75px;
+	background: #333;
+	width: 100%;
+	border-bottom: 2px #000 solid;
+}
+#logo {
+	padding-top:20px;
+	padding-left: 40px;
+	font-weight:bold;
+	font-size: 35px;
+}
+#nav {
+	text-align:right;
+	float:right;
+}
+#top_nav {
+
+}
+#top_nav li {
+	float:left;
+	padding: 3px;
+}
+#leftnav{
+	float:right;
+	width: 200px;
+	padding: 10px;
+}
+#leftnav > ul {
+	padding-left:20px;
+}
+#helloblk {
+	float:left;
+}
+
+#footer {
+	text-align: right;
+	width: 96%;
+	margin:auto;
+	color: #fff;
+}
+#copyright {
+	padding: 20px;
+}
+#login {
+	margin:auto;
+	width: 650px;
+}
+#login_explain {
+	color: #777;
+	font-weight: none;
+	padding:5px;
+}
+#loginform {
+	padding: 5px;
+	margin:auto;
+	text-align:center;
+}
+#loginform td {
+	padding: 1px;
+}
+
+#errorExplanation {
+	background: #ffff55;
+	border: #333 solid 1px;
+	width:575px;
+	margin:auto;
+	padding:20px;
+}
+/*General formatting classes*/
+.indent {
+	margin-left: 10px;
+}
+.pad15{
+	padding:15px;
+}
+.clear {
+	clear:both;
+}
+
+#top_nav li {
+	background:#eee;
+}
+
+#top_nav a:hover {
+	background: #aaa;
+}
+ 
+/*todo list classes*/
+.todo_list{
+	border: 1px solid #ddd;
+}
+.todo_item_even{
+	background-color: #eee;
+	/*background-image:url('/images/bamboo_even.jpg');*/
+	padding:2px;
+}
+.todo_item_odd{
+	padding:2px;
+	/*background-image:url('/images/bamboo_odd.jpg');*/
+	background-color: #fff;
+}
+.todo_item {
+	padding: 3px;
+	margin-left: 10px;
+}
+li .handle {
+  font-size: 12px;
+  cursor: move;
+  color: #555;
+}

@@ -1,0 +1,40 @@
+
+<h1>Register</h1>
+<div id="login">
+<div id="loginform" class="fright">
+	<% form_for @user do |f|%>
+		<table style="margin:auto;">
+			<tr>
+				<td align='left'>Email:</td>
+			</tr>
+			<tr>
+				<td><%= f.text_field :email, :value=>params[:email]%></td>
+			</tr>
+			<tr>
+				<td align="left">Password:</td>
+			</tr>
+			<tr>
+				<td><%= f.password_field :password%></td>
+			</tr>
+			<tr>
+				<td align="left">Confirm Password:</td>
+			</tr>
+			<tr>
+				<td><%= f.password_field :password_confirmation%></td>
+			</tr>
+			<tr>
+				<td align="left">Beta Code:</td>
+			</tr>
+			<tr>
+				<td><%= f.text_field :beta_token, :value =>params[:beta_token]%></td>
+			</tr>
+			<tr>
+				<td align='right'><%= f.submit "Submit"%></td>
+			</tr>
+		</table>
+	<% end %>
+</div>
+<div id="login_explain">
+	Sorry, LifeHelpr is Invite-Only beta at the moment. <br/>Follow us on <a href="http://twitter.com/lifehelpr">twitter</a> to find out how to get invited.
+</div>
+</div>

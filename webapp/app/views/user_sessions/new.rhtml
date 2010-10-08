@@ -1,0 +1,28 @@
+<h1>Login</h1>
+<div id="login">
+<div id="loginform" class="fright">
+	<% form_for @user_session do |f|%>
+		<table style="margin:auto;">
+			<tr>
+				<td align='left'>Email:</td>
+			</tr>
+			<tr>
+				<td><%= f.text_field :email%></td>
+			</tr>
+			<tr>
+				<td align="left">Password:</td>
+			</tr>
+			<tr>
+				<td><%= f.password_field :password%></td>
+			</tr>
+			<tr>
+				<td align='right'><%= f.submit "Login"%></td>
+			</tr>
+		</table>
+	<% end %>
+</div>
+<div id="login_explain">
+	You must be logged in to use LifeHelpr. <br/>If you have already registered you can login now, or you can register for
+	a new account by <%=link_to('clicking here', :controller => 'users', :action => 'new')%>.
+</div>
+</div>

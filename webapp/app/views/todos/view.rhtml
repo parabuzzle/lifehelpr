@@ -1,0 +1,5 @@
+<h1><%=@todo.name%> (<%=link_to('Edit', :action => 'edit', :id => @todo.id)%>)</h1>
+<div class="indent">
+	<%= in_place_editor_field :todo, 'name' %>
+<div class="todo_item"><%=@todo.notes%></div>
+</div>
