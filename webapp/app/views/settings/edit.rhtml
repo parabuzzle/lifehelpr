@@ -13,6 +13,10 @@
 			<%= f.text_field :last_name%>
 		</p>
 		<p>
+			<%= f.label "Time Zone" %><br/>
+			<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
+		</p>
+		<p>
 			<%= f.label :pager_email %><br/>
 			<%= f.text_field :pager_email%>
 		</p>

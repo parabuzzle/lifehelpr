@@ -4,13 +4,15 @@
 	<div id="stats_box">
 		<h3>Your Stats</h3>
 		<div class="stats_box">
-		You have created <%=@todos_created_this_week.length%> new todos in the last 7 days and <%=@todos_opened_this_week.length%> are still unfinished.
-		<br/>You have closed <%=@todos_closed_this_week.length%> todos in the last 7 days.
-		<br/>You have <%=@todos_undone.length%> total uncompleted todos.
+			Last Login: <%=@user.last_login_at.to_s(:pretty)%>
+			<br/>Available Beta Invites: <%=@user.available_invites%>
+		<br/>New todos last 7 days: <%=@todos_created_this_week.length%>
+		<br/>Finished todos last 7 days: <%=@todos_closed_this_week.length%>
+		<br/>Total unfinished Todos: <%=@todos_undone.length%>
 		</div>
 	</div><!-- stats_box -->
 	<div id="todo_box">
-	<h3>Your Top 5 Todo Items</h3>
+	<h3>Your Top 5 <%=link_to('Todo', :action =>'index', :controller =>'todos')%> Items</h3>
 		<div class="todo_list">
 		<ul id="todo_list">
 	  <% @top5_todos.each do |f| %>

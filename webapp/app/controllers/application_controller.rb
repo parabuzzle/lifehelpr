@@ -9,7 +9,12 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   helper_method :current_user
-  
+  before_filter :set_user_time_zone
+
+  def set_user_time_zone
+    Time.zone = current_user.setting.time_zone if current_user
+  end
+    
   #User session and user stuff
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
@@ -46,5 +51,11 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
   
+  def set_todo_name
+    @todo = Todo.find(params[:id])
+    @todo.name = params[:value]
+    @todo.save
+    render :inline => @todo.name
+  end
   
 end

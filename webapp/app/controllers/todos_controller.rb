@@ -9,13 +9,6 @@ class TodosController < ApplicationController
     @todos = @user.todos.all
   end
   
-  def set_todo_name
-    @todo = Todo.find(params[:id])
-    @todo.name = params[:value]
-    @todo.save
-    render :inline => @todo.name
-  end
-  
   def set_todo_notes
     @todo = Todo.find(params[:id])
     @todo.notes = params[:value]

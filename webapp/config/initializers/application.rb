@@ -1,5 +1,6 @@
 #All application specific initialization is done here
-  
+ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:pretty => "%B %d, %Y")  
+
 def pronouncable_random(size=4)
   c = %w(b c d f g h j k l m n p qu r s t v w x z ch cr fr nd ng nk nt ph pr rd sh sl sp st th tr)
   v = %w(a e i o u y)
