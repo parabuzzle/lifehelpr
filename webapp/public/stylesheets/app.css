@@ -201,6 +201,10 @@ img {
 }
  
 /*todo list classes*/
+#todo_box {
+	width: 400px;
+	float:right;
+}
 .todo_list{
 	border: 1px solid #ddd;
 }

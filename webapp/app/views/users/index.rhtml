@@ -1,1 +1,23 @@
-Hello logged in user
+<h1>User Dashboard</h1>
+<div class="indent">
+
+	<div id="stats_box">
+		You have <%=@todos_opened_this_week.length%> new todos added in the last 7 days.
+	</div><!-- stats_box -->
+	<div id="todo_box">
+	<h3>Your Top 5 Todo Items</h3>
+		<div class="todo_list">
+		<ul id="todo_list">
+	  <% @top5_todos.each do |f| %>
+	    <li id="item_<%= f.id %>" class="<%=cycle('todo_item_odd', 'todo_item_even')%>">
+		<%@todo = f%>
+		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
+		<span class="handle"><%=image_tag('drag.gif')%></span>
+	   	<%= in_place_editor_field :todo, h('name') %> <span class="handle">(<%=link_to('more', :action => 'view', :id => f.id)%>) <%=link_to(image_tag('delete_icon.gif'), {:action =>'delete', :id=>f.id}, :method=>'post', :confirm => 'Are you sure you want to delete this item?')%></span>
+	    </li>
+	  <% end %>
+	</ul>
+	</div><!-- todo_list -->
+	<%= sortable_element("todo_list", :url => sort_todos_path, :handle => "handle") %>
+	</div><!-- todo_box -->
+</div><!--indent -->

@@ -1,6 +1,7 @@
 class TodosController < ApplicationController
   before_filter :require_user
   in_place_edit_for Todo, :name
+  in_place_edit_for Todo, :notes
 
   def index
     @title = "LifeHelpr - Todo List"
@@ -15,9 +16,16 @@ class TodosController < ApplicationController
     render :inline => @todo.name
   end
   
+  def set_todo_notes
+    @todo = Todo.find(params[:id])
+    @todo.notes = params[:value]
+    @todo.save
+    render :inline => @todo.notes
+  end
+  
   def sort
     @user = current_user
-    @user.todos.undone.each do | f |
+    @user.todos.all.each do | f |
       f.position = params["todo_list"].index(f.id.to_s)+1
       f.save
     end

@@ -3,6 +3,11 @@ class UsersController < ApplicationController
   def index
     @title = "LifeHelpr - Dashboard"
     require_user
+    @user = current_user
+    @top5_todos = @user.todos.top5
+    @todos_undone = @user.todos.undone
+    @todos_closed_this_week = @user.todos.last_week_closed
+    @todos_opened_this_week = @user.todos.last_week_open
   end
   
   def new
