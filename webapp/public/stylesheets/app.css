@@ -96,6 +96,7 @@ img {
 
 #container {
 	min-height: 500px;
+	_height: 500px;
 	margin:auto;
 	background:#fff;
 	width: 960px;
@@ -114,6 +115,7 @@ img {
 #header {
 	color: #fff;
 	min-height: 75px;
+	_height: 75px;
 	background: #333;
 	width: 100%;
 	border-bottom: 2px #000 solid;
