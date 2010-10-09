@@ -89,9 +89,11 @@ class TodosController < ApplicationController
       old_value = params[:task][:completed]
       if old_value == 'false'
         @todo.status = true
+        @todo.complete_date = Time.now
       end
       if old_value == 'true'
         @todo.status = false
+        @todo.complete_date = nil
       end
       if @todo.save
         flash[:notice] = "#{@todo.name} is done!"

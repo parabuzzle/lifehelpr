@@ -148,10 +148,10 @@ img {
 }
 
 #footer {
-	text-align: right;
+	text-align: center;
 	width: 96%;
 	margin:auto;
-	color: #fff;
+	color: #333;
 }
 #copyright {
 	padding: 20px;
@@ -200,6 +200,21 @@ img {
 	background: #aaa;
 }
  
+/*dashboard classes*/
+#stats_box{
+	float:left;
+	width:500px;
+	padding: 5px;
+}
+.stats_box{
+	font-size: 12px;
+	border: 1px solid #ddd;
+	float:left;
+	width:500px;
+	padding: 5px;
+	background:#eee;
+}
+
 /*todo list classes*/
 #todo_box {
 	width: 400px;
