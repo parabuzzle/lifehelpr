@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   
   def create
     @title = "LifeHelpr - Register"
+    @user = User.new
     @beta = BetaInvite.find_by_beta_token(params[:user][:beta_token])
     if @beta and @beta.email_address == params[:user][:email]
       @user = User.new(params[:user])

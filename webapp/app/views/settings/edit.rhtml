@@ -1,37 +1,55 @@
-
-	<h1>Edit Account Settings</h1>
-	
+<h1>Edit Account Settings</h1>
+<div id="login">
+<div id="loginform" class="fright">
 	<% form_for @settings do |f|%>
-		<%=f.error_messages%>
-		<div id="loginform">
-		<p>
-			<%= f.label :first_name %><br/>
-			<%= f.text_field :first_name%>
-		</p>
-		<p>
-			<%= f.label :last_name %><br/>
-			<%= f.text_field :last_name%>
-		</p>
-		<p>
-			<%= f.label "Time Zone" %><br/>
-			<%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
-		</p>
-		<p>
-			<%= f.label :pager_email %><br/>
-			<%= f.text_field :pager_email%>
-		</p>
-		<p>
-			<%= f.label :email_reminders %><br/>
-			<%= f.check_box :email_reminders %>
-		</p>
-		<p>
-			<%= f.label :page_reminders %><br/>
-			<%= f.check_box :page_reminders %>
-		</p>
-		<p>
-			<%= f.label :marketing_mail %><br/>
-			<%= f.check_box :marketing_mail %>
-		</p>
-		<p><%= f.submit "Submit"%></p>
+		<table style="margin:auto;">
+			<tr>
+				<td align='right'>First Name: <%= f.text_field :first_name%></td>
+			</tr>
+			<tr>
+				<td align='right'>Last Name: <%= f.text_field :last_name%></td>
+			</tr>
+			<tr>
+				<td align='right'>Pager Email Address: <%= f.text_field :pager_email%></td>
+			</tr>
+			<%if @display_code%>
+			<tr>
+				<td align='right'>Pager Activation Code: <%= f.text_field :pager_email_activation_code%></td>
+			</tr>
+			<%end%>
+			<tr>
+				<td align='right'>Time Zone: <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></td>
+			</tr>
+			<tr>
+				<td align='right'>Send Email Reminders: <%= f.check_box :email_reminders %></td>
+			</tr>
+			<%if @settings.pager_email_active?%>
+			<tr>
+				<td align='right'>Send Pager Email Reminders: <%= f.check_box :page_reminders%></td>
+			</tr>
+			<%else%>
+			<tr>
+				<td align='right'>Send Pager Email Reminders: <%= f.check_box :page_reminders, :disabled => true%></td>
+			</tr>
+			<%end%>
+			<tr>
+				<td align='right'>Email Me Site Updates: <%= f.check_box :marketing_mail %></td>
+			</tr>
+			<tr>
+				<td align='right'><%= f.submit "Save"%></td>
+			</tr>
+		</table>
 	<% end %>
+</div>
+<div id="settings_explain">
+	These are your global site settings. Anything set here will be
+	used as defaults across the site.<br/><br/>
+	<%if @user.available_invites > 0%><br/>
+	You have <%=@user.available_invites%> Beta Invite(s).
+	<%=link_to('Click here to Invite Friends', :controller => :beta_invites, :action => :index)%>
+	<%else%>
+	You don't have any available beta invites.<br/>
+	<%=link_to('Click here to see your Invited Friends', :controller => :beta_invites, :action => :index)%>
+	<%end%>
+</div>
 </div>

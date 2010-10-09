@@ -167,6 +167,12 @@ img {
 	font-weight: none;
 	padding:5px;
 }
+#settings_explain {
+	width: 200px;
+	color: #777;
+	font-weight: none;
+	padding:5px;
+}
 #loginform {
 	padding: 5px;
 	margin:auto;
