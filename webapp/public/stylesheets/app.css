@@ -96,6 +96,7 @@ img {
 
 #container {
 	min-height: 500px;
+	_height: 500px;
 	margin:auto;
 	background:#fff;
 	width: 960px;
@@ -114,6 +115,7 @@ img {
 #header {
 	color: #fff;
 	min-height: 75px;
+	_height: 75px;
 	background: #333;
 	width: 100%;
 	border-bottom: 2px #000 solid;
@@ -148,10 +150,10 @@ img {
 }
 
 #footer {
-	text-align: right;
+	text-align: center;
 	width: 96%;
 	margin:auto;
-	color: #fff;
+	color: #333;
 }
 #copyright {
 	padding: 20px;
@@ -200,7 +202,26 @@ img {
 	background: #aaa;
 }
  
+/*dashboard classes*/
+#stats_box{
+	float:left;
+	width:500px;
+	padding: 5px;
+}
+.stats_box{
+	font-size: 12px;
+	border: 1px solid #ddd;
+	float:left;
+	width:500px;
+	padding: 5px;
+	background:#eee;
+}
+
 /*todo list classes*/
+#todo_box {
+	width: 400px;
+	float:right;
+}
 .todo_list{
 	border: 1px solid #ddd;
 }

@@ -15,6 +15,7 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "Logged in"
       redirect_to :action => 'index', :controller => 'users'
     else
+      flash[:error] = "There was an error processing your request.<br/>Please check your email/password and try again."
       render :action => 'new'
     end
   end
