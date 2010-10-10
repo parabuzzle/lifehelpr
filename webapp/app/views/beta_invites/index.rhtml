@@ -7,21 +7,20 @@
 		<div id="my-link">You don't have any available invites at this time.</div>
 		<%end%>
 		<div class="pad15"></div>
-		<h3>Your previous Invites</h3>
+		<h3>Your previous Invites <span class="fright">Invite Code</span></h3>
 		<div class="todo_list">
 		<ul id="todo_list">
-		  <% @invites.each do |f| %>
+		  <% @invites.reverse.each do |f| %>
 		    <li id="item_<%= f.id %>" class="<%=cycle('todo_item_odd', 'todo_item_even')%>">
 			<%@invite = f%>
 			 <%=@invite.email_address%> 
 			<%if @invite.invite_user%>
-				(active)
+				(active) <span class="fright"><%=@invite.beta_token%></span>
 			<%else%>
-				(pending)
+				(pending) <span class="fright"><%=@invite.beta_token%></span> 
 			<%end%>
 		    </li>
 		  <% end %>
 		</ul>
 		</div><!-- todo_list -->
-		<%= sortable_element("todo_list", :url => sort_todos_path, :handle => "handle") %>
 	</div><!--indent -->
