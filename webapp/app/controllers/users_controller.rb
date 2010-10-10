@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       end
     else
       flash[:error] = "Your beta code and email address don't match please check them and try again"
-      render :action => 'new'
+      render :action => :new
     end
   end
   

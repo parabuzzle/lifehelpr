@@ -1,0 +1,17 @@
+Hello <%=@friend_name%>,
+
+Your friend, <%=@from_name%>, thought you would benefit from an easier life and decided to invite you to become a beta member of LifeHelpr.com.
+
+You beta code is <%=@beta_invite.beta_token%>
+
+You can go to http://<%=@host%>/register?beta_token=<%=@beta_invite.beta_token%>&email=<%=@beta_invite.email_address%> to sign up.
+
+
+Sincerly,
+LifeHelpr.com
+
+---
+<%=@footer['plain']%>
+
+
+This email has been sent to <%=@beta_invite.email_address%>
