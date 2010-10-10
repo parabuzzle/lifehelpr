@@ -10,6 +10,7 @@ class Todo < ActiveRecord::Base
   named_scope :last_week_closed, :conditions => {:status=>true, :deleted => false, :complete_date => 7.days.ago..Time.now.utc}, :order => :complete_date
   named_scope :last_week_open, :conditions => {:status=>false, :deleted => false, :created_at => 7.days.ago..Time.now.utc}, :order => :position
   named_scope :last_week_created, :conditions => {:deleted => false, :created_at => 7.days.ago..Time.now.utc}, :order => :position
+  named_scope :for_delete, :conditions => {:status=>true, :deleted => false, :complete_date => 1.year.ago..7.days.ago}, :order => :complete_date
   
   
 end
