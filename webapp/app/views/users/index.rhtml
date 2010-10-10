@@ -5,7 +5,7 @@
 		<h3>Your Stats</h3>
 		<div class="stats_box">
 			Last Login: <%=@user.last_login_at.to_s(:pretty)%>
-			<br/>Available Beta Invites: <%=@user.available_invites%>
+			<br/>Available <%=link_to('Beta Invites', :controller => :beta_invites, :action => :index)%>: <%=@user.available_invites%>
 		<br/>New todos last 7 days: <%=@todos_created_this_week.length%>
 		<br/>Finished todos last 7 days: <%=@todos_closed_this_week.length%>
 		<br/>Total unfinished Todos: <%=@todos_undone.length%>
