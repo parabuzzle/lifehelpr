@@ -39,7 +39,50 @@
 				<td align='right'><%= f.submit "Save"%></td>
 			</tr>
 		</table>
-	<% end %>
+		<% end %>
+		<br/>
+		<div id="default_reminders">
+		<h3>Your Default Reminder Schedule</h3>
+		</div>
+		<div class="default_reminders">
+			<%for @rem in @def_rem%>
+			<ul>
+			<li id="item_<%= @rem.id %>" class="<%=cycle('todo_item_odd', 'todo_item_even')%>">
+				<%=make_time(@rem.hour, @rem.min)%> 
+				<% if @rem.pager%>
+					(Pager) 
+				<%end%>
+				<% if @rem.email%>
+					(Email) 
+				<%end%>
+				(<%=link_to("edit", :controller => :default_reminder_schedules, :action => :edit, :id => @rem.id)%>) <%=link_to(image_tag('delete_icon.gif'), {:action =>'delete', :controller => :default_reminder_schedules, :id=>@rem.id}, :method=>'post', :confirm => 'Are you sure you want to delete this reminder?')%>
+			</li>
+			</ul>
+			<%end%>
+		</div>
+		<div id="add_new_def_rem">
+		<h3>Add new default reminder time</h3>
+		<% form_for 'reminder', :url => { :controller => "default_reminder_schedules", :action => "create" } do |f|%>
+		<table style="margin:auto;">
+			<tr>
+				<td align='right'>Hour: <%= select :time, :hour, ["1","2","3","4","5","6","7","8","9","10","11","12"]%></td>
+				<td align='right'>Minute: <%= select :time, :min, ["00", "15", "30", "45"]%></td>
+				<td align="right"><%= select :time, :suf, ["A.M.", "P.M."]%></td>
+			</tr>
+			<tr>
+				<td>Email this Alert: <%= f.check_box :email%></td>
+				<%if @settings.pager_email_active?%>
+					<td colspan="2">Page me this Alert: <%= f.check_box :pager%></td>
+				<%else%>
+					<td colspan="2">Page me this Alert: <%= f.check_box :pager, :disabled => true%></td>
+				<%end%>
+			</tr>
+			<tr>
+				<td colspan="3" align='right'><%= f.submit "Add"%></td>
+			</tr>
+		</table>
+		<%end%>
+	</div>
 </div>
 <div id="settings_explain">
 	These are your global site settings. Anything set here will be
@@ -53,3 +96,4 @@
 	<%end%>
 </div>
 </div>
+<div class="clear"></div>

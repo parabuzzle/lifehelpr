@@ -2,4 +2,7 @@
 <div class="indent">
 	<%= in_place_editor_field :todo, 'name' %>
 <div class="todo_item"><%=@todo.notes%></div>
+<%if @todo.duedate%>
+	<div class="more">Due Date: <%=@todo.duedate.to_s(:pretty)%></div>
+<%end%>
 </div>

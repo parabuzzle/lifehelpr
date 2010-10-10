@@ -16,7 +16,15 @@
 		<div class="todo_list">
 		<ul id="todo_list">
 	  <% @top5_todos.each do |f| %>
-	    <li id="item_<%= f.id %>" class="<%=cycle('todo_item_odd', 'todo_item_even')%>">
+	    <%bg=cycle('todo_item_odd', 'todo_item_even')%>
+		<%unless f.duedate.nil?%>
+			<%if f.duedate.to_i < Time.now.to_i; then overdue = true;end%>
+		<%end%>
+		<% if overdue%>
+	    	<li id="item_<%= f.id %>" class="item_red">
+		<%else%>
+			<li id="item_<%= f.id %>" class="<%=bg%>">
+		<%end%>
 		<%@todo = f%>
 		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :controller=>:todos, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
 		<span class="handle"><%=image_tag('drag.gif')%></span>

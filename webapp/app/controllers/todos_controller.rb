@@ -51,6 +51,10 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - New Todo"
     @user = current_user
     @todo = @user.todos.new(params[:todo])
+    unless params[:duedate].nil?
+      due =  Date.parse(params[:duedate])
+      @todo.duedate = due
+    end
     if @todo.save
       flash[:notice] = "Todo Item Added"
       redirect_to :action => "index"
@@ -109,6 +113,10 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - Edit Item"
     @user = current_user
     @todo = Todo.find(params[:id])
+    unless params[:duedate].nil?
+      due =  Date.parse(params[:duedate])
+      @todo.duedate = due
+    end
     if @todo.update_attributes(params[:todo])
       flash[:notice] = "Successfully updated Item"
       redirect_to :action => "view", :id=>@todo.id

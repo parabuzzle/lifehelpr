@@ -8,11 +8,75 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
-  helper_method :current_user
+  helper_method :current_user, :make_time, :get_12_hour_hash
   before_filter :set_user_time_zone
 
   def set_user_time_zone
     Time.zone = current_user.setting.time_zone if current_user
+  end
+  
+  def make_time(hour, min)
+    hour = hour.to_i
+    if hour < 12
+      suf = "A.M."
+    else
+      suf = "P.M."
+    end
+    if min == 0
+      min = "00"
+    end
+    if hour == 0
+      hour = 12
+    elsif hour == 24
+      hour = 12
+    else
+      hour = hour%12
+    end
+    if hour == 0
+      hour = 12
+    end
+    time = "#{hour}:#{min} #{suf}"
+    return time
+  end
+  
+  def get_12_hour_hash(hour=1, min=0)
+    hour = hour.to_i
+    min = min.to_i
+    if hour < 12
+      suf = "A.M."
+    else
+      suf = "P.M."
+    end
+    if min == 0
+      min = "00"
+    end
+    if hour == 0
+      hour = 12
+    elsif hour == 24
+      hour = 12
+    else
+      hour = hour%12
+    end
+    if hour == 0
+      hour = 12
+    end
+    time = {'hour'=>hour, 'min'=>min, 'suf'=>suf}
+    return time
+  end
+  
+  def get_time_hash(hour,min,suf)
+    hour = hour.to_i
+    min = min.to_i
+    if suf == "P.M."
+      hour = hour+12
+    elsif hour == 12
+      hour = 0
+    end
+    if hour == 24
+      hour = 12
+    end
+    time = {'hour' => hour, 'min' => min}
+    return time
   end
     
   #User session and user stuff

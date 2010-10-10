@@ -10,6 +10,15 @@ class Emails < ActionMailer::Base
     content_type "text/html"
     body       :friend_name => friend_name, :from_name => from_name, :beta_invite => beta_invite, :host => @@mail['host'], :footer =>@@mail['footer']
   end
+  
+  def pager_activation(email, code, sent_at=Time.now)
+    subject 'Activate Your Pager Mail'
+    recipients email
+    from @@mail['from']
+    sent_on sent_at
+    content_type "text/plain"
+    body :code => code
+  end
 
   def welcome(user, sent_at=Time.now)
     subject    'Welcome to LifeHelpr.com'

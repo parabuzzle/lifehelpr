@@ -223,6 +223,18 @@ img {
 	background:#eee;
 }
 
+.default_reminders{
+	text-align:left;
+	border: solid 1px #ddd;
+}
+#default_reminders{
+	text-align:left;
+}
+#add_new_def_rem {
+	float:right;
+	padding: 10px;
+	text-align:right;
+}
 /*todo list classes*/
 #todo_box {
 	width: 400px;
@@ -230,6 +242,10 @@ img {
 }
 .todo_list{
 	border: 1px solid #ddd;
+}
+.item_red{
+	background: #FF3333;
+	padding:2px;
 }
 .todo_item_even{
 	background-color: #eee;

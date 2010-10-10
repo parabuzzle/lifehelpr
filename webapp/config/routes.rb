@@ -47,6 +47,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_sessions
   map.resources :settings
   map.resources :beta_invites
+  map.resources :default_reminder_schedules
+  map.resources :reminder_schedules
   map.resources :todos, :collection => { :sort => :post }
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
