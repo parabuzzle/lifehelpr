@@ -148,15 +148,19 @@ img {
 #helloblk {
 	float:left;
 }
-
+#foot_links {
+	text-align:left;
+	font-size: 14px;
+}
 #footer {
+	padding: 10px;
 	text-align: center;
-	width: 96%;
+	width: 960px;
 	margin:auto;
 	color: #333;
 }
 #copyright {
-	padding: 20px;
+	padding: 10px;
 }
 #login {
 	margin:auto;
