@@ -1,3 +1,5 @@
+# This script deletes finished todo items after a day
+
 logger = RAILS_DEFAULT_LOGGER
 logger.info("[todo deleter] starting todos deleter")
 @todos = Todo.for_delete

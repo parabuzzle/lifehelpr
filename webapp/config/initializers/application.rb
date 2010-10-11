@@ -14,6 +14,7 @@ ActionMailer::Base.smtp_settings = {
                                         :authentication => :plain
                                         }
 
+#make a pronouncable random string
 def pronouncable_random(size=4)
   c = %w(b c d f g h j k l m n p qu r s t v w x z ch cr fr nd ng nk nt ph pr rd sh sl sp st th tr)
   v = %w(a e i o u y)
@@ -23,4 +24,15 @@ def pronouncable_random(size=4)
     f = !f
   end
   return r
+end
+
+#extend the numeric class to include some helper methods
+class Numeric
+  def positive?
+    self > 0
+  end
+
+  def negative?
+    self < 0
+  end
 end

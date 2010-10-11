@@ -7,17 +7,14 @@
 	  <% @todos.each do |f| %>
 		<%bg=cycle('todo_item_odd', 'todo_item_even')%>
 		<%unless f.duedate.nil?%>
-			<%if f.duedate.to_i < Time.now.to_i; then overdue = true;end%>
+			<%if f.duedate.to_i < Time.now.to_i; then overdue = "(overdue)";end%>
 		<%end%>
-		<% if overdue%>
-	    	<li id="item_<%= f.id %>" class="item_red">
-		<%else%>
 			<li id="item_<%= f.id %>" class="<%=bg%>">
-		<%end%>
 		<%@todo = f%>
 		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
 		<span class="handle"><%=image_tag('drag.gif')%></span>
-	   	<%= in_place_editor_field :todo, h('name') %> <span class="handle">(<%=link_to('more', :action => 'view', :id => f.id)%>) <%=link_to(image_tag('delete_icon.gif'), {:action =>'delete', :id=>f.id}, :method=>'post', :confirm => 'Are you sure you want to delete this item?')%></span>
+		<%= in_place_editor_field :todo, h('name') %>
+		<span class="small">(<%=link_to('more', :action => 'view', :id => f.id)%>) <%=overdue%> <%=link_to(image_tag('delete_icon.gif'), {:action =>'delete', :id=>f.id}, :method=>'post', :confirm => 'Are you sure you want to delete this item?')%></span>
 	    </li>
 	  <% end %>
 	</ul>

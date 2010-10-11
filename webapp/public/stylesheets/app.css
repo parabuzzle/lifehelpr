@@ -266,3 +266,8 @@ li .handle {
   cursor: move;
   color: #555;
 }
+
+li .small {
+  font-size: 12px;
+  color: #555;
+}
