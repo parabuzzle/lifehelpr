@@ -5,12 +5,13 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:pretty =>
 SITE_PROPS = YAML::load(File.open("#{RAILS_ROOT}/config/siteprops.yml"))
 
 #Email Server Settings
+set = SITE_PROPS['admin']['email']['server']
 ActionMailer::Base.smtp_settings = {
-                                        :address => 'util.slh.madhattermm.com',
-                                        :port => '587',
-                                        :domain => 'lifehelpr.com',
-                                        :user_name => "no@lifehelpr.com",
-                                        :password => "wamu22",
+                                        :address => set['host'],
+                                        :port => set['port'],
+                                        :domain => set['domain'],
+                                        :user_name => set['user_name'],
+                                        :password => set['password'],
                                         :authentication => :plain
                                         }
 

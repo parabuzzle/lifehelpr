@@ -4,6 +4,12 @@ logger = RAILS_DEFAULT_LOGGER
 hour = ARGV[0].to_i
 min = ARGV[1].to_i
 
+#Ensure hour is in UTC!
+diff = Time.now.utc.hour - hour
+if diff > 1
+  hour = Time.now.utc.hour
+end
+
 logger.info("[todo reminder sender] starting for #{ARGV[0]}:#{ARGV[1]}")
 
 reminders = DefaultReminderSchedule.find(:all, :conditions => {:hour => hour, :min => min})

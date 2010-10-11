@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     Time.zone = current_user.setting.time_zone if current_user
   end
   
-  def make_time(hour, min)
+  def make_time(hour, min, time_zone="Pacific Time (US & Canada)")
     hour = hour.to_i
     if hour < 12
       suf = "A.M."
@@ -35,13 +35,32 @@ class ApplicationController < ActionController::Base
     if hour == 0
       hour = 12
     end
-    time = "#{hour}:#{min} #{suf}"
+    local = get_24_hour_hash_local(hour,min,suf,time_zone)
+    local_time = get_12_hour_hash(local["hour"], local["min"])
+    time = "#{local_time['hour']}:#{local_time['min']} #{local_time['suf']}"
     return time
   end
   
-  def get_12_hour_hash(hour=1, min=0)
+  def get_24_hour_hash_utc(hour=1,min=0,suf="A.M.",time_zone="Pacific Time (US & Canada)")
+    hash = get_time_hash(hour,min,suf,time_zone)
+    Time.zone = time_zone
+    time = Time.parse("#{hash['hour']}:#{hash['min']} #{hash['suf']}")
+    utc = Time.zone.local_to_utc(time)
+    return {"hour"=>utc.hour, "min" => utc.min}
+  end
+  
+  def get_24_hour_hash_local(hour=1,min=0,suf="A.M.",time_zone="Pacific Time (US & Canada)")
+    hash = get_time_hash(hour,min,suf,time_zone)
+    Time.zone = time_zone
+    time = Time.parse("#{hash['hour']}:#{hash['min']} #{hash['suf']}")
+    utc = Time.zone.utc_to_local(time)
+    return {"hour"=>utc.hour, "min" => utc.min}
+  end
+  
+  def get_12_hour_hash(hour=1, min=0, time_zone="Pacific Time (US & Canada)")
     hour = hour.to_i
     min = min.to_i
+    Time.zone = time_zone
     if hour < 12
       suf = "A.M."
     else
@@ -64,9 +83,10 @@ class ApplicationController < ActionController::Base
     return time
   end
   
-  def get_time_hash(hour,min,suf)
+  def get_time_hash(hour,min,suf, time_zone="Pacific Time (US & Canada)")
     hour = hour.to_i
     min = min.to_i
+    Time.zone = time_zone
     if suf == "P.M."
       hour = hour+12
     elsif hour == 12

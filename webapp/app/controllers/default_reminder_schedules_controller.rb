@@ -37,6 +37,12 @@ class DefaultReminderSchedulesController < ApplicationController
   def edit
     @user = current_user
     @def_rem = DefaultReminderSchedule.find(params[:id])
+    time = get_12_hour_hash(@def_rem.hour, @def_rem.min)
+    local = get_24_hour_hash_local(time["hour"],time["min"], time["suf"],@user.setting.time_zone)
+    local_time = get_12_hour_hash(local["hour"], local["min"])
+    @hour = local_time["hour"]
+    @min = local_time["min"]
+    @suf = local_time["suf"]
     @title = "LifeHelpr - Edit reminder time"
   end
   
@@ -44,7 +50,7 @@ class DefaultReminderSchedulesController < ApplicationController
     @title = "LifeHelpr - Edit reminder time"
     @user = current_user
     @def_rem = DefaultReminderSchedule.find(params[:id])
-    time = get_time_hash(params[:time][:hour],params[:time][:min],params[:time][:suf])
+    time = get_24_hour_hash_utc(params[:time][:hour],params[:time][:min],params[:time][:suf],@user.setting.time_zone)
     @def_rem.hour = time['hour']
     @def_rem.min = time['min']
     @def_rem.pager = params[:default_reminder_schedule][:pager]
