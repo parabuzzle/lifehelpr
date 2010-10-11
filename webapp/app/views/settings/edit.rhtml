@@ -1,6 +1,6 @@
 <h1>Edit Account Settings</h1>
 <div id="login">
-<div id="loginform" class="fright">
+<div id="settingsform" class="fright">
 	<% form_for @settings do |f|%>
 		<table style="margin:auto;">
 			<tr>
@@ -42,7 +42,7 @@
 		<% end %>
 		<br/>
 		<div id="default_reminders">
-		<h3>Your Default Reminder Schedule</h3>
+		<h3>Your Reminder Schedule</h3>
 		</div>
 		<div class="default_reminders">
 			<%for @rem in @def_rem%>
@@ -61,7 +61,7 @@
 			<%end%>
 		</div>
 		<div id="add_new_def_rem">
-		<h3>Add new default reminder time</h3>
+		<h3>Add new reminder time</h3>
 		<% form_for 'reminder', :url => { :controller => "default_reminder_schedules", :action => "create" } do |f|%>
 		<table style="margin:auto;">
 			<tr>

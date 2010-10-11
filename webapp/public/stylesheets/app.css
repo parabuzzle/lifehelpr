@@ -163,17 +163,27 @@ img {
 	width: 650px;
 }
 #login_explain {
-	color: #777;
-	font-weight: none;
-	padding:5px;
-}
-#settings_explain {
-	width: 200px;
+	float:left;
+	width:310px;
 	color: #777;
 	font-weight: none;
 	padding:5px;
 }
 #loginform {
+	width:320px;
+	padding: 5px;
+	margin:auto;
+	text-align:center;
+}
+#settings_explain {
+	float:left;
+	width: 200px;
+	color: #777;
+	font-weight: none;
+	padding:5px;
+}
+#settingsform {
+	width:398px;
 	padding: 5px;
 	margin:auto;
 	text-align:center;

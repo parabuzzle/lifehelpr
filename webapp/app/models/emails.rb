@@ -19,7 +19,26 @@ class Emails < ActionMailer::Base
     content_type "text/plain"
     body :code => code
   end
-
+  
+  def todo_pager_reminder(user, todo, sent_at=Time.now)
+    subject "Todo Reminder #{todo.name}"
+    recipients user.setting.pager_email
+    from @@mail['from']
+    sent_on sent_at
+    content_type "text/plain"
+    body :todo => todo
+  end
+  
+  def todo_email_reminder(user, todo, sent_at=Time.now)
+    subject "Todo Reminder #{todo.name}"
+    recipients user.email
+    from @@mail['from']
+    sent_on sent_at
+    content_type "text/html"
+    body :user => user, :todo => todo, :host => @@mail['host'], :footer =>@@mail['footer']
+  end
+  
+  #Unimplemented stuff...
   def welcome(user, sent_at=Time.now)
     subject    'Welcome to LifeHelpr.com'
     recipients user.email
