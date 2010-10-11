@@ -16,15 +16,18 @@ reminders.each do |r|
     pager_sent = false
     email_sent = false
     if r.pager
-      Emails.deliver_todo_pager_reminder(@user,todo)
-      logger.debug("Sent pager reminder for #{todo.name}")
-      pager_sent = true
-      #<Reminder id: nil, todo_id: 7, pager_email_sent: false, email_sent: false, email_address: nil, pager_email_address: nil, created_at: nil, updated_at: nil>
+      if @user.setting.send_page?
+        Emails.deliver_todo_pager_reminder(@user,todo)
+        logger.debug("Sent pager reminder for #{todo.name}")
+        pager_sent = true
+      end
     end
     if r.email
-      Emails.deliver_todo_email_reminder(@user,todo)
-      logger.debug("Sent email reminder for #{todo.name}")
-      email_sent = true
+      if @user.setting.send_rem_email?
+        Emails.deliver_todo_email_reminder(@user,todo)
+        logger.debug("Sent email reminder for #{todo.name}")
+        email_sent = true
+      end
     end
     rem = todo.reminders.new
     rem.pager_email_sent = pager_sent
