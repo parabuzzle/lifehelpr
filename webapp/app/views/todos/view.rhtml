@@ -1,7 +1,7 @@
 <h1><%=@todo.name%> (<%=link_to('Edit', :action => 'edit', :id => @todo.id)%>)</h1>
 <div class="indent">
 	<%= in_place_editor_field :todo, 'name' %>
-<div class="todo_item"><%=@todo.notes%></div>
+<div class="todo_item"><%=h(@todo.notes).gsub("\n", "<br/>")%></div>
 <%if @todo.duedate%>
 	<div class="more">Due Date: <%=@todo.duedate.to_s(:pretty)%></div>
 <%end%>

@@ -115,9 +115,11 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - Edit Item"
     @user = current_user
     @todo = Todo.find(params[:id])
-    unless params[:duedate].nil?
+    unless params[:duedate].nil? || params[:duedate] == ''
       due =  Date.parse(params[:duedate])
       @todo.duedate = due
+    else
+      @todo.duedate = nil
     end
     if @todo.update_attributes(params[:todo])
       flash[:notice] = "Successfully updated Item"

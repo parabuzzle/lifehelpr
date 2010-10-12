@@ -13,7 +13,11 @@
 			</tr>
 			<tr>
 				<td align=right>Due Date:</td>
-				<td align=left><%= calendar_date_select_tag :duedate, @todo.duedate.to_s(:pretty)%></td>
+				<%unless @todo.duedate.nil?%>
+					<td align=left><%= calendar_date_select_tag :duedate, @todo.duedate.to_s(:pretty)%></td>
+				<%else%>
+					<td align=left><%= calendar_date_select_tag :duedate%>
+				<%end%>
 			</tr>
 			<tr>
 				<td colspan=2 align=right><%= f.submit "Save"%></td>
