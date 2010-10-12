@@ -10,6 +10,13 @@ class BetaInvite < ActiveRecord::Base
     end
   end
   
+  def from_name
+  end
+  def from_email
+  end
+  def friend_name
+  end
+  
   def invite_user
     return User.find_by_beta_token(self.beta_token)
   end

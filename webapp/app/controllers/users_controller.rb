@@ -7,7 +7,6 @@ class UsersController < ApplicationController
     @top5_todos = @user.todos.top5
     @todos_undone = @user.todos.undone
     @todos_closed_this_week = @user.todos.last_week_closed
-    @todos_opened_this_week = @user.todos.last_week_open
     @todos_created_this_week = @user.todos.last_week_created
   end
   
@@ -22,6 +21,7 @@ class UsersController < ApplicationController
   
   def create
     @title = "LifeHelpr - Register"
+    @user = User.new
     @beta = BetaInvite.find_by_beta_token(params[:user][:beta_token])
     if @beta and @beta.email_address == params[:user][:email]
       @user = User.new(params[:user])
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       end
     else
       flash[:error] = "Your beta code and email address don't match please check them and try again"
-      render :action => 'new'
+      render :action => :new
     end
   end
   

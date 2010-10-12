@@ -1,0 +1,14 @@
+admin:
+    email:
+        admins: admin@lifehelpr.com #This is where admin emails are sent
+        from: LifeHelpr <notify@lifehelpr.com> #This is where admin emails come from
+        footer: 
+            html: <span id="idea" style="font-weight:bold;">Got an idea?</span> Email us - <a href="mailto:admin@lifehelpr.com">admin@lifehelpr.com</a>
+            plain: Got an idea? Email us - admin@lifehelpr.com
+        host: localhost:3000
+        server:
+            host: util.slh.madhattermm.com
+            port: 587
+            domain: lifehelpr.com
+            user_name: no@lifehelpr.com
+            password: wamu22

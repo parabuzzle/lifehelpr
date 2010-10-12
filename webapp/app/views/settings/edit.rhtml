@@ -1,33 +1,99 @@
-
-	<h1>Edit Account Settings</h1>
-	
+<h1>Edit Account Settings</h1>
+<div id="login">
+<div id="settingsform" class="fright">
 	<% form_for @settings do |f|%>
-		<%=f.error_messages%>
-		<div id="loginform">
-		<p>
-			<%= f.label :first_name %><br/>
-			<%= f.text_field :first_name%>
-		</p>
-		<p>
-			<%= f.label :last_name %><br/>
-			<%= f.text_field :last_name%>
-		</p>
-		<p>
-			<%= f.label :pager_email %><br/>
-			<%= f.text_field :pager_email%>
-		</p>
-		<p>
-			<%= f.label :email_reminders %><br/>
-			<%= f.check_box :email_reminders %>
-		</p>
-		<p>
-			<%= f.label :page_reminders %><br/>
-			<%= f.check_box :page_reminders %>
-		</p>
-		<p>
-			<%= f.label :marketing_mail %><br/>
-			<%= f.check_box :marketing_mail %>
-		</p>
-		<p><%= f.submit "Submit"%></p>
-	<% end %>
+		<table style="margin:auto;">
+			<tr>
+				<td align='right'>First Name: <%= f.text_field :first_name%></td>
+			</tr>
+			<tr>
+				<td align='right'>Last Name: <%= f.text_field :last_name%></td>
+			</tr>
+			<tr>
+				<td align='right'>Pager Email Address: <%= f.text_field :pager_email%></td>
+			</tr>
+			<%if @display_code%>
+			<tr>
+				<td align='right'>Pager Activation Code: <%= f.text_field :pager_email_activation_code%></td>
+			</tr>
+			<%end%>
+			<tr>
+				<td align='right'>Time Zone: <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></td>
+			</tr>
+			<tr>
+				<td align='right'>Send Email Reminders: <%= f.check_box :email_reminders %></td>
+			</tr>
+			<%if @settings.pager_email_active?%>
+			<tr>
+				<td align='right'>Send Pager Email Reminders: <%= f.check_box :page_reminders%></td>
+			</tr>
+			<%else%>
+			<tr>
+				<td align='right'>Send Pager Email Reminders: <%= f.check_box :page_reminders, :disabled => true%></td>
+			</tr>
+			<%end%>
+			<tr>
+				<td align='right'>Email Me Site Updates: <%= f.check_box :marketing_mail %></td>
+			</tr>
+			<tr>
+				<td align='right'><%= f.submit "Save"%></td>
+			</tr>
+		</table>
+		<% end %>
+		<br/>
+		<div id="default_reminders">
+		<h3>Your Reminder Schedule</h3>
+		</div>
+		<div class="default_reminders">
+			<%for @rem in @def_rem%>
+			<ul>
+			<li id="item_<%= @rem.id %>" class="<%=cycle('todo_item_odd', 'todo_item_even')%>">
+				<%=make_time(@rem.hour, @rem.min, @user.setting.time_zone)%> 
+				<% if @rem.pager%>
+					(Pager) 
+				<%end%>
+				<% if @rem.email%>
+					(Email) 
+				<%end%>
+				(<%=link_to("edit", :controller => :default_reminder_schedules, :action => :edit, :id => @rem.id)%>) <%=link_to(image_tag('delete_icon.gif'), {:action =>'delete', :controller => :default_reminder_schedules, :id=>@rem.id}, :method=>'post', :confirm => 'Are you sure you want to delete this reminder?')%>
+			</li>
+			</ul>
+			<%end%>
+		</div>
+		<div id="add_new_def_rem">
+		<h3>Add new reminder time</h3>
+		<% form_for 'reminder', :url => { :controller => "default_reminder_schedules", :action => "create" } do |f|%>
+		<table style="margin:auto;">
+			<tr>
+				<td align='right'>Hour: <%= select :time, :hour, ["1","2","3","4","5","6","7","8","9","10","11","12"]%></td>
+				<td align='right'>Minute: <%= select :time, :min, ["00", "15", "30", "45"]%></td>
+				<td align="right"><%= select :time, :suf, ["A.M.", "P.M."]%></td>
+			</tr>
+			<tr>
+				<td>Email this Alert: <%= f.check_box :email%></td>
+				<%if @settings.pager_email_active?%>
+					<td colspan="2">Page me this Alert: <%= f.check_box :pager%></td>
+				<%else%>
+					<td colspan="2">Page me this Alert: <%= f.check_box :pager, :disabled => true%></td>
+				<%end%>
+			</tr>
+			<tr>
+				<td colspan="3" align='right'><%= f.submit "Add"%></td>
+			</tr>
+		</table>
+		<%end%>
+	</div>
 </div>
+<div id="settings_explain">
+	These are your global site settings. Anything set here will be
+	used as defaults across the site.<br/><br/>
+	<%if @user.available_invites > 0%><br/>
+	You have <%=@user.available_invites%> Beta Invite(s).
+	<%=link_to('Click here to Invite Friends', :controller => :beta_invites, :action => :index)%>
+	<%else%>
+	You don't have any available beta invites.<br/>
+	<%=link_to('Click here to see your Invited Friends', :controller => :beta_invites, :action => :index)%>
+	<%end%>
+</div>
+</div>
+<div class="clear"></div>

@@ -1,0 +1,26 @@
+<h1>Beta Invites</h1>
+	<div class="indent">
+		<%if @user.available_invites>0%>
+		You have <%=@user.available_invites%> available invites
+		<div id="my-link"><%=link_to("Invite Someone", :action => 'new')%></div>
+		<%else%>
+		<div id="my-link">You don't have any available invites at this time.</div>
+		<%end%>
+		<div class="pad15"></div>
+		<h3>Your previous Invites <span class="fright">Invite Code</span></h3>
+		<div class="todo_list">
+		<ul id="todo_list">
+		  <% @invites.reverse.each do |f| %>
+		    <li id="item_<%= f.id %>" class="<%=cycle('todo_item_odd', 'todo_item_even')%>">
+			<%@invite = f%>
+			 <%=@invite.email_address%> 
+			<%if @invite.invite_user%>
+				(active) <span class="fright"><%=@invite.beta_token%></span>
+			<%else%>
+				(pending) <span class="fright"><%=@invite.beta_token%></span> 
+			<%end%>
+		    </li>
+		  <% end %>
+		</ul>
+		</div><!-- todo_list -->
+	</div><!--indent -->
