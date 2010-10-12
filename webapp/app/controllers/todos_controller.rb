@@ -51,9 +51,11 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - New Todo"
     @user = current_user
     @todo = @user.todos.new(params[:todo])
-    unless params[:duedate].nil?
+    unless params[:duedate].nil? || params[:duedate] == ''
       due =  Date.parse(params[:duedate])
       @todo.duedate = due
+    else
+      @todo.duedate = nil
     end
     if @todo.save
       flash[:notice] = "Todo Item Added"
