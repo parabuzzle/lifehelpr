@@ -76,6 +76,9 @@ img {
 .fleft {
 	float:left;
 }
+.center{
+	text-align:center;
+}
 #notice{
 	background: #CCF;
 	padding:10px;
@@ -203,6 +206,14 @@ img {
 	margin:auto;
 	padding:20px;
 }
+/*splash stuff*/
+.screen_box {
+	font-size: 13px;
+	float:left;
+	width:465px;
+	text-align:center;
+}
+
 /*General formatting classes*/
 .indent {
 	margin-left: 10px;
