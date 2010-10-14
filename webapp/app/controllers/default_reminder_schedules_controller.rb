@@ -3,9 +3,11 @@ class DefaultReminderSchedulesController < ApplicationController
   def create
     @user = current_user
     @def_rem = @user.default_reminder_schedules.new
-    time = get_time_hash(params[:time][:hour],params[:time][:min],params[:time][:suf])
+    hash = params[:time]
+    time = convert_to_24hour({'hour'=>hash['hour'], 'min'=>hash['min'], 'suf'=>hash['suf']})
     @def_rem.hour = time['hour']
     @def_rem.min = time['min']
+    @def_rem.time_zone = @user.setting.time_zone
     @def_rem.pager = params[:reminder][:pager]
     @def_rem.email = params[:reminder][:email]
     if @def_rem.save
@@ -37,12 +39,10 @@ class DefaultReminderSchedulesController < ApplicationController
   def edit
     @user = current_user
     @def_rem = DefaultReminderSchedule.find(params[:id])
-    time = get_12_hour_hash(@def_rem.hour, @def_rem.min)
-    local = get_24_hour_hash_local(time["hour"],time["min"], time["suf"],@user.setting.time_zone)
-    local_time = get_12_hour_hash(local["hour"], local["min"])
-    @hour = local_time["hour"]
-    @min = local_time["min"]
-    @suf = local_time["suf"]
+    time = convert_to_12hour({'hour'=>@def_rem.hour, 'min'=>@def_rem.min})
+    @hour = time['hour']
+    @min = time['min']
+    @suf = time['suf']
     @title = "LifeHelpr - Edit reminder time"
   end
   
@@ -50,7 +50,8 @@ class DefaultReminderSchedulesController < ApplicationController
     @title = "LifeHelpr - Edit reminder time"
     @user = current_user
     @def_rem = DefaultReminderSchedule.find(params[:id])
-    time = get_24_hour_hash_utc(params[:time][:hour],params[:time][:min],params[:time][:suf],@user.setting.time_zone)
+    hash = params[:time]
+    time = convert_to_24hour({'hour'=>hash['hour'], 'min'=>hash['min'], 'suf'=>hash['suf']})
     @def_rem.hour = time['hour']
     @def_rem.min = time['min']
     @def_rem.pager = params[:default_reminder_schedule][:pager]
