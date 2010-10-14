@@ -1,0 +1,1 @@
+# This script sends the weekly update to every user who wants it

@@ -5,7 +5,7 @@
 <table style="margin:auto;">
 	<tr>
 		<td align='right'>Hour: <%= select :time, :hour, ["1","2","3","4","5","6","7","8","9","10","11","12"], :selected => @hour.to_s %></td>
-		<td align='right'>Minute: <%= select :time, :min, ["00", "15", "30", "45"], :selected => @min%></td>
+		<td align='right'>Minute: <%= select :time, :min, ["00", "15", "30", "45"], :selected => @min.to_s%></td>
 		<td align="right"><%= select :time, :suf, ["A.M.", "P.M."], :selected => @suf%></td>
 	</tr>
 	<tr>

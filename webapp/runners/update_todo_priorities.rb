@@ -8,7 +8,7 @@ all_duenow = Todo.due_now
 logger.info("[todo priority adjuster] found #{all_duenow.length} due and over due items")
 
 i = 0
-#adujust priority by -10000
+#adjust priority by -10000
 all_duenow.each do |todo|
   unless todo.position.negative?
     todo.position = todo.position-10000

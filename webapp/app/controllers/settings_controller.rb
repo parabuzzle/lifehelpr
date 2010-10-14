@@ -16,23 +16,29 @@ class SettingsController < ApplicationController
   end
   
   def update
-    #attr_accessor :default_reminder_schedule, :first_name, :last_name, :pager_email, :email_reminders, :page_reminders, :marketing_mail
     require_user
     @title = "LifeHelpr - Edit Settings"
     @user = current_user
     @settings = @user.setting
+    tz = @settings.time_zone
     if @settings.pager_email_token == params[:setting][:pager_email_activation_code]
       @settings.pager_email_active = true
     end
     if @settings.pager_email != params[:setting][:pager_email]
       @settings.pager_email_active = false
-      @settings.pager_email_token = rand(10000)
+      @settings.pager_email_token = rand(10000).to_s[0,5].to_i
       unless params[:setting][:pager_email] == ''
         Emails.deliver_pager_activation(params[:setting][:pager_email], @settings.pager_email_token)
       end
     end
     params[:setting].delete(:pager_email_activation_code)
     if @settings.update_attributes(params[:setting])
+      if tz != params[:setting][:time_zone]
+        @user.default_reminder_schedules.each do |r|
+          r.time_zone = params[:setting][:time_zone]
+          r.save
+        end
+      end
       flash[:notice] = "Successfully updated user settings"
       redirect_to settings_path
     else
