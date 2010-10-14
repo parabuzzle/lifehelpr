@@ -23,6 +23,7 @@ ol {
 
 body {
 	background-color: #eee;
+	background-image:url('/images/backstripe.png');
 	margin: 0px;
 	padding: 0px;
 	color: #333;
@@ -116,10 +117,12 @@ img {
 }
 
 #header {
+	background: #333;
+	background-image:url('/images/header_back_grade.jpg');
+	background-repeat:repeat-x;
 	color: #fff;
 	min-height: 75px;
 	_height: 75px;
-	background: #333;
 	width: 100%;
 	border-bottom: 2px #000 solid;
 }
@@ -163,7 +166,7 @@ img {
 	color: #333;
 }
 #copyright {
-	padding: 10px;
+	float:right;
 }
 #login {
 	margin:auto;

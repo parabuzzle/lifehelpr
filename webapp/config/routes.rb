@@ -43,6 +43,7 @@ ActionController::Routing::Routes.draw do |map|
   map.logout "logout", :controller => "user_sessions", :action => 'destroy'
   map.register "register", :controller => "users", :action => "new"
   map.settings "settings", :controller => "settings", :action => "edit"
+  map.dashboard "dashboard", :controller => "users", :action => "index"
   map.resources :users
   map.resources :user_sessions
   map.resources :settings

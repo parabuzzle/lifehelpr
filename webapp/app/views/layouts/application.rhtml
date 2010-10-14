@@ -25,7 +25,7 @@
   
   <body>
 	<div id="header">
-		<div id="logo"><%=image_tag('sketch_logo_trans_white.png', :class=>'unitPng')%></div>
+		<div id="logo"><%=link_to(image_tag('sketch_logo_trans_white_333.png', :class=>'unitPng'), :controller=>:site,:action=>:index)%></div>
 	</div>
 	<div id="container">
 		<div id="main">
@@ -63,10 +63,10 @@
 		</div><!--main-->
 	</div> <!-- container-->
 	<div id="footer">
+		<div id="copyright">&copy; <%=Time.now.year%> by lifehelpr.com, all rights reserved</div>
 		<div id="foot_links">
 			<%=link_to("home", :controller => "site", :action => "index")%> | <a href="http://twitter.com/lifehelpr">twitter</a> | <a href="http://www.facebook.com/pages/LifeHelpr/167163716632407">facebook</a>
 		</div>
-		<div id="copyright">&copy; <%=Time.now.year%> by lifehelpr.com, all rights reserved</div>
 		<div class="clear"></div>
 	</div><!-- footer -->
     

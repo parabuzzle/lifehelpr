@@ -18,7 +18,7 @@
 			</tr>
 			<%end%>
 			<tr>
-				<td align='right'>Time Zone: <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></td>
+				<td align='right'>Time Zone: <%= f.select :time_zone, [ 'Pacific Time (US & Canada)','Mountain Time (US & Canada)', 'Central Time (US & Canada)', 'Eastern Time (US & Canada)', 'Hawaii', 'Alaska', 'Arizona', 'Indiana (East)'] %></td>
 			</tr>
 			<tr>
 				<td align='right'>Send Email Reminders: <%= f.check_box :email_reminders %></td>
