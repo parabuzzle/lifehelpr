@@ -38,6 +38,7 @@ class DefaultReminderSchedulesController < ApplicationController
   
   def edit
     @user = current_user
+    @settings = @user.setting
     @def_rem = DefaultReminderSchedule.find(params[:id])
     time = convert_to_12hour({'hour'=>@def_rem.hour, 'min'=>@def_rem.min})
     @hour = time['hour']

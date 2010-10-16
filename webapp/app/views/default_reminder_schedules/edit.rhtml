@@ -10,7 +10,11 @@
 	</tr>
 	<tr>
 		<td>Email this Alert: <%= f.check_box :email%></td>
-		<td colspan="2">Page me this Alert: <%= f.check_box :pager%>
+		<%if @settings.pager_email_active?%>
+			<td colspan="2">Page me this Alert: <%= f.check_box :pager%></td>
+		<%else%>
+			<td colspan="2">Page me this Alert: <%= f.check_box :pager, :disabled => true%></td>
+		<%end%>
 	<tr>
 		<td colspan="3" align='right'><%= f.submit "Save"%></td>
 	</tr>
