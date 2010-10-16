@@ -14,7 +14,7 @@ class DefaultReminderSchedulesController < ApplicationController
       flash[:notice] = "Reminder time added"
       redirect_to :controller => :settings, :action => :edit
     else
-      flash[:error] = "There was an error processing your request"
+      flash[:error] = "There was an error processing your request at this time. Please try again later. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       redirect_to :controller => :settings, :action => :edit
     end
   end
@@ -31,7 +31,7 @@ class DefaultReminderSchedulesController < ApplicationController
         redirect_to :controller => :settings, :action => :edit
         return
       else
-        flash[:error] = "There was an error processing your request"
+        flash[:error] = "There was an error processing your request at this time. Please try again later. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
         redirect_to :controller => :settings, :action => :edit
         return
       end
@@ -70,9 +70,10 @@ class DefaultReminderSchedulesController < ApplicationController
     @def_rem.pager = params[:default_reminder_schedule][:pager]
     @def_rem.email = params[:default_reminder_schedule][:email]
     if @def_rem.update_attributes(params[:def_rem])
-      flash[:notice] = "Successfully updated reminder"
+      flash[:notice] = "Successfully updated your reminder"
       redirect_to :action => "edit", :controller => :settings
     else
+      flash[:error] = "There was an error processing your request at this time. Please try again later. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       render :action => 'edit'
     end
   end

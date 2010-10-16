@@ -69,6 +69,7 @@ class TodosController < ApplicationController
       flash[:notice] = "Todo Item Added"
       redirect_to :action => "index"
     else
+      flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       render :action => 'new'
     end
   end
@@ -84,7 +85,7 @@ class TodosController < ApplicationController
       if @todo.save
         flash[:notice] = "Todo has been deleted"
       else
-        flash[:error] = "Something when wrong with your delete"
+        flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       end
       redirect_to :action => 'index'
     else
@@ -113,7 +114,7 @@ class TodosController < ApplicationController
       if @todo.save
         flash[:notice] = "#{@todo.name} is done!"
       else
-        flash[:error] = "couldn't mark complete"
+        flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       end
       redirect_to :action=>'index'
     else
@@ -149,6 +150,7 @@ class TodosController < ApplicationController
       flash[:notice] = "Successfully updated Item"
       redirect_to :action => "view", :id=>@todo.id
     else
+      flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       render :action => 'edit'
     end
   end

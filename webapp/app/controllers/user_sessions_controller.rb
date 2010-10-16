@@ -12,10 +12,10 @@ class UserSessionsController < ApplicationController
     @title = "LifeHelpr - Login"
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
-      flash[:notice] = "Logged in"
+      flash[:notice] = "Logged in, Welcome back #{@user_session.login}"
       redirect_to :action => 'index', :controller => 'users'
     else
-      flash[:error] = "There was an error processing your request.<br/>Please check your email/password and try again."
+      flash[:error] = "There was an error processing your request.<br/>Please check your username/password and try again."
       render :action => 'new'
     end
   end
@@ -24,7 +24,7 @@ class UserSessionsController < ApplicationController
     @title = "LifeHelpr - Logout"
     @user_session = UserSession.find
     @user_session.destroy
-    flash[:notice] = "Logged out"
+    flash[:notice] = "Successfully logged out"
     redirect_to :action => 'index', :controller => 'site'
   end
 end
