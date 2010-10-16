@@ -4,6 +4,10 @@ class SettingsController < ApplicationController
     @title = "LifeHelpr - Edit Settings"
     @user = current_user
     @settings = @user.setting
+    unless @settings.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     @def_rem = @user.default_reminder_schedules
     if !@settings.pager_email.nil?
       if @settings.pager_email != ""
@@ -20,6 +24,10 @@ class SettingsController < ApplicationController
     @title = "LifeHelpr - Edit Settings"
     @user = current_user
     @settings = @user.setting
+    unless @settings.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     tz = @settings.time_zone
     if @settings.pager_email_token == params[:setting][:pager_email_activation_code]
       @settings.pager_email_active = true

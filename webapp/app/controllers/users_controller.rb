@@ -43,6 +43,10 @@ class UsersController < ApplicationController
     @title = "LifeHelpr - Edit Account"
     @user = current_user
     @settings = @user.setting
+    unless @settings.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
   end
   
   def update
@@ -50,6 +54,10 @@ class UsersController < ApplicationController
     @title = "LifeHelpr - Edit Accout"
     @user = current_user
     @settings = @user.setting
+    unless @settings.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     if @settings.update_attributes(params[:settings])
       flash[:notice] = "Successfully updated user settings"
       redirect_to root_url

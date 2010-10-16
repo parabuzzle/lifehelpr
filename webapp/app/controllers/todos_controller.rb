@@ -11,6 +11,10 @@ class TodosController < ApplicationController
   
   def set_todo_notes
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     @todo.notes = params[:value]
     @todo.save
     render :inline => @todo.notes
@@ -35,6 +39,10 @@ class TodosController < ApplicationController
   def view
     @user = current_user
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     @title = "LifeHelpr - #{@todo.name}"
   end
   
@@ -68,6 +76,10 @@ class TodosController < ApplicationController
   def delete
     if request.post?
       @todo = Todo.find(params[:id])
+      unless @todo.user == current_user || admin?
+        render :action => "noperms"
+        return
+      end
       @todo.deleted = true
       if @todo.save
         flash[:notice] = "Todo has been deleted"
@@ -84,6 +96,10 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - Mark Done"
     @user = current_user
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     if request.post?
       old_value = params[:task][:completed]
       if old_value == 'false'
@@ -109,12 +125,20 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - Edit Item"
     @user = current_user
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
   end
   
   def update
     @title = "LifeHelpr - Edit Item"
     @user = current_user
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     unless params[:duedate].nil? || params[:duedate] == ''
       due =  Date.parse(params[:duedate])
       @todo.duedate = due

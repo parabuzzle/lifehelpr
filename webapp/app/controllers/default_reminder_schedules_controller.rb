@@ -22,6 +22,10 @@ class DefaultReminderSchedulesController < ApplicationController
   def delete
     if request.post?
       @def_rem = DefaultReminderSchedule.find(params[:id])
+      unless @def_rem.user == current_user || admin?
+        render :action => "noperms"
+        return
+      end
       if @def_rem.destroy
         flash[:notice] = "Reminder removed"
         redirect_to :controller => :settings, :action => :edit
@@ -40,6 +44,10 @@ class DefaultReminderSchedulesController < ApplicationController
     @user = current_user
     @settings = @user.setting
     @def_rem = DefaultReminderSchedule.find(params[:id])
+    unless @def_rem.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     time = convert_to_12hour({'hour'=>@def_rem.hour, 'min'=>@def_rem.min})
     @hour = time['hour']
     @min = time['min']
@@ -51,6 +59,10 @@ class DefaultReminderSchedulesController < ApplicationController
     @title = "LifeHelpr - Edit reminder time"
     @user = current_user
     @def_rem = DefaultReminderSchedule.find(params[:id])
+    unless @def_rem.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     hash = params[:time]
     time = convert_to_24hour({'hour'=>hash['hour'], 'min'=>hash['min'], 'suf'=>hash['suf']})
     @def_rem.hour = time['hour']

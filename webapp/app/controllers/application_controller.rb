@@ -68,6 +68,13 @@ class ApplicationController < ActionController::Base
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
   end
+  def admin?
+    unless current_user.nil?
+      return current_user.is_admin
+    else
+      return false
+    end
+  end
   
   def require_user
     unless current_user
@@ -97,6 +104,10 @@ class ApplicationController < ActionController::Base
   
   def set_todo_name
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user
+      render :action => "noperms"
+      return
+    end
     @todo.name = params[:value]
     @todo.save
     render :inline => @todo.name
