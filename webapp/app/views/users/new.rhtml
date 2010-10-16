@@ -5,6 +5,12 @@
 	<% form_for @user do |f|%>
 		<table style="margin:auto;">
 			<tr>
+				<td align='left'>Username:</td>
+			</tr>
+			<tr>
+				<td><%= f.text_field :login%></td>
+			</tr>
+			<tr>
 				<td align='left'>Email:</td>
 			</tr>
 			<tr>
