@@ -75,7 +75,7 @@ class CalendarDateSelect
   end
   
   module FormHelper
-    def calendar_date_select_tag( name, value = nil, options = {})
+    def calendar_date_select_tag(name, value = nil, options = {})
       calendar_options = calendar_date_select_process_options(options)
       value = format_time(value, calendar_options)
       

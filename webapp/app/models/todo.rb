@@ -5,6 +5,8 @@ class Todo < ActiveRecord::Base
   
   acts_as_list :scope => :user
   
+  attr_accessible :name, :notes, :status, :duedate, :deleted, :email_reminder, :page_reminder, :position, :complete_date
+  
   default_scope :order => :position
   named_scope :undone, :conditions => { :status => false, :deleted => false }, :order => :position
   named_scope :all, :conditions => {:deleted => false}, :order => :position
