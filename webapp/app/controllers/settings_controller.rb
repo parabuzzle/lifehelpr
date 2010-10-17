@@ -13,10 +13,25 @@ class SettingsController < ApplicationController
       if @settings.pager_email != ""
         unless @settings.pager_email_active?
           @display_code = true
-          flash[:notice] = "Your pager email hasn't been activated yet. Please enter your activation code to start using your pager reminders."
+          notice = flash[:notice]
+          if notice.nil? then notice = "" end
+          unless notice.match(/Resent/)
+            flash[:notice] = "Your pager email hasn't been activated yet. Please enter your activation code to start using your pager reminders."
+          end
         end
       end
     end
+  end
+  
+  def resend_pager_activation
+    @settings = current_user.setting
+    unless @settings.pager_email == '' || @settings.pager_email.nil?
+      Emails.deliver_pager_activation(@settings.pager_email, @settings.pager_email_token)
+      flash[:notice] = "Resent pager activation code"
+    else
+      flash[:error] = "There is no pager email address set"
+    end
+    redirect_to :action=>:edit
   end
   
   def update
@@ -40,6 +55,7 @@ class SettingsController < ApplicationController
       end
     end
     params[:setting].delete(:pager_email_activation_code)
+    @user.update_attributes(params[:user])
     if @settings.update_attributes(params[:setting])
       if tz != params[:setting][:time_zone]
         @user.default_reminder_schedules.each do |r|

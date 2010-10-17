@@ -12,7 +12,7 @@
 		</div>
 	</div><!-- stats_box -->
 	<div id="todo_box">
-	<h3>Your Top 5 <%=link_to('Todo', :action =>'index', :controller =>'todos')%> Items</h3>
+	<h3>Your top 5 unfinished <%=link_to('Todo', :action =>'index', :controller =>'todos')%> items <span class="small">(<%=link_to("New", :action => 'new', :controller=>:todos)%>)</span></h3>
 		<div class="todo_list">
 		<ul id="todo_list">
 	  <% @top5_todos.each do |f| %>

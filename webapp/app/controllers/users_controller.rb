@@ -45,8 +45,7 @@ class UsersController < ApplicationController
     require_user
     @title = "LifeHelpr - Edit Account"
     @user = current_user
-    @settings = @user.setting
-    unless @settings.user == current_user || admin?
+    unless @user == current_user || admin?
       render :action => "noperms"
       return
     end
@@ -61,12 +60,49 @@ class UsersController < ApplicationController
       render :action => "noperms"
       return
     end
-    if @settings.update_attributes(params[:settings])
-      flash[:notice] = "Successfully updated user settings"
-      redirect_to root_url
+    if @user.valid_password?(params[:user][:old_password])
+      if params[:user][:password] == ''
+        flash[:error]="Password field cannot be blank"
+        render :action=>:edit
+        return
+      elsif params[:user][:password] != params[:user][:password_confirmation]
+        flash[:error]="Your passwords do not match"
+        render :action=>:edit
+        return
+      end
+      @user.password=params[:user][:password]
+      @user.password_confirmation=params[:user][:password_confirmation]
+      if @user.save
+        flash[:notice] = "You password has been updated"
+        redirect_to :action=>:index
+        return
+      else
+        flash[:error] = "Your passwords did not match"
+        render :action=>:edit
+      end
     else
-      flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
-      render :action => 'edit'
+      flash[:error] = "Your old password was not entered correctly. Please try again."
+      render :action=>:edit
+    end
+  end
+  
+  def change_password
+    @user = current_user
+    @title = "LifeHelpr - Change Password"
+    if request.post?
+      if @user.valid_password?(params[:user][:old_password])
+        @user.password=params[:user][:password]
+        @user.password_confirmation=params[:user][:password_confirmation]
+        if @user.save
+          flash[:notice] = "You password has been updated"
+          redirect_to :action=>:index
+          return
+        else
+          flash[:error] = "Your passwords did not match"
+        end
+      else
+        flash[:error] = "Your old password was not entered correctly. Please try again."
+      end
     end
   end
   

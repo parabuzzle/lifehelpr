@@ -13,6 +13,13 @@ class SiteController < ApplicationController
   def about
     @title = "LifeHelpr - What we do"
   end
+  def tos
+    @title = "LifeHelpr - Terms of Service"
+  end
+  def privacy
+    @title = "LifeHelpr - Privacy Policy"
+  end
+  
 
 
 end

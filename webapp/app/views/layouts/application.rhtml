@@ -24,6 +24,13 @@
   </head>
   
   <body>
+	<%if current_user%>
+		<%if current_user.is_admin%>
+		<div id="admin_header" class="black">
+			Your are logged in as an admin
+		</div>
+		<%end%>
+	<%end%>
 	<div id="header">
 		<div id="logo"><%=link_to(image_tag('sketch_logo_trans_white_333.png', :class=>'unitPng'), :controller=>:site,:action=>:index)%></div>
 	</div>
@@ -65,7 +72,11 @@
 	<div id="footer">
 		<div id="copyright">&copy; <%=Time.now.year%> by lifehelpr.com, all rights reserved</div>
 		<div id="foot_links">
-			<%=link_to("home", :controller => "site", :action => "index")%> | <a href="http://twitter.com/lifehelpr">twitter</a> | <a href="http://www.facebook.com/pages/LifeHelpr/167163716632407">facebook</a>
+			<!-- <%=link_to("about", :controller => "site", :action => "about")%> | -->
+			<%=link_to("terms of service", :controller=>:site,:action=>:tos)%> | 
+			<%=link_to("privacy policy", :controller=>:site,:action=>:privacy)%> | 
+			<a href="http://twitter.com/lifehelpr">twitter</a> | 
+			<a href="http://www.facebook.com/pages/LifeHelpr/167163716632407">facebook</a>
 		</div>
 		<div class="clear"></div>
 	</div><!-- footer -->
