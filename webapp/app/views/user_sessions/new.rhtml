@@ -18,11 +18,13 @@
 			<tr>
 				<td align='right'><%= f.submit "Login"%></td>
 			</tr>
+			<tr>
+				<td align='right'><span class="small"><%=link_to('forgot password?', :controller=>:users, :action=>:forgot_password)%></span></td>
+			</tr>
 		</table>
 	<% end %>
 </div>
 <div id="login_explain">
-	You must be logged in to use LifeHelpr. <br/>If you have already registered you can login now, or you can register for
-	a new account by <%=link_to('clicking here', :controller => 'users', :action => 'new')%>.
+	You must be logged in to use LifeHelpr. <br/><br/>Don't have an account? <%=link_to('Create one', :controller => 'users', :action => 'new')%>.
 </div>
 </div>

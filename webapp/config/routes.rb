@@ -47,6 +47,8 @@ ActionController::Routing::Routes.draw do |map|
   map.register "register", :controller => "users", :action => "new"
   map.settings "settings", :controller => "settings", :action => "edit"
   map.change_password "user/change_password", :controller=>:users, :action=>:edit
+  map.forgot_password "/user/forgot_password", :controller=>:users, :action=>:forgot_password
+  map.reset_password "/user/reset_password", :controller=>:users, :action=>:reset_password
   map.resend_pager_activation "settings/resend_pager_activation", :controller=>:settings, :action=>:resend_pager_activation
   map.dashboard "dashboard", :controller => "users", :action => "index"
   map.resources :users

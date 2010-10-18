@@ -106,4 +106,51 @@ class UsersController < ApplicationController
     end
   end
   
+  def forgot_password
+    require_no_user
+    @title = "LifeHelpr - Forgot Password"
+    if request.post?
+      flash[:notice] = nil
+      flash[:error] = nil
+      user = params[:user]
+      u = User.find_by_login_and_email(user[:login], user[:email])
+      unless u.nil?
+        if Emails.deliver_forgot_password(u)
+          flash[:notice] = "Your password has been reset please check your email for further instructions"
+          redirect_to :controller => 'site', :action=>'index'
+          return
+        else
+          flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>. "
+        end
+      else
+        flash[:error] = "Your username and email don't match any users. Please check and try again."
+        render :action=>:forgot_password
+        return
+      end
+    end
+  end
+  
+  def reset_password
+    @title="LifeHelpr - Reset Password"
+    if params[:user].nil?
+      @user = User.find_by_perishable_token(params[:token])
+    else
+      @user = User.find_by_perishable_token(params[:user][:token])
+    end
+    if request.post?
+      user = params[:user]
+      @user.password = user[:password]
+      @user.password_confirmation = user[:password_confirmation]
+      if @user.save
+        flash[:notice] = "Password successfully saved"
+        redirect_to :action=>:index
+        return
+      else
+        flash[:error] = "There was an error saving your password. Please try again."
+        redirect_to :action=>:reset_password, :token => params[:user][:token]
+        return
+      end
+    end
+  end
+  
 end

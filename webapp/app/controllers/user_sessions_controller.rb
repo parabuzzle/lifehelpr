@@ -27,4 +27,5 @@ class UserSessionsController < ApplicationController
     flash[:notice] = "Successfully logged out"
     redirect_to :action => 'index', :controller => 'site'
   end
+  
 end
