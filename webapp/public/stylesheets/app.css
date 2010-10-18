@@ -295,6 +295,16 @@ img {
     background: transparent;
 	list-style-type:none;
 }
+.default_reminders ul{
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+	list-style-type:none;	
+}
 #todo_box {
 	width: 400px;
 	float:right;
