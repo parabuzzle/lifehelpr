@@ -1,5 +1,5 @@
 # This should be run every hour at :16
-
+. ~/.bash_profile
 cd $LIFEHELPR_ROOT
 
 hour=`date -u +%H`
