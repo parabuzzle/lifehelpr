@@ -65,12 +65,18 @@ class TodosController < ApplicationController
     else
       @todo.duedate = nil
     end
+    if params[:todo][:name] == ''
+      flash[:error] = "You must name the todo"
+      render :action=>:new
+      return
+    end
     if @todo.save
       flash[:notice] = "Todo Item Added"
       redirect_to :action => "index"
     else
       flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       render :action => 'new'
+      return
     end
   end
   
