@@ -1,8 +1,16 @@
-<h1><%=@todo.name%> (<%=link_to('Edit', :action => 'edit', :id => @todo.id)%>)</h1>
-<div class="indent">
-	<%= in_place_editor_field :todo, 'name' %>
-<div class="todo_item"><%=@todo.notes%></div>
-<%if @todo.duedate%>
-	<div class="more">Due Date: <%=@todo.duedate.to_s(:pretty)%></div>
-<%end%>
+<h1><%=h(@todo.name)%> <span class="medium">(<%=link_to('edit', :action => 'edit', :id => @todo.id)%>) 
+	<!-- <%unless @todo.status == true %>
+		(<%=link_to("mark done", {:action=>:mark_done, :id=>@todo.id, :task => {:completed=>"false"}}, :method=>'post')%>) 
+	<%end%>
+	(<%=link_to("delete", {:action =>'delete', :id=>@todo.id}, :method=>'post', :confirm => 'Are you sure you want to delete this item?')%>) -->
+	</span></h1>
+<%= link_to("back", :action=>:index)%>
+<br/><br/>
+	<h2>Notes:</h2>
+<div class="todo_notes">
+	<div class="indent"><%=h(@todo.notes).gsub("\n", "<br/>").gsub(" ", "&nbsp;")%></div>
 </div>
+<%if @todo.duedate%>
+	<div class="todo_duedate">Due Date: <%=@todo.duedate.to_s(:pretty)%></div>
+	<div class="todo_rem_sent">Reminders Sent: <%=@todo.reminders.length%></div>
+<%end%>

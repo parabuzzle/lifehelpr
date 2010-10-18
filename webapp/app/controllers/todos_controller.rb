@@ -11,6 +11,10 @@ class TodosController < ApplicationController
   
   def set_todo_notes
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     @todo.notes = params[:value]
     @todo.save
     render :inline => @todo.notes
@@ -35,6 +39,10 @@ class TodosController < ApplicationController
   def view
     @user = current_user
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     @title = "LifeHelpr - #{@todo.name}"
   end
   
@@ -57,22 +65,33 @@ class TodosController < ApplicationController
     else
       @todo.duedate = nil
     end
+    if params[:todo][:name] == ''
+      flash[:error] = "You must name the todo"
+      render :action=>:new
+      return
+    end
     if @todo.save
       flash[:notice] = "Todo Item Added"
       redirect_to :action => "index"
     else
+      flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       render :action => 'new'
+      return
     end
   end
   
   def delete
     if request.post?
       @todo = Todo.find(params[:id])
+      unless @todo.user == current_user || admin?
+        render :action => "noperms"
+        return
+      end
       @todo.deleted = true
       if @todo.save
         flash[:notice] = "Todo has been deleted"
       else
-        flash[:error] = "Something when wrong with your delete"
+        flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       end
       redirect_to :action => 'index'
     else
@@ -84,6 +103,10 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - Mark Done"
     @user = current_user
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
     if request.post?
       old_value = params[:task][:completed]
       if old_value == 'false'
@@ -97,7 +120,7 @@ class TodosController < ApplicationController
       if @todo.save
         flash[:notice] = "#{@todo.name} is done!"
       else
-        flash[:error] = "couldn't mark complete"
+        flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       end
       redirect_to :action=>'index'
     else
@@ -109,20 +132,31 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - Edit Item"
     @user = current_user
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
   end
   
   def update
     @title = "LifeHelpr - Edit Item"
     @user = current_user
     @todo = Todo.find(params[:id])
-    unless params[:duedate].nil?
+    unless @todo.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
+    unless params[:duedate].nil? || params[:duedate] == ''
       due =  Date.parse(params[:duedate])
       @todo.duedate = due
+    else
+      @todo.duedate = nil
     end
     if @todo.update_attributes(params[:todo])
       flash[:notice] = "Successfully updated Item"
       redirect_to :action => "view", :id=>@todo.id
     else
+      flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
       render :action => 'edit'
     end
   end

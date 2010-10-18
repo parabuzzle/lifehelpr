@@ -3,6 +3,11 @@
 <div id="settingsform" class="fright">
 	<% form_for @settings do |f|%>
 		<table style="margin:auto;">
+			<% fields_for @user do |form| -%>
+			<tr>
+				<td align='right'>Email Address: <%= form.text_field :email%></td>
+			</tr>
+			<%end%>
 			<tr>
 				<td align='right'>First Name: <%= f.text_field :first_name%></td>
 			</tr>
@@ -14,11 +19,12 @@
 			</tr>
 			<%if @display_code%>
 			<tr>
-				<td align='right'>Pager Activation Code: <%= f.text_field :pager_email_activation_code%></td>
+				<td align='right'>Activation Code: <%= f.text_field :pager_email_activation_code%><br/>(<%=link_to("resend activation code", :action=>:resend_pager_activation)%>)</td>
 			</tr>
+			<tr><td><br/></td></tr>
 			<%end%>
 			<tr>
-				<td align='right'>Time Zone: <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %></td>
+				<td align='right'>Time Zone: <%= f.select :time_zone, [ 'Pacific Time (US & Canada)','Mountain Time (US & Canada)', 'Central Time (US & Canada)', 'Eastern Time (US & Canada)', 'Hawaii', 'Alaska', 'Arizona', 'Indiana (East)'] %></td>
 			</tr>
 			<tr>
 				<td align='right'>Send Email Reminders: <%= f.check_box :email_reminders %></td>
@@ -40,6 +46,10 @@
 			</tr>
 		</table>
 		<% end %>
+		<div id="changepw">
+			<%=link_to("Change Password", :controller=>:users,:action=>:edit)%>
+		</div>
+		<div class="clear"></div>
 		<br/>
 		<div id="default_reminders">
 		<h3>Your Reminder Schedule</h3>
@@ -48,7 +58,7 @@
 			<%for @rem in @def_rem%>
 			<ul>
 			<li id="item_<%= @rem.id %>" class="<%=cycle('todo_item_odd', 'todo_item_even')%>">
-				<%=make_time(@rem.hour, @rem.min, @user.setting.time_zone)%> 
+				<%=format_time(convert_to_12hour({'hour' => @rem.hour, 'min' => @rem.min}))%> 
 				<% if @rem.pager%>
 					(Pager) 
 				<%end%>

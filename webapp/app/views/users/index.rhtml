@@ -4,7 +4,7 @@
 	<div id="stats_box">
 		<h3>Your Stats</h3>
 		<div class="stats_box">
-			Last Login: <%=@user.last_login_at.to_s(:pretty)%>
+			Last Login: <%=@user.last_login_at.to_s(:pretty) unless @user.last_login_at.nil?%>
 			<br/>Available <%=link_to('Beta Invites', :controller => :beta_invites, :action => :index)%>: <%=@user.available_invites%>
 		<br/>New todos last 7 days: <%=@todos_created_this_week.length%>
 		<br/>Finished todos last 7 days: <%=@todos_closed_this_week.length%>
@@ -12,7 +12,7 @@
 		</div>
 	</div><!-- stats_box -->
 	<div id="todo_box">
-	<h3>Your Top 5 <%=link_to('Todo', :action =>'index', :controller =>'todos')%> Items</h3>
+	<h3>Your top 5 unfinished <%=link_to('Todo', :action =>'index', :controller =>'todos')%> items <span class="small">(<%=link_to("New", :action => 'new', :controller=>:todos)%>)</span></h3>
 		<div class="todo_list">
 		<ul id="todo_list">
 	  <% @top5_todos.each do |f| %>
@@ -23,9 +23,9 @@
 			<li id="item_<%= f.id %>" class="<%=bg%>">
 		<%@todo = f%>
 		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :controller=>:todos, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
-		<span class="handle"><%=image_tag('drag.gif')%></span>
+		<span class="handle"><%=image_tag('drag.gif')%></span> <%=link_to(image_tag('delete_icon.gif'), {:action =>'delete',:controller=>:todos, :id=>f.id}, :method=>'post', :confirm => 'Are you sure you want to delete this item?')%> 
 		<%= in_place_editor_field :todo, h('name') %>
-		<span class="small">(<%=link_to('more', :action => 'view', :controller=>:todos, :id => f.id)%>) <%=overdue%>  <%=link_to(image_tag('delete_icon.gif'), {:action =>'delete',:controller=>:todos, :id=>f.id}, :method=>'post', :confirm => 'Are you sure you want to delete this item?')%></span>
+		<span class="small">(<%=link_to('more', :action => 'view', :controller=>:todos, :id => f.id)%>) <%=overdue%></span>
 	    </li>
 	  <% end %>
 	</ul>

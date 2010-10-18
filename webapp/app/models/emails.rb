@@ -38,18 +38,18 @@ class Emails < ActionMailer::Base
     body :user => user, :todo => todo, :host => @@mail['host'], :footer =>@@mail['footer']
   end
   
-  #Unimplemented stuff...
-  def welcome(user, sent_at=Time.now)
-    subject    'Welcome to LifeHelpr.com'
+  def forgot_password(user, sent_at=Time.now)
+    subject    'LifeHelpr password reset'
     recipients user.email
     from @@mail['from']
     sent_on    sent_at
     content_type "text/html"
     body       :user => user, :host => @@mail['host'], :footer =>@@mail['footer']
   end
-
-  def forgot_password(user, sent_at=Time.now)
-    subject    'LifeHelpr password information'
+  
+  #Unimplemented stuff...
+  def welcome(user, sent_at=Time.now)
+    subject    'Welcome to LifeHelpr.com'
     recipients user.email
     from @@mail['from']
     sent_on    sent_at

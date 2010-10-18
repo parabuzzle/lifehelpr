@@ -4,7 +4,7 @@ a, abbr, acronym, address, big, cite, code,
 del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
-dl, dt, dd, ol, ul, li,
+dl, dt, dd, ol, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
     margin: 0;
@@ -23,6 +23,7 @@ ol {
 
 body {
 	background-color: #eee;
+	background-image:url('/images/backstripe.png');
 	margin: 0px;
 	padding: 0px;
 	color: #333;
@@ -59,6 +60,14 @@ a:hover {
 
 img {
 	border: 0px;
+}
+
+.white {
+	background:#fff;
+}
+.black {
+	background:#000;
+	color:#fff;
 }
 
 .small {
@@ -114,12 +123,17 @@ img {
 #content {
 	background:#fff;
 }
+#admin_header{
+	padding:3px;
+}
 
 #header {
+	background: #333;
+	background-image:url('/images/header_back_grade.jpg');
+	background-repeat:repeat-x;
 	color: #fff;
 	min-height: 75px;
 	_height: 75px;
-	background: #333;
 	width: 100%;
 	border-bottom: 2px #000 solid;
 }
@@ -163,7 +177,7 @@ img {
 	color: #333;
 }
 #copyright {
-	padding: 10px;
+	float:right;
 }
 #login {
 	margin:auto;
@@ -206,6 +220,10 @@ img {
 	margin:auto;
 	padding:20px;
 }
+
+#tos {
+	padding:20px;
+}
 /*splash stuff*/
 .screen_box {
 	font-size: 13px;
@@ -226,11 +244,17 @@ img {
 }
 
 #top_nav li {
+	padding:5px;
 	background:#eee;
 }
 
 #top_nav a:hover {
 	background: #aaa;
+}
+
+#changepw{
+	float:right;
+	padding:10px;
 }
  
 /*dashboard classes*/
@@ -261,9 +285,35 @@ img {
 	text-align:right;
 }
 /*todo list classes*/
+.todo_list ul{
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+	list-style-type:none;
+}
+.default_reminders ul{
+	margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+	list-style-type:none;	
+}
 #todo_box {
 	width: 400px;
 	float:right;
+}
+.todo_notes {
+	padding:5px;
+	padding-top:10px;
+	padding-bottom:10px;
+	background:#eeeeff;
 }
 .todo_list{
 	border: 1px solid #ddd;
@@ -281,6 +331,14 @@ img {
 	padding:2px;
 	/*background-image:url('/images/bamboo_odd.jpg');*/
 	background-color: #fff;
+}
+.todo_duedate {
+	float:left;
+	padding: 4px;
+}
+.todo_rem_sent {
+	padding:4px;
+	float:right;
 }
 .todo_item {
 	padding: 3px;

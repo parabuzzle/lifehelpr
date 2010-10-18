@@ -2,6 +2,7 @@ class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
       t.column :email, :string, :null => false
+      t.column :login, :string, :null => false
       t.column :crypted_password, :string
       t.column :password_salt, :string
       t.column :persistence_token, :string

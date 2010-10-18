@@ -1,7 +1,8 @@
 class BetaInvite < ActiveRecord::Base
   belongs_to :user
   before_create :make_beta_token, :check_available
-  
+  attr_accessible :from_name, :from_email, :friend_name, :email_address
+  attr_accessor :from_name, :from_email, :friend_name
   def check_available
     if self.user.invites > self.user.beta_invites.count
       return true
@@ -9,14 +10,7 @@ class BetaInvite < ActiveRecord::Base
       return false
     end
   end
-  
-  def from_name
-  end
-  def from_email
-  end
-  def friend_name
-  end
-  
+
   def invite_user
     return User.find_by_beta_token(self.beta_token)
   end

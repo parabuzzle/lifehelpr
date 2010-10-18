@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   acts_as_authentic
-  #attr_accessor :password, :password_confirmation
-  
+  attr_accessible :email, :login, :password, :password_confirmation
+  attr_accessor :old_password
   has_one :setting
   has_many :beta_invites
   has_many :todos

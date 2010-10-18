@@ -8,59 +8,32 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
-  helper_method :current_user, :make_time, :get_12_hour_hash
+  helper_method :current_user, :format_time, :convert_to_12hour, :convert_to_24hour
   before_filter :set_user_time_zone
 
   def set_user_time_zone
     Time.zone = current_user.setting.time_zone if current_user
   end
   
-  def make_time(hour, min, time_zone="Pacific Time (US & Canada)")
-    hour = hour.to_i
-    if hour < 12
-      suf = "A.M."
-    else
-      suf = "P.M."
+  def convert_to_24hour(time_hash)
+    hour = time_hash['hour'].to_i
+    min = time_hash['min'].to_i
+    suf = time_hash['suf']
+    if suf == "P.M."
+      hour = hour+12
+    elsif hour == 12
+      hour = 0
     end
-    if min == 0
-      min = "00"
-    end
-    if hour == 0
-      hour = 12
-    elsif hour == 24
-      hour = 12
-    else
-      hour = hour%12
-    end
-    if hour == 0
+    if hour == 24
       hour = 12
     end
-    local = get_24_hour_hash_local(hour,min,suf,time_zone)
-    local_time = get_12_hour_hash(local["hour"], local["min"])
-    time = "#{local_time['hour']}:#{local_time['min']} #{local_time['suf']}"
+    time = {'hour' => hour, 'min' => min}
     return time
   end
   
-  def get_24_hour_hash_utc(hour=1,min=0,suf="A.M.",time_zone="Pacific Time (US & Canada)")
-    hash = get_time_hash(hour,min,suf,time_zone)
-    Time.zone = time_zone
-    time = Time.parse("#{hash['hour']}:#{hash['min']} #{hash['suf']}")
-    utc = Time.zone.local_to_utc(time)
-    return {"hour"=>utc.hour, "min" => utc.min}
-  end
-  
-  def get_24_hour_hash_local(hour=1,min=0,suf="A.M.",time_zone="Pacific Time (US & Canada)")
-    hash = get_time_hash(hour,min,suf,time_zone)
-    Time.zone = time_zone
-    time = Time.parse("#{hash['hour']}:#{hash['min']} #{hash['suf']}")
-    utc = Time.zone.utc_to_local(time)
-    return {"hour"=>utc.hour, "min" => utc.min}
-  end
-  
-  def get_12_hour_hash(hour=1, min=0, time_zone="Pacific Time (US & Canada)")
-    hour = hour.to_i
-    min = min.to_i
-    Time.zone = time_zone
+  def convert_to_12hour(time_hash)
+    hour = time_hash['hour'].to_i
+    min = time_hash['min'].to_i
     if hour < 12
       suf = "A.M."
     else
@@ -80,23 +53,10 @@ class ApplicationController < ActionController::Base
       hour = 12
     end
     time = {'hour'=>hour, 'min'=>min, 'suf'=>suf}
-    return time
   end
   
-  def get_time_hash(hour,min,suf, time_zone="Pacific Time (US & Canada)")
-    hour = hour.to_i
-    min = min.to_i
-    Time.zone = time_zone
-    if suf == "P.M."
-      hour = hour+12
-    elsif hour == 12
-      hour = 0
-    end
-    if hour == 24
-      hour = 12
-    end
-    time = {'hour' => hour, 'min' => min}
-    return time
+  def format_time(time_hash)
+    return "#{time_hash['hour']}:#{time_hash['min']} #{time_hash['suf']}"
   end
     
   #User session and user stuff
@@ -107,6 +67,13 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
+  end
+  def admin?
+    unless current_user.nil?
+      return current_user.is_admin
+    else
+      return false
+    end
   end
   
   def require_user
@@ -137,6 +104,10 @@ class ApplicationController < ActionController::Base
   
   def set_todo_name
     @todo = Todo.find(params[:id])
+    unless @todo.user == current_user
+      render :action => "noperms"
+      return
+    end
     @todo.name = params[:value]
     @todo.save
     render :inline => @todo.name
