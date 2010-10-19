@@ -8,7 +8,7 @@ class SiteController < ApplicationController
   end
   
   def index
-    @title = "LifeHelpr - Your personal concierge"
+    @title = "LifeHelpr - We make your life easier"
   end
   def about
     @title = "LifeHelpr - What we do"
