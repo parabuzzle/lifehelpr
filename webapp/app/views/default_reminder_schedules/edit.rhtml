@@ -16,7 +16,7 @@
 			<td colspan="2">Page me this Alert: <%= f.check_box :pager, :disabled => true%></td>
 		<%end%>
 	<tr>
-		<td colspan="3" align='right'><%= f.submit "Save"%></td>
+		<td colspan="3" align='right'><span class="small"><%=link_to('cancel', settings_path)%></span> <%= f.submit "Save"%></td>
 	</tr>
 </table>
 <%end%>

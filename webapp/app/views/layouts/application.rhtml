@@ -6,16 +6,17 @@
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 	<%= stylesheet_link_tag "app" %>
-	<%= stylesheet_link_tag "facebox"%>
+	<!-- <%= stylesheet_link_tag "facebox"%> -->
 	<%= stylesheet_link_tag "in_place_styles"%>
+	<%= stylesheet_link_tag "lightbox"%>
 	<!--[if IE]>
-		<%= stylesheet_link_tag "ie" %>
 		<%= javascript_include_tag 'unitpngfix'%>
 	<![endif]-->
 	<!-- javascript -->
-    <%= javascript_include_tag 'jquery.min'%>
-	<%= javascript_include_tag 'facebox'%>
+    <!-- <%= javascript_include_tag 'jquery.min'%> -->
+	<!-- <%= javascript_include_tag 'facebox'%> -->
 	<%= javascript_include_tag 'prototype'%>
+	<%= javascript_include_tag 'lightbox' %>
 	<%= javascript_include_tag 'application' %>
 	<%= javascript_include_tag 'effects' %>
 	<%= javascript_include_tag 'dragdrop' %>
@@ -32,7 +33,7 @@
 		<%end%>
 	<%end%>
 	<div id="header">
-		<div id="logo"><%=link_to(image_tag('sketch_logo_trans_white_333.png', :class=>'unitPng'), :controller=>:site,:action=>:index)%></div>
+		<div id="logo"><%=link_to(image_tag('logo_small_head.png', :class=>'unitPng'), :controller=>:site,:action=>:index)%></div>
 	</div>
 	<div id="container">
 		<div id="main">
@@ -54,7 +55,7 @@
 					</div>
 				<%end%>
 				<%if !current_user%>
-					<%=link_to('register', register_path)%> | <%=link_to('login', login_path)%>
+					<%=link_to('register', register_path)%> | <%=link_to('login', login_path, :class=>'lbOn')%>
 				<%end%>
 			</div>
 			<div class="clear"></div>
@@ -84,10 +85,10 @@
     <% if ENV["RAILS_ENV"] == "development"%>
     <!-- Dev stuff (outside container) -->
     <div id="debug", class="white">
-		<a href='#' onclick="jQuery('#params_debug_info').toggle();return false;">params</a> |
-		<a href='#' onclick="jQuery('#session_debug_info').toggle();return false;">session</a> |
-		<a href='#' onclick="jQuery('#env_debug_info').toggle();return false;">env</a> |
-		<a href='#' onclick="jQuery('#request_debug_info').toggle();return false;">request</a>    
+		<a href='#' onclick="Element.toggle('params_debug_info');return false;">params</a> |
+		<a href='#' onclick="Element.toggle('session_debug_info');return false;">session</a> |
+		<a href='#' onclick="Element.toggle('env_debug_info');return false;">env</a> |
+		<a href='#' onclick="Element.toggle('request_debug_info');return false;">request</a>    
       <fieldset id="params_debug_info" class="debug_info" style="display:none;">
         <legend>params</legend>
         <%= debug(params) %>

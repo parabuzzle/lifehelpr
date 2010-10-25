@@ -1,0 +1,164 @@
+<%starttime = Time.now.to_f %>
+<!DOCTYPE HTML PUBLIC "!//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title><%= @title %></title>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<%= stylesheet_link_tag "app2" %>
+	<!-- <%= stylesheet_link_tag "facebox"%> -->
+	<%= stylesheet_link_tag "in_place_styles"%>
+	<%= stylesheet_link_tag "lightbox"%>
+	<!--[if IE]>
+		<%= javascript_include_tag 'unitpngfix'%>
+	<![endif]-->
+	<!-- javascript -->
+    <!-- <%= javascript_include_tag 'jquery.min'%> -->
+	<!-- <%= javascript_include_tag 'facebox'%> -->
+	<%= javascript_include_tag 'prototype'%>
+	<%= javascript_include_tag 'lightbox' %>
+	<%= javascript_include_tag 'application' %>
+	<%= javascript_include_tag 'effects' %>
+	<%= javascript_include_tag 'dragdrop' %>
+	<%= javascript_include_tag 'controls' %>
+	
+  </head>
+  
+  <body>
+	<div class="fright">
+		<%=image_tag('beta_banner.png',:class=>'unitPng')%>
+	</div>
+	<%if current_user%>
+		<%if current_user.is_admin%>
+		<div id="admin_header" class="black">
+			Your are logged in as an admin
+		</div>
+		<%end%>
+	<%end%>
+	<% if flash[:notice] %>
+	   <div id="notice"><%= flash[:notice] %></div>
+	<% end %>
+	<% if flash[:error] %>
+	    <div id="error"><%= flash[:error] %></div>
+	<% end %>
+	<div id="header">
+		<div id="logo"><%=link_to(image_tag('logo_small_head.png', :class=>'unitPng'), :controller=>:site,:action=>:index)%></div>
+	</div>
+	<div id="container">
+		<div id="topper">
+			<div class="contain">
+				<div id="welcome_head">
+					<%=image_tag("welcome_head.png",:class=>'unitPng')%>
+					<div id="welcome_text">
+						With our innovative tools you can grab your life by the horns and stay organized
+					</div><!--welcome_text-->
+				</div><!--welcome_head-->
+				<div id="loginbox">
+					<div id="login_head">
+						
+						<div id="splash_loginform">
+							<table align='right'>
+								<tr><td align='center'><%=image_tag('login.png', :class=>'unitPng')%></td></tr>
+								<%form_for 'user_session', :url=>'user_sessions/create' do |f|%>
+								<tr><td align='right'><%= f.text_field :login,
+									      :style => "color:#aaa;",
+										  :class => 'front_field',
+									      :value => 'username',
+									      :onfocus => "if(this.getValue()=='#{'username'}'){this.clear();this.style.color = '#000';}",
+									      :onblur => "if(this.getValue()==''){this.setValue('#{'username'}');this.style.color = '#aaa';}"%></td></tr>
+								<tr><td align='right'><%= f.password_field :password,
+											      :style => "color:#aaa;",
+												  :class => 'front_field',
+											      :value => 'username',
+											      :onfocus => "if(this.getValue()=='#{'username'}'){this.clear();this.style.color = '#000';}",
+											      :onblur => "if(this.getValue()==''){this.setValue('#{'username'}');this.style.color = '#aaa';}"%></td></tr>
+								<tr><td align="right"><%= f.submit "Go!", :class=>'submit'%></td></tr>
+								<tr><td align='center'><%=link_to('create an account', register_path, :class=>'medium')%></td></tr>
+								<%end%>
+							</table>
+						</div><!--splash_loginform-->
+					</div><!--login_head-->
+							
+				</div><!--loginbox-->
+			</div><!--topper:contain --> 
+		</div> <!--topper-->
+		<div id="main">
+			<div class="contain">
+				<div id="content">
+					<%= @content_for_layout %>
+				</div><!-- content -->
+			</div><!--main:contain -->
+		</div><!--main-->
+		<div id="footer">
+			<div class="contain">
+				<div id="footlinks">
+					<div class='link'><%=link_to(image_tag('about_sketch.png', :class=>'unitPng'),:controller=>:site,:action=>:about)%></div>
+					<div class='link'><%=link_to(image_tag('blog_sketch.png', :class=>'unitPng'),'http://lifehelpr.wordpress.com')%></div>
+					<div class='link'><%=link_to(image_tag('help_sketch.png', :class=>'unitPng'),:controller=>:site,:action=>:help)%></div>
+					<div class='link'><%=link_to(image_tag('contact.png', :class=>'unitPng'),:controller=>:site,:action=>:contact)%></div>
+					<%=link_to(image_tag('twitter_sketch.png', :class=>'unitPng'), 'http://twitter.com/lifehelpr')%> 
+					<%=link_to(image_tag('facebook_sketch.png', :class=>'unitPng'), 'http://www.facebook.com/pages/LifeHelpr/167163716632407')%>
+				</div><!--footlinks-->
+				<div id="copyright">
+					copyright &copy; <%=Time.now.year%>, LifeHelpr.com
+					<br/><%=link_to('privacy policy',:controller=>:site,:action=>:privacy)%>
+					<br/><%=link_to('terms of service',:controller=>:site,:action=>:tos)%>
+				</div><!--copyright-->
+			</div><!--footer:contain -->
+		</div><!--footer-->
+	</div> <!--container-->
+
+    <% if ENV["RAILS_ENV"] == "development"%>
+    <!-- Dev stuff (outside container) -->
+    <div id="debug", class="black">
+		<a href='#' onclick="Element.toggle('params_debug_info');return false;">params</a> |
+		<a href='#' onclick="Element.toggle('session_debug_info');return false;">session</a> |
+		<a href='#' onclick="Element.toggle('env_debug_info');return false;">env</a> |
+		<a href='#' onclick="Element.toggle('request_debug_info');return false;">request</a>    
+      <fieldset id="params_debug_info" class="debug_info" style="display:none;">
+        <legend>params</legend>
+        <%= debug(params) %>
+      </fieldset>
+      <fieldset id="session_debug_info" class="debug_info" style="display:none;">
+        <legend>session</legend>
+        <%= debug(session) %>
+      </fieldset>
+       <fieldset id="env_debug_info" class="debug_info" style="display:none;">
+        <legend>env</legend>
+        <%= debug(request.env) %>
+      </fieldset>
+      <fieldset id="request_debug_info" class="debug_info" style="display:none;">
+        <legend>request</legend>
+        <%= debug(request) %>
+      </fieldset>
+    </div>
+    <!-- end Dev mode only stuff -->
+    <% end %>
+	
+	</div>
+	<!-- Analytics -->
+	<% if ENV["RAILS_ENV"] == "production"%>
+		<script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-19007692-1']);
+		  _gaq.push(['_setDomainName', '.lifehelpr.com']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
+	<%end%>
+  </body>
+</html>
+<% rtime = Time.now.to_f - starttime%>
+ 
+<% if ENV["RAILS_ENV"] == "development"%>
+<%= [rtime*1000].to_s.to_i %> ms
+<%else%>
+<!-- <%= rtime*1000 %> -->
+<%end%>

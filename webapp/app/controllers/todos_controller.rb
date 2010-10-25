@@ -7,6 +7,7 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - Todo List"
     @user = current_user
     @todos = @user.todos.all
+    @todos_late = @user.todos.due_now
   end
   
   def set_todo_notes
@@ -50,7 +51,8 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - New Todo"
     @user = current_user
     @todo = @user.todos.new
-    if params[:facebox]
+    if request.xhr?
+      @xhr = true
       render :layout => false
     end
   end
@@ -144,6 +146,11 @@ class TodosController < ApplicationController
     @todo = Todo.find(params[:id])
     unless @todo.user == current_user || admin?
       render :action => "noperms"
+      return
+    end
+    if params[:todo][:name] == ''
+      flash[:error] = "Name cannot be blank"
+      render :action=>:edit
       return
     end
     unless params[:duedate].nil? || params[:duedate] == ''

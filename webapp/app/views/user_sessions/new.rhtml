@@ -28,3 +28,8 @@
 	You must be logged in to use LifeHelpr. <br/><br/>Don't have an account? <%=link_to('Create one', :controller => 'users', :action => 'new')%>.
 </div>
 </div>
+<%if @xhr%>
+<div id="close_lb">
+<a href="#" class="lbAction" rel="deactivate"><img src='/images/facebox/closelabel.gif'/></a>
+</div>
+<%end%>

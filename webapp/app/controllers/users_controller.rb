@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     @todos_undone = @user.todos.undone
     @todos_closed_this_week = @user.todos.last_week_closed
     @todos_created_this_week = @user.todos.last_week_created
+    @todos_late = @user.todos.due_now
   end
   
   def new

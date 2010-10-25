@@ -108,6 +108,11 @@ class ApplicationController < ActionController::Base
       render :action => "noperms"
       return
     end
+    if params[:value] == ''
+      flash[:error] = "You must name the todo"
+      render :inline=>"ERROR: Todo name cannot be blank"
+      return
+    end
     @todo.name = params[:value]
     @todo.save
     render :inline => @todo.name

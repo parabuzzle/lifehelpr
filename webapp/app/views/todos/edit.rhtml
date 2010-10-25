@@ -20,7 +20,7 @@
 				<%end%>
 			</tr>
 			<tr>
-				<td colspan=2 align=right><%= f.submit "Save"%></td>
+				<td colspan=2 align=right><span class="small"><%=link_to('cancel', :action=>:view, :id=>@todo.id)%></span> <%= f.submit "Save"%></td>
 			</tr>
 		</table>
 	<% end %>
