@@ -1,5 +1,6 @@
 class TodosController < ApplicationController
   before_filter :require_user
+  
   in_place_edit_for Todo, :name
   in_place_edit_for Todo, :notes
 

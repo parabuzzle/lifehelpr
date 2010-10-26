@@ -43,7 +43,7 @@ class Emails < ActionMailer::Base
   
   def todo_pager_reminder(user, todo, sent_at=Time.now)
     subject "Todo Reminder #{todo.name}"
-    recipients user.setting.pager_email + '@' @@carriers[user.setting.phone_carrier]
+    recipients user.setting.pager_email + '@' + @@carriers[user.setting.phone_carrier]
     from @@mail['from']
     sent_on sent_at
     content_type "text/plain"

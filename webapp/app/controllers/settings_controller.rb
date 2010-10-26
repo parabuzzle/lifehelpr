@@ -1,6 +1,7 @@
 class SettingsController < ApplicationController
+  before_filter :require_user
+  
   def edit
-    require_user
     @title = "LifeHelpr - Edit Settings"
     @user = current_user
     @settings = @user.setting
@@ -32,7 +33,6 @@ class SettingsController < ApplicationController
   end
   
   def update
-    require_user
     @title = "LifeHelpr - Edit Settings"
     @user = current_user
     @settings = @user.setting

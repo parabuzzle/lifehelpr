@@ -1,7 +1,8 @@
 class UserSessionsController < ApplicationController
+  before_filter :require_no_user, :only => :new
+  
   def new
     @title = "LifeHelpr - Login"
-    require_no_user
     @user_session = UserSession.new
     if request.xhr?
       @xhr = true
@@ -14,8 +15,13 @@ class UserSessionsController < ApplicationController
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save
       flash[:notice] = "Logged in, Welcome back #{@user_session.login}"
-      redirect_to :action => 'index', :controller => 'users'
-      return
+      if session[:return_to].nil?
+        redirect_to :action => 'index', :controller => 'users'
+        return
+      else
+        redirect_to session[:return_to]
+        return
+      end
     else
       flash[:error] = "There was an error processing your request.<br/>Please check your username/password and try again."
       redirect_to :action => 'new'
