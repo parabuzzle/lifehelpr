@@ -25,6 +25,12 @@
   </head>
   
   <body>
+	<% if flash[:notice] %>
+	   <div id="notice"><%= flash[:notice] %></div>
+	<% end %>
+	<% if flash[:error] %>
+	    <div id="error"><%= flash[:error] %></div>
+	<% end %>
 	<div class="fright">
 		<%=image_tag('beta_banner.png',:class=>'unitPng')%>
 	</div>
@@ -35,12 +41,6 @@
 		</div>
 		<%end%>
 	<%end%>
-	<% if flash[:notice] %>
-	   <div id="notice"><%= flash[:notice] %></div>
-	<% end %>
-	<% if flash[:error] %>
-	    <div id="error"><%= flash[:error] %></div>
-	<% end %>
 	<div id="header">
 		<div id="logo"><%=link_to(image_tag('logo_small_head.png', :class=>'unitPng'), :controller=>:site,:action=>:index)%></div>
 	</div>
@@ -84,7 +84,7 @@
 		</div> <!--topper-->
 		<div id="main">
 			<div class="contain">
-				<div id="content">
+				<div id="splash_content">
 					<%= @content_for_layout %>
 				</div><!-- content -->
 			</div><!--main:contain -->

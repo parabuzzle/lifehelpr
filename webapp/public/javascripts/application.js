@@ -12,6 +12,6 @@ Event.observe(window, 'load', function() {
 	 	Effect.Fade('notice', { duration: 3.0 });	
 	};
 	if ($('error')!=null) {
-		Effect.Fade('error', { duration: 3.0 });
+		Effect.Fade('error', { duration: 6.0 });
 	};
 });

@@ -142,10 +142,20 @@ img {
 	margin:auto;
 	width:800px;
 }
-#content {
+#splash_content {
 	margin:auto;
 	padding-top:55px;
 	padding-bottom:55px;
+}
+
+#content {
+	background:#fff;
+	min-height:500px;
+	_height:500px;
+	margin:auto;
+	padding:5px;
+	padding-top:10px;
+	padding-bottom:10px;
 }
 #admin_header{
 	padding:3px;
@@ -218,8 +228,6 @@ img {
 	background:red;
 }
 
-
-
 .splash_main_box {
 	float:left;
 	width:220px;
@@ -248,8 +256,31 @@ img {
 }
 
 
+#nav_bar {
+	background:#c6beaa;
+	border-bottom:1px solid #333;
+	padding-top:10px;
+	padding-bottom:3px;
+}
 
-
+#nav_bar a {
+	color:#000;
+	/*background:#c6beaa;*/
+}
+#nav_bar a:hover {
+	border:1px solid #333;
+	padding:5px;
+	color:#000;
+	background:#fff;
+	border-bottom:0px;
+}
+.link_active{
+	border:1px solid #333;
+	padding:5px;
+	color:#000;
+	background:#fff;
+	border-bottom:0px;	
+}
 
 #nav {
 	text-align:right;
