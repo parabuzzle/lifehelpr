@@ -9,11 +9,12 @@
 			<%if f.duedate < Time.zone.now; then overdue = "(overdue)";end%>
 		<%end%>
 			<li id="item_<%= f.id %>" class="<%=bg%>">
+				<table><tr><td width="45px">
 		<%@todo = f%>
 		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
-		 <%=link_to(image_tag('cancel.png'), {:action =>'delete', :id=>f.id}, :class=>'unitPng', :method=>'post', :confirm => 'Are you sure you want to delete this item?')%> 
+		 <%=link_to(image_tag('cancel.png'), {:action =>'delete', :id=>f.id}, :class=>'unitPng', :method=>'post', :confirm => 'Are you sure you want to delete this item?')%> </td><td>
 		<%= in_place_editor_field :todo, h('name') %>
-		<span class="small">(<%=link_to('more', :action => 'view', :id => f.id)%>)</span>
+		<span class="small">(<%=link_to('more', :action => 'view', :id => f.id)%>)</span></td></tr></table>
 	    </li>
 	  <% end %>
 	</ul>
