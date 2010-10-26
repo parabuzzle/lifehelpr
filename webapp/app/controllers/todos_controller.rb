@@ -1,14 +1,24 @@
 class TodosController < ApplicationController
   before_filter :require_user
+  before_filter :subnav
   
   in_place_edit_for Todo, :name
   in_place_edit_for Todo, :notes
 
+  def subnav
+    @subnav = [{'New Todo'=>'new'}, {'My Todo List'=>'index'}, {'Archived Todos'=>'archive'}]
+  end
   def index
     @title = "LifeHelpr - Todo List"
     @user = current_user
     @todos = @user.todos.all
     @todos_late = @user.todos.due_now
+  end
+  
+  def archive
+    @title = "LifeHelpr - Todo List Archive"
+    @user = current_user
+    @todos = @user.todos.archived
   end
   
   def set_todo_notes
@@ -118,6 +128,7 @@ class TodosController < ApplicationController
       end
       if old_value == 'true'
         @todo.status = false
+        @todo.archived = false
         @todo.complete_date = nil
       end
       if @todo.save

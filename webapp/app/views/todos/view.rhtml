@@ -4,7 +4,11 @@
 	<%end%>
 	(<%=link_to("delete", {:action =>'delete', :id=>@todo.id}, :method=>'post', :confirm => 'Are you sure you want to delete this item?')%>) -->
 	</span></h1>
-<%= link_to("back", :action=>:index)%>
+	<%unless @todo.archived%>
+		<%= link_to("back", :action=>:index)%>
+	<%else%>
+		<%=link_to("back", :action=>:archive)%>
+	<%end%>
 <br/><br/>
 	<h2>Notes:</h2>
 <div class="todo_notes">

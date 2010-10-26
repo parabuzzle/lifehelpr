@@ -103,6 +103,21 @@
 			<div class="contain">
 				<%if current_user%>
 					<div id="content">
+						<%if @subnav%>
+						<div class="subnav">
+							<%@subnav.each do |item|%>
+								<%item.each do |name, action|%>
+									<%if action.class != String%>
+										
+											<%=link_to(name, action)%>
+										
+									<%else%>
+										<%=link_to(name,:action=>action)%>
+									<%end%>
+								<%end%>
+							<%end%>
+						</div>
+						<%end%>
 						<%=current_user.login%> <span class='small'>(logged in)</span>
 						<%= @content_for_layout %>
 					</div><!-- content -->

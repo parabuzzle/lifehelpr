@@ -338,7 +338,24 @@ img {
 	border:0px;
 }
 
+.subnav {
+	padding:3px;
+	border-bottom:1px solid #333;
+	margin-bottom:10px;
+}
+.subnav a {
+	font-size:14px;
+	border-top:1px #333 solid;
+	border-left:1px #333 solid;
+	border-right:1px #333 solid;
+	padding:3px;
+	color:#444;
+}
 
+.subnav a:hover {
+	background:#aaa;
+	color:#000;
+}
 
 
 

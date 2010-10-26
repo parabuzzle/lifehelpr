@@ -1,5 +1,10 @@
 class SettingsController < ApplicationController
   before_filter :require_user
+  before_filter :subnav
+  
+  def subnav
+    #@subnav = [{'Change Password'=>{'controller'=>'user', 'action'=>'change_password'}}, {'Beta Invites'=>{'controller'=>'beta_invites', 'action'=>'index'}}]
+  end
   
   def edit
     @title = "LifeHelpr - Edit Settings"

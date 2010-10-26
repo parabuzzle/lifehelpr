@@ -1,0 +1,21 @@
+<h1>Archived Todos</h1>
+<div class="indent">
+	<div class="pad15"></div>
+	<div class="todo_list">
+	<ul id="todo_list">
+	  <% @todos.each do |f| %>
+		<%bg=cycle('todo_item_odd', 'todo_item_even')%>
+		<%unless f.duedate.nil?%>
+			<%if f.duedate < Time.zone.now; then overdue = "(overdue)";end%>
+		<%end%>
+			<li id="item_<%= f.id %>" class="<%=bg%>">
+		<%@todo = f%>
+		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
+		 <%=link_to(image_tag('cancel.png'), {:action =>'delete', :id=>f.id}, :class=>'unitPng', :method=>'post', :confirm => 'Are you sure you want to delete this item?')%> 
+		<%= in_place_editor_field :todo, h('name') %>
+		<span class="small">(<%=link_to('more', :action => 'view', :id => f.id)%>)</span>
+	    </li>
+	  <% end %>
+	</ul>
+	</div><!-- todo_list -->
+</div><!--indent -->
