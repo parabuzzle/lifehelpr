@@ -1,6 +1,27 @@
 class Emails < ActionMailer::Base
   
   @@mail = SITE_PROPS['admin']['email']
+  
+  @@carriers = {
+    'AT&T' => 'txt.att.net',
+    'Boost Mobile' => 'myboostmobile.com',
+    'Cellular One' => 'mobile.celloneusa.com',
+    'Cellular South' => 'csouth1.com',
+    'Cingular GoPhone' => 'cingulartext.com',
+    'Cricket' => 'sms.mycricket.com',
+    'MetroPCS' => 'mymetropcs.com',
+    'Nextel' => 'messaging.nextel.com',
+    'Pioneer Cellular' => 'zsend.com',
+    'Pocket Wireless' => 'sms.pocket.com',
+    'Qwest Wireless' => 'qwestmp.com',
+    'Sprint (PCS)' => 'messaging.sprintpcs.com',
+    'Sprint (Nextel)' => 'page.nextel.com',
+    'Straight Talk' => 'vtext.com',
+    'T-Mobile' => 'tmomail.net',
+    'US Cellular' => 'email.uscc.net',
+    'Verizon' => 'vtext.com',
+    'Virgin Mobile' => 'yrmobl.com'
+  }
 
   def beta_invite(beta_invite, friend_name, from_name, sent_at=Time.now)
     subject    'LifeHelpr Beta Invite for You!'
@@ -22,7 +43,7 @@ class Emails < ActionMailer::Base
   
   def todo_pager_reminder(user, todo, sent_at=Time.now)
     subject "Todo Reminder #{todo.name}"
-    recipients user.setting.pager_email
+    recipients user.setting.pager_email + '@' @@carriers[user.setting.phone_carrier]
     from @@mail['from']
     sent_on sent_at
     content_type "text/plain"

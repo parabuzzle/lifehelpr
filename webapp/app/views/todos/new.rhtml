@@ -16,7 +16,7 @@
                                 <td align=left><%= calendar_date_select_tag :duedate%></td>
                         </tr>
                         <tr>
-                                <td colspan=2 align=right><span class="small"><%=link_to('cancel', todos_path)%></span> <%= f.submit "Save"%></td>
+                                <td colspan=2 align=right><span class="small"><%=link_to('cancel', todos_path)%></span> <%= f.submit "Save", :class=>'submit'%></td>
                         </tr>
                 </table>
         <% end %>

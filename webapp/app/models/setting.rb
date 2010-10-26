@@ -1,6 +1,6 @@
 class Setting < ActiveRecord::Base
   belongs_to :user
-  attr_accessible :first_name, :last_name, :pager_email, :email_reminders, :page_reminders, :marketing_mail, :time_zone
+  attr_accessible :first_name, :last_name, :pager_email, :email_reminders, :page_reminders, :marketing_mail, :time_zone, :phone_carrier
   
   before_create :set_time_zone_default
   

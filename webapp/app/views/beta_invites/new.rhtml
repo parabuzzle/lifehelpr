@@ -19,7 +19,7 @@
 				<td align=left><%= f.text_field :email_address%></td>
 			</tr>
 			<tr>
-				<td colspan=2 align=right><span class="small"><%=link_to('cancel', beta_invites_path)%></span> <%= f.submit "Send"%></td>
+				<td colspan=2 align=right><span class="small"><%=link_to('cancel', beta_invites_path)%></span> <%= f.submit "Send", :class=>'submit'%></td>
 			</tr>
 		</table>
 	<% end %>

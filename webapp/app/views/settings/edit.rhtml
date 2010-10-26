@@ -15,7 +15,10 @@
 				<td align='right'>Last Name: <%= f.text_field :last_name%></td>
 			</tr>
 			<tr>
-				<td align='right'>Pager Email Address: <%= f.text_field :pager_email%></td>
+				<td align='right'>Mobile Number: <%= f.text_field :pager_email%></td>
+			</tr>
+			<tr>
+				<td align='right'>Carrier: <%= f.select :phone_carrier, get_sms_carrier_list.keys.sort, {:prompt => 'Select Phone Carrier'}%></td>
 			</tr>
 			<%if @display_code%>
 			<tr>
@@ -31,18 +34,18 @@
 			</tr>
 			<%if @settings.pager_email_active?%>
 			<tr>
-				<td align='right'>Send Pager Email Reminders: <%= f.check_box :page_reminders%></td>
+				<td align='right'>Send SMS Reminders: <%= f.check_box :page_reminders%></td>
 			</tr>
 			<%else%>
 			<tr>
-				<td align='right'>Send Pager Email Reminders: <%= f.check_box :page_reminders, :disabled => true%></td>
+				<td align='right'>Send SMS Reminders: <%= f.check_box :page_reminders, :disabled => true%></td>
 			</tr>
 			<%end%>
 			<tr>
-				<td align='right'>Email Me Site Updates: <%= f.check_box :marketing_mail %></td>
+				<td align='right'>Send Site Updates: <%= f.check_box :marketing_mail %></td>
 			</tr>
 			<tr>
-				<td align='right'><%= f.submit "Save"%></td>
+				<td align='right'><%= f.submit "Save", :class=>'submit'%></td>
 			</tr>
 		</table>
 		<% end %>
@@ -80,21 +83,26 @@
 				<td align="right"><%= select :time, :suf, ["A.M.", "P.M."]%></td>
 			</tr>
 			<tr>
-				<td>Email this Alert: <%= f.check_box :email%></td>
+				<td>Email Alert: <%= f.check_box :email%></td>
 				<%if @settings.pager_email_active?%>
-					<td colspan="2">Page me this Alert: <%= f.check_box :pager%></td>
+					<td colspan="2">SMS Alert: <%= f.check_box :pager%></td>
 				<%else%>
-					<td colspan="2">Page me this Alert: <%= f.check_box :pager, :disabled => true%></td>
+					<td colspan="2">SMS Alert: <%= f.check_box :pager, :disabled => true%></td>
 				<%end%>
 			</tr>
 			<tr>
-				<td colspan="3" align='right'><%= f.submit "Add"%></td>
+				<td colspan="3" align='right'><%= f.submit "Add Reminder", :class=>'submit'%></td>
 			</tr>
 		</table>
 		<%end%>
 	</div>
 </div>
 <div id="settings_explain">
+	<%if @pagernotice%>
+		<div class="pager_notice">
+			<%=@pagernotice%>
+		</div>
+	<%end%>
 	These are your global site settings. Anything set here will be
 	used as defaults across the site.<br/><br/>
 	<%if @user.available_invites > 0%><br/>

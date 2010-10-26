@@ -86,10 +86,15 @@
 	<%if current_user%>
 		<div id="nav_bar">
 			<div class='contain'>
+					<div class="fleft">
 					<%=link_to('home',{:controller=>'site', :action=>'index'}, :class=>is_active?(nil, 'users'))%> | 
-					<%=link_to('todos', {:controller=>'todos', :action=>'index'}, :class=>is_active?(nil, 'todos'))%> | 
+					<%=link_to('todos', {:controller=>'todos', :action=>'index'}, :class=>is_active?(nil, 'todos'))%>
+					</div>
+					<div class="fright">
 					<%=link_to('settings', {:controller=>'settings', :action=>'edit'},:class=>is_active?(nil, 'settings'))%> | 
 					<%=link_to('logout', logout_path)%>
+					</div>
+					<div class="clear"></div>
 			</div><!--contain-->
 		</div><!--nav_bar-->
 		<%end%>
@@ -117,9 +122,12 @@
 					<div class='link'><%=link_to(image_tag('blog_sketch.png', :class=>'unitPng'),'http://lifehelpr.wordpress.com')%></div>
 					<div class='link'><%=link_to(image_tag('help_sketch.png', :class=>'unitPng'),:controller=>:site,:action=>:help)%></div>
 					<!--<div class='link'><%=link_to(image_tag('contact.png', :class=>'unitPng'),:controller=>:site,:action=>:contact)%></div>-->
+					
+				</div><!--footlinks-->
+				<div id="social_links">
 					<%=link_to(image_tag('twitter_sketch.png', :class=>'unitPng'), 'http://twitter.com/lifehelpr')%> 
 					<%=link_to(image_tag('facebook_sketch.png', :class=>'unitPng'), 'http://www.facebook.com/pages/LifeHelpr/167163716632407')%>
-				</div><!--footlinks-->
+				</div>
 				<div id="copyright">
 					copyright &copy; <%=Time.now.year%>, LifeHelpr.com
 					<br/><%=link_to('privacy policy',:controller=>:site,:action=>:privacy)%>

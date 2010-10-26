@@ -210,6 +210,13 @@ img {
 	border:1px;
 	color:#fff;
 }
+.submit:hover {
+	cursor:pointer;
+	background:#333;
+	border:1px;
+	color:red;
+}
+
 .front_field {
 	 width:150px;
 	 height:10px;
@@ -220,8 +227,15 @@ img {
 	padding-top:15px;
 }
 
+#social_links{
+	position:absolute;
+	margin-left:100px;
+	padding:15px;
+}
+
+
 #footlinks a:hover{
-	background:red;
+	/*background:red;*/
 }
 
 #copyright{
@@ -292,8 +306,37 @@ img {
 	border-bottom:0px;	
 }
 
+.link {
+	height:40px;
+}
+.link a:hover {
+	padding:5px;
+}
 
+.pager_notice {
+	color:#333;
+	padding-bottom:20px;
+}
+.register {
+	margin-top:20px;
+	margin-bottom:20px;
+	color:#000;
+	font-size: 20px;
+	background: url('/images/action_button_pink.png');
+	width:150px;
+	height:40px;
+	border:0px;
+}
 
+.register:hover{
+	cursor:pointer;
+	color:#fff;
+	font-size: 20px;
+	background: url('/images/action_button_pink.png');
+	width:150px;
+	height:40px;
+	border:0px;
+}
 
 
 

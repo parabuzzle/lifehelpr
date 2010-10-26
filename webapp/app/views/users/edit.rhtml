@@ -15,7 +15,7 @@
 				<td align=left><%= f.password_field :password_confirmation%></td>
 			</tr>
 			<tr>
-				<td colspan=2 align=right><span class="small"><%=link_to('cancel', settings_path)%></span> <%= f.submit "Send"%></td>
+				<td colspan=2 align=right><span class="small"><%=link_to('cancel', settings_path)%></span> <%= f.submit "Send", :class=>'submit'%></td>
 			</tr>
 		</table>
 	<% end %>

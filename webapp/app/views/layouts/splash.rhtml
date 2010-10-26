@@ -95,10 +95,13 @@
 					<div class='link'><%=link_to(image_tag('about_sketch.png', :class=>'unitPng'),:controller=>:site,:action=>:about)%></div>
 					<div class='link'><%=link_to(image_tag('blog_sketch.png', :class=>'unitPng'),'http://lifehelpr.wordpress.com')%></div>
 					<div class='link'><%=link_to(image_tag('help_sketch.png', :class=>'unitPng'),:controller=>:site,:action=>:help)%></div>
-					<div class='link'><%=link_to(image_tag('contact.png', :class=>'unitPng'),:controller=>:site,:action=>:contact)%></div>
+					<!--<div class='link'><%=link_to(image_tag('contact.png', :class=>'unitPng'),:controller=>:site,:action=>:contact)%></div>-->
+					
+				</div><!--footlinks-->
+				<div id="social_links">
 					<%=link_to(image_tag('twitter_sketch.png', :class=>'unitPng'), 'http://twitter.com/lifehelpr')%> 
 					<%=link_to(image_tag('facebook_sketch.png', :class=>'unitPng'), 'http://www.facebook.com/pages/LifeHelpr/167163716632407')%>
-				</div><!--footlinks-->
+				</div>
 				<div id="copyright">
 					copyright &copy; <%=Time.now.year%>, LifeHelpr.com
 					<br/><%=link_to('privacy policy',:controller=>:site,:action=>:privacy)%>

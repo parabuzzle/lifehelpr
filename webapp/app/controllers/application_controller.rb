@@ -8,11 +8,35 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
-  helper_method :current_user, :format_time, :convert_to_12hour, :convert_to_24hour
+  helper_method :current_user, :format_time, :convert_to_12hour, :convert_to_24hour, :get_sms_carrier_list
   before_filter :set_user_time_zone
 
   def set_user_time_zone
     Time.zone = current_user.setting.time_zone if current_user
+  end
+  
+  def get_sms_carrier_list
+    carriers = {
+      'AT&T' => 'txt.att.net',
+      'Boost Mobile' => 'myboostmobile.com',
+      'Cellular One' => 'mobile.celloneusa.com',
+      'Cellular South' => 'csouth1.com',
+      'Cingular GoPhone' => 'cingulartext.com',
+      'Cricket' => 'sms.mycricket.com',
+      'MetroPCS' => 'mymetropcs.com',
+      'Nextel' => 'messaging.nextel.com',
+      'Pioneer Cellular' => 'zsend.com',
+      'Pocket Wireless' => 'sms.pocket.com',
+      'Qwest Wireless' => 'qwestmp.com',
+      'Sprint (PCS)' => 'messaging.sprintpcs.com',
+      'Sprint (Nextel)' => 'page.nextel.com',
+      'Straight Talk' => 'vtext.com',
+      'T-Mobile' => 'tmomail.net',
+      'US Cellular' => 'email.uscc.net',
+      'Verizon' => 'vtext.com',
+      'Virgin Mobile' => 'yrmobl.com'
+    }
+    return carriers
   end
   
   def convert_to_24hour(time_hash)

@@ -1,7 +1,7 @@
 <h1>User Dashboard</h1>
-<%unless @todos_late.nil?%>
+<%unless @todos_late.nil? || @todos_late.length == 0%>
 <div id="late_notice">
-	You have <%=@todos_late.length%> overdue todo items that need your attention
+	You have <%=@todos_late.length%> overdue todo item(s) that need your attention
 </div>
 <%end%>
 <div class="indent">
