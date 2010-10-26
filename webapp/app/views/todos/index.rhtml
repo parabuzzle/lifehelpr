@@ -15,10 +15,10 @@
 			<%if f.duedate < Time.zone.now; then overdue = "(overdue)";end%>
 		<%end%>
 			<li id="item_<%= f.id %>" class="<%=bg%>">
-				<table><tr><td width="70px">
+				<table><tr><td>
 		<%@todo = f%>
-		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
-		<span class="handle"><%=image_tag('drag.gif')%></span> <%=link_to(image_tag('cancel.png'), {:action =>'delete', :id=>f.id}, :class=>'unitPng', :method=>'post', :confirm => 'Are you sure you want to delete this item?')%></td><td>
+		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %></td><td>
+		<span class="handle"><%=image_tag('drag.gif')%></span></td><td> <%=link_to(image_tag('cancel.png'), {:action =>'delete', :id=>f.id}, :class=>'unitPng', :method=>'post', :confirm => 'Are you sure you want to delete this item?')%></td><td>
 		<%= in_place_editor_field :todo, h('name') %>
 		<span class="small">(<%=link_to('more', :action => 'view', :id => f.id)%>) <%=overdue%></span></td></tr></table>
 	    </li>

@@ -30,6 +30,8 @@
 					<tr>
 						<td><%@todo = f%>
 		 					<%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :controller=>:todos, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
+						</td><td>
+						 <%=link_to(image_tag('cancel.png'), {:controller=>'todos', :action =>'delete', :id=>f.id}, :class=>'unitPng', :method=>'post', :confirm => 'Are you sure you want to delete this item?')%>
 						</td>
 						<td>
 							<%= in_place_editor_field :todo, h('name') %>
