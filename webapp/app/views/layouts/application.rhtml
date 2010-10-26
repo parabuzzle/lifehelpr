@@ -59,7 +59,7 @@
 					<div id="splash_loginform">
 						<table align='right'>
 							<tr><td align='center'><%=image_tag('login.png', :class=>'unitPng')%></td></tr>
-							<%form_for 'user_session', :url=>'user_sessions/create' do |f|%>
+							<%form_for 'user_session', :url=>'/user_sessions/create' do |f|%>
 							<tr><td align='right'><%= f.text_field :login,
 								      :style => "color:#aaa;",
 									  :class => 'front_field',
@@ -102,12 +102,13 @@
 						<%= @content_for_layout %>
 					</div><!-- content -->
 				<%else%>
-					<div id="content">
+					<div id="no_login_content">
 						<%= @content_for_layout %>
 					</div><!--splash_content-->
 				<%end%>
 					
 			</div><!--main:contain -->
+			<div class="clear"></div>
 		</div><!--main-->
 		<div id="footer">
 			<div class="contain">

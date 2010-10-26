@@ -2,5 +2,4 @@
 . ~/.bash_profile
 cd $LIFEHELPR_ROOT
 
-script/runner ./runners/delete_old_todos.rb
 script/runner ./runners/update_todo_priorities.rb

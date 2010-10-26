@@ -59,7 +59,7 @@
 						<div id="splash_loginform">
 							<table align='right'>
 								<tr><td align='center'><%=image_tag('login.png', :class=>'unitPng')%></td></tr>
-								<%form_for 'user_session', :url=>'user_sessions/create' do |f|%>
+								<%form_for 'user_session', :url=>'/user_sessions/create' do |f|%>
 								<tr><td align='right'><%= f.text_field :login,
 									      :style => "color:#aaa;",
 										  :class => 'front_field',
