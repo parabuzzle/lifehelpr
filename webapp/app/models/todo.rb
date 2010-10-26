@@ -2,6 +2,7 @@ class Todo < ActiveRecord::Base
   belongs_to :user
   has_many :reminders
   has_many :reminder_schedules
+  #has_one :category, :scope => :category_id
   
   acts_as_list :scope => :user
   
@@ -31,5 +32,13 @@ class Todo < ActiveRecord::Base
   named_scope :for_archive, :conditions => {:status=>true, :deleted => false, :archived => false, :complete_date => 1.year.ago..Time.now-1.hour}, :order => :complete_date
   #return all todos that are due right now according to the user's timezone
   named_scope :due_now, :conditions => {:status => false, :deleted => false, :archived => false, :duedate => 5.years.ago..Time.now.midnight+23.hours+59.minutes}, :order => :position
+  
+  def category
+    if self.category_id.nil?
+      return 'General'
+    else
+      return Category.find(self.category_id).name
+    end
+  end
   
 end
