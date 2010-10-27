@@ -52,12 +52,14 @@ ActionController::Routing::Routes.draw do |map|
   map.resend_pager_activation "settings/resend_pager_activation", :controller=>:settings, :action=>:resend_pager_activation
   map.dashboard "dashboard", :controller => "users", :action => "index"
   map.archive "/todos/archive", :controller => :todos, :action=>:archive
+  map.todo_categories "/todos/categories/:action/:id", :controller=>'categories'
   map.resources :users
   map.resources :user_sessions
   map.resources :settings
   map.resources :beta_invites
   map.resources :default_reminder_schedules
   map.resources :reminder_schedules
+  map.resources :categories
   map.resources :todos, :collection => { :sort => :post }
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'

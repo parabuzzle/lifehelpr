@@ -19,6 +19,18 @@
 					<td align=left><%= calendar_date_select_tag :duedate%>
 				<%end%>
 			</tr>
+			<td align='right' style="vertical-align:top;">Category:</td>
+			<%form_for 'category' do |cat|%>
+			
+			<%if @todo.category == 'Uncategorized'%>
+			
+            	<td align=left><%= cat.select :name, @categories, :include_blank => true%> (<%=link_to('new', :controller=>'categories', :action=>:new)%>)</td>
+			<%else%>
+			
+				<td align=left><%= cat.select :name, @categories, :include_blank => true, :selected=>@todo.category%> (<%=link_to('new', :controller=>'categories', :action=>:new)%>)</td>
+			<%end%>
+			<%end%>
+    </tr>
 			<tr>
 				<td colspan=2 align=right><span class="small"><%=link_to('cancel', :action=>:view, :id=>@todo.id)%></span> <%= f.submit "Save", :class=>'submit'%></td>
 			</tr>

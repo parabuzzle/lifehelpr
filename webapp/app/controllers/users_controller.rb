@@ -11,6 +11,9 @@ class UsersController < ApplicationController
     @todos_closed_this_week = @user.todos.last_week_closed
     @todos_created_this_week = @user.todos.last_week_created
     @todos_late = @user.todos.due_now
+    @categories = @user.categories
+    @uncat_undone_count = @user.todos.find(:all, :conditions => {:status => false, :archived=>false, :deleted => false, :category_id=>nil}).count
+    @uncat_archive_count = @user.todos.find(:all, :conditions => { :archived=>true, :deleted => false, :category_id=>nil}).count
   end
   
   def new

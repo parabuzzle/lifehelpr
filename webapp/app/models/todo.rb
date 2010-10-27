@@ -35,10 +35,17 @@ class Todo < ActiveRecord::Base
   
   def category
     if self.category_id.nil?
-      return 'General'
+      return 'Uncategorized'
     else
       return Category.find(self.category_id).name
     end
+  end
+  
+  def uncategorized_undone(user)
+    return Todo.find(:all, :conditions => {:category_id => nil, :user_id => user.id, :status => false, :deleted => false, :archived => false})
+  end
+  def uncategorized_archived(user)
+    return Todo.find(:all, :conditions => {:category_id => nil, :user_id => user.id, :deleted => false, :archived => true})
   end
   
 end

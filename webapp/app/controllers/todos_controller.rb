@@ -5,20 +5,49 @@ class TodosController < ApplicationController
   in_place_edit_for Todo, :name
   in_place_edit_for Todo, :notes
 
+
   def subnav
-    @subnav = [{'New Todo'=>'new'}, {'My Todo List'=>'index'}, {'Archived Todos'=>'archive'}]
+    @subnav = [{'New Todo'=>'new'}, {'My Todo List'=>'index'}, {'Archived Todos'=>'archive'}, {'Categories' => {'controller'=>'categories', 'action'=>'index'}}]
   end
   def index
     @title = "LifeHelpr - Todo List"
     @user = current_user
-    @todos = @user.todos.all
-    @todos_late = @user.todos.due_now
+    if params[:category]
+      if params[:category] == 'Uncategorized'
+        @todos = @user.todos.find(:all, :conditions => {:archived=>false, :deleted => false, :category_id=>nil})
+      else
+        category = Category.find_by_user_id_and_name(current_user.id, params[:category])
+        if category
+          @todos = category.todos_unarchived
+          #@todos_late = category.todos.due_now
+        else
+          @todos = []
+          #@todos_late = []
+        end
+      end
+    else
+      @todos = @user.todos.all
+      @todos_late = @user.todos.due_now
+    end
   end
   
   def archive
     @title = "LifeHelpr - Todo List Archive"
     @user = current_user
-    @todos = @user.todos.archived
+    if params[:category]
+      if params[:category] == "Uncategorized"
+        @todos = @user.todos.find(:all, :conditions => {:archived=>true, :deleted => false, :category_id=>nil})
+      else
+        category = Category.find_by_user_id_and_name(current_user.id, params[:category])
+        if category
+          @todos = category.todos_archived
+        else
+          @todos = []
+        end
+      end
+    else
+      @todos = @user.todos.archived
+    end
   end
   
   def set_todo_notes
@@ -62,6 +91,10 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - New Todo"
     @user = current_user
     @todo = @user.todos.new
+    @categories = []
+    @user.categories.each do |cat|
+      @categories << cat.name
+    end
     if request.xhr?
       @xhr = true
       render :layout => false
@@ -72,6 +105,11 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - New Todo"
     @user = current_user
     @todo = @user.todos.new(params[:todo])
+    unless params[:category][:name].nil?
+      category = @user.categories.find_by_name(params[:category][:name])
+    else
+      category = nil
+    end
     unless params[:duedate].nil? || params[:duedate] == ''
       due =  Date.parse(params[:duedate])
       @todo.duedate = due
@@ -82,6 +120,17 @@ class TodosController < ApplicationController
       flash[:error] = "You must name the todo"
       render :action=>:new
       return
+    end
+    if category.nil?
+      category = @user.categories.new(:name=>params[:category][:name])
+      unless category.name == ''
+        category.save
+      end
+    end
+    unless category.nil?
+      unless category.name == ''
+        @todo.category_id = category.id
+      end
     end
     if @todo.save
       flash[:notice] = "Todo Item Added"
@@ -146,6 +195,10 @@ class TodosController < ApplicationController
     @title = "LifeHelpr - Edit Item"
     @user = current_user
     @todo = Todo.find(params[:id])
+    @categories = []
+    @user.categories.each do |cat|
+      @categories << cat.name
+    end
     unless @todo.user == current_user || admin?
       render :action => "noperms"
       return
@@ -159,6 +212,17 @@ class TodosController < ApplicationController
     unless @todo.user == current_user || admin?
       render :action => "noperms"
       return
+    end
+    category = false
+    unless params[:category][:name].nil?
+      category = Category.find_by_user_id_and_name(@user.id, params[:category][:name])
+    end
+    if category != false
+      if params[:category][:name] == ''
+        @todo.category_id = nil
+      elsif category != nil
+        @todo.category_id = category.id
+      end
     end
     if params[:todo][:name] == ''
       flash[:error] = "Name cannot be blank"

@@ -221,6 +221,7 @@ img {
 .front_field {
 	 width:150px;
 	 height:10px;
+	font-size:9px;
 }
 
 #footlinks{
@@ -463,15 +464,16 @@ img {
 /*dashboard classes*/
 #stats_box{
 	float:left;
-	width:500px;
-	padding: 5px;
+	width:450px;
+
 }
 .stats_box{
 	font-size: 12px;
 	border: 1px solid #ddd;
 	float:left;
-	width:500px;
+	width:450px;
 	padding: 5px;
+	padding-right:0px;
 	background:#eee;
 }
 
@@ -519,8 +521,18 @@ img {
 	list-style-type:none;	
 }
 #todo_box {
-	width: 400px;
+	width: 450px;
 	float:right;
+	margin-right:15px;
+}
+#cat_box {
+	width: 450px;
+	float:right;
+	margin-right:15px;
+}
+#lists_box {
+	width: 450px;
+	float:left;
 }
 .todo_notes {
 	padding:5px;

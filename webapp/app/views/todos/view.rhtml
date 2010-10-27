@@ -17,4 +17,6 @@
 <%if @todo.duedate%>
 	<div class="todo_duedate">Due Date: <%=@todo.duedate.to_s(:pretty)%></div>
 	<div class="todo_rem_sent">Reminders Sent: <%=@todo.reminders.length%></div>
+	<div class="clear"></div>
 <%end%>
+<div class="todo_category">Category: <%=link_to(@todo.category, :action=>:index, :controller=>:todos, :category => @todo.category)%></div>
