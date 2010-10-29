@@ -117,8 +117,8 @@ img {
 
 #main {
 	background:#eee;
-	min-height:250px;
-	_height:250px;
+	min-height:400px;
+	_height:400px;
 }
 
 #topper {
@@ -285,6 +285,7 @@ img {
 #nav_bar {
 	background:#c6beaa;
 	border-bottom:1px solid #333;
+	height:17px;
 	padding-top:10px;
 	padding-bottom:3px;
 }
@@ -293,13 +294,7 @@ img {
 	color:#000;
 	/*background:#c6beaa;*/
 }
-#nav_bar a:hover {
-	border:1px solid #333;
-	padding:8px;
-	color:#000;
-	background:#fff;
-	border-bottom:0px;
-}
+
 .link_active{
 	border:1px solid #333;
 	padding:8px;
@@ -359,15 +354,45 @@ img {
 	color:#000;
 }
 
+#main_nav{
+	position:absolute;
+	margin-top:-17px;
+	margin-left:-44px;
+}
 
+#main_nav li {
+	margin-top:-12px;
+	padding:3px;
+	padding-top:0px;
+	padding-bottom:0px;
+	float:left;
+}
+#main_nav .split{
+	margin-top:-8.8px;
+}
+
+
+#right_nav {
+	float:right;
+	margin-top:-17px;
+}
+#right_nav li {
+	margin-top:-12px;
+	float:right;
+	padding:3px;
+}
+
+#right_nav .button {
+	margin-top:-10px;
+}
+#right_nav .split {
+	margin-top:-4px;
+}
 
 #nav {
-	text-align:right;
-	float:right;
+	width:960px;
 }
-#top_nav {
-
-}
+#top_nav {}
 #top_nav li {
 	float:left;
 	padding: 3px;
@@ -520,19 +545,37 @@ img {
     background: transparent;
 	list-style-type:none;	
 }
-#todo_box {
-	width: 450px;
-	float:right;
-	margin-right:15px;
-}
-#cat_box {
-	width: 450px;
-	float:right;
-	margin-right:15px;
-}
-#lists_box {
-	width: 450px;
+#dash_left_col {
+	margin-left:60px;
+	width: 540px;
 	float:left;
+}
+#dash_right_col {
+	margin-right:60px;
+	width:220;
+	float:right;
+}
+#todo_box {}
+#cat_box {
+	padding-top:27px;
+}
+#lists_box {}
+#category_header{
+	background:url('/backgrounds/cat_head_back.png');
+	background-repeat:repeat-x;
+	background-position:bottom;
+	padding-top:3px;
+	padding-left:3px;
+	border:1px solid #dddddd;
+	border-bottom:0px;
+}
+#cat_list li{
+	background:url('/backgrounds/cat_back.png');
+	border-bottom:1px solid #eeeeee;
+	background-repeat:repeat-x;
+	background-position:bottom;
+	min-height:50px;
+	_height:50px;
 }
 .todo_notes {
 	padding:5px;

@@ -87,16 +87,22 @@
 		<%if current_user%>
 			<div id="nav_bar">
 				<div class='contain'>
-						<div class="fleft">
-						<%=link_to('home',{:controller=>'site', :action=>'index'}, :class=>is_active?(nil, 'users'))%> | 
-						<%=link_to('todos', {:controller=>'todos', :action=>'index'}, :class=>is_active?(nil, 'todos'))%>
-						</div>
-						<div class="fright">
-						<%=link_to('settings', {:controller=>'settings', :action=>'edit'},:class=>is_active?(nil, 'settings'))%> | 
-						<%=link_to('logout', logout_path)%>
-						</div>
+					<div id="nav">
+						<div id="main_nav">
+							<ul>
+								<li class="split"><%=image_tag('/backgrounds/split.jpg')%></li>
+								<li><%=link_to(image_tag('/buttons/home.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/home-strong.png'", :onmouseout => "this.src='/buttons/home.png'"),{:controller=>'site', :action=>'index'})%></li>
+								<li class="split"><%=image_tag('/backgrounds/split.jpg')%></li>
+								<li><%=link_to(image_tag('/buttons/todos.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/todos-strong.png'", :onmouseout => "this.src='/buttons/todos.png'"), {:controller=>'todos', :action=>'index'})%></li>
+								<li class="split"><%=image_tag('/backgrounds/split.jpg')%></li>
+								<li><%=link_to(image_tag('/buttons/lists.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/lists-strong.png'", :onmouseout => "this.src='/buttons/lists.png'"), {:controller=>'lists', :action=>'index'})%></li>
+								<li class="split"><%=image_tag('/backgrounds/split.jpg')%></li>
+							</ul>
+						</div><!--main_nav-->
 						<div class="clear"></div>
+					</div>
 				</div><!--contain-->
+				
 			</div><!--nav_bar-->
 			<%end%>
 		<div id="main">
@@ -118,7 +124,14 @@
 							<%end%>
 						</div>
 						<%end%>
-						<%=current_user.login%> <span class='small'>(logged in)</span>
+							<div id="right_nav">
+								<ul>
+									<li class="button"><%=link_to(image_tag('/buttons/logout.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/logout-strong.png'", :onmouseout => "this.src='/buttons/logout.png'"), logout_path)%></li>
+									<li class="button"><%=link_to(image_tag('/buttons/settings.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/settings-strong.png'", :onmouseout => "this.src='/buttons/settings.png'"), {:controller=>'settings', :action=>'edit'})%><li>
+								</ul>
+							</div><!--right_nav-->
+						
+						
 						<%= @content_for_layout %>
 					</div><!-- content -->
 				<%else%>
@@ -133,9 +146,9 @@
 		<div id="footer">
 			<div class="contain">
 				<div id="footlinks">
-					<div class='link'><%=link_to(image_tag('about_sketch.png', :class=>'unitPng'),:controller=>:site,:action=>:about)%></div>
-					<div class='link'><%=link_to(image_tag('blog_sketch.png', :class=>'unitPng'),'http://lifehelpr.wordpress.com')%></div>
-					<div class='link'><%=link_to(image_tag('help_sketch.png', :class=>'unitPng'),:controller=>:site,:action=>:help)%></div>
+					<div class='link'><%=link_to(image_tag('/buttons/about-white.png', :class=>'unitPng'),:controller=>:site,:action=>:about)%></div>
+					<div class='link'><%=link_to(image_tag('/buttons/blog-white.png', :class=>'unitPng'),'http://lifehelpr.wordpress.com')%></div>
+					<div class='link'><%=link_to(image_tag('/buttons/help-white.png', :class=>'unitPng'),:controller=>:site,:action=>:help)%></div>
 					<!--<div class='link'><%=link_to(image_tag('contact.png', :class=>'unitPng'),:controller=>:site,:action=>:contact)%></div>-->
 					
 				</div><!--footlinks-->

@@ -1,23 +1,13 @@
-<h1>User Dashboard</h1>
+<h1><%=image_tag('/headers/user_dashboard.png')%></h1>
 <%unless @todos_late.nil? || @todos_late.length == 0%>
 <div id="late_notice">
 	You have <%=@todos_late.length%> overdue todo item(s) that need your attention
 </div>
 <%end%>
-<div class="indent">
 
-	<div id="stats_box">
-		<h3>Your Stats</h3>
-		<div class="stats_box">
-			Last Login: <%=@user.last_login_at.to_s(:pretty) unless @user.last_login_at.nil?%>
-			<br/>Available <%=link_to('Beta Invites', :controller => :beta_invites, :action => :index)%>: <%=@user.available_invites%>
-		<br/>New todos last 7 days: <%=@todos_created_this_week.length%>
-		<br/>Finished todos last 7 days: <%=@todos_closed_this_week.length%>
-		<br/>Total unfinished Todos: <%=@todos_undone.length%>
-		</div>
-	</div><!-- stats_box -->
+<div id="dash_left_col">
 	<div id="todo_box">
-	<h3>Your top 5 unfinished <%=link_to('Todo', :action =>'index', :controller =>'todos')%> items <span class="small">(<%=link_to("New", :action => 'new', :controller=>:todos)%>)</span></h3>
+	<h3><%=link_to(image_tag('/headers/top5todos.png'), :action =>'index', :controller =>'todos')%> <span class="small">(<%=link_to("New", :action => 'new', :controller=>:todos)%>)</span></h3>
 		<div class="todo_list">
 		<ul id="todo_list">
 	  <% @top5_todos.each do |f| %>
@@ -45,12 +35,11 @@
 	</ul>
 	</div><!-- todo_list -->
 	</div><!-- todo_box -->
-	<div class="clear"></div>
 	<div class="pad15"></div>
 	<div id="lists_box">
-		<h3>Your <%=link_to("Lists", :controller=>:lists,:action=>:new)%> <span class="small">(<%=link_to("new",:controller=>:lists,:action=>:new)%>)</span></h3>
+		<h3><%=link_to(image_tag('/headers/my_lists.png'), :controller=>:lists,:action=>:new)%> <span class="small">(<%=link_to("new",:controller=>:lists,:action=>:new)%>)</span></h3>
 		<div class="todo_list">
-			<ul id="cat_list">
+			<ul id="lists_list">
 			<%@categories.each do |cat|%>
 				<%cat_bg=cycle('todo_item_odd', 'todo_item_even')%>
 				<li id="item_cat_<%=cat.id%>" class="<%=cat_bg%>">
@@ -60,8 +49,10 @@
 			</ul>
 		</div><!--todo_list-->
 	</div><!--lists_box-->
+</div><!--dash_left_col-->
+<div id="dash_right_col">
 	<div id="cat_box">
-		<h3>Your <%=link_to("Categories", :controller=>:categories,:action=>:index)%> <span class="small">(<%=link_to('new', :controller=>:categories,:action=>:new)%>)</span></h3>
+		<div id="category_header"><%=link_to(image_tag('/headers/categories.png', :class=>'unitPng'), :controller=>:categories,:action=>:index)%> <span class="small">(<%=link_to('new', :controller=>:categories,:action=>:new)%>)</span></div>
 		<div class="todo_list">
 			<ul id="cat_list">
 			<%@categories.each do |cat|%>
@@ -78,4 +69,4 @@
 			</ul>
 		</div><!--todo_list-->
 	</div><!--cat_box-->
-</div><!--indent -->
+</div><!--dash_right_col-->
