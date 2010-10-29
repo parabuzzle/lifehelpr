@@ -12,7 +12,7 @@
 <br/><br/>
 	<h2>Notes:</h2>
 <div class="todo_notes">
-	<div class="indent"><%=h(@todo.notes).gsub("\n", "<br/>").gsub(" ", "&nbsp;")%></div>
+	<div class="indent"><%=h(word_wrap(@todo.notes, 125)).gsub("\n", "<br/>").gsub(" ", "&nbsp;")%></div>
 </div>
 <%if @todo.duedate%>
 	<div class="todo_duedate">Due Date: <%=@todo.duedate.to_s(:pretty)%></div>
