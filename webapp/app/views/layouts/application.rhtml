@@ -42,7 +42,13 @@
 		<%end%>
 	<%end%>
 	<div id="header">
+		
 		<div id="logo"><%=link_to(image_tag('logo_small_head.png', :class=>'unitPng'), :controller=>:site,:action=>:index)%></div>
+		<%if current_user%>
+			<div id="helloblk">
+				<span class="small">(logged in)</span> <%=current_user.login%>
+			</div>
+		<%end%>
 	</div>
 	<div id="container">
 		<%unless current_user%>
@@ -109,7 +115,7 @@
 			<div class="contain">
 				<%if current_user%>
 					<div id="content">
-						<%if @subnav%>
+						<!-- <%if @subnav%>
 						<div class="subnav">
 							<%@subnav.each do |item|%>
 								<%item.each do |name, action|%>
@@ -123,7 +129,7 @@
 								<%end%>
 							<%end%>
 						</div>
-						<%end%>
+						<%end%> -->
 							<div id="right_nav">
 								<ul>
 									<li class="button"><%=link_to(image_tag('/buttons/logout.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/logout-strong.png'", :onmouseout => "this.src='/buttons/logout.png'"), logout_path)%></li>

@@ -12,6 +12,9 @@ class TodosController < ApplicationController
   def index
     @title = "LifeHelpr - Todo List"
     @user = current_user
+    @categories = @user.categories
+    @uncat_undone_count = @user.todos.find(:all, :conditions => {:status => false, :archived=>false, :deleted => false, :category_id=>nil}).count
+    @uncat_archive_count = @user.todos.find(:all, :conditions => { :archived=>true, :deleted => false, :category_id=>nil}).count
     if params[:category]
       if params[:category] == 'Uncategorized'
         @todos = @user.todos.find(:all, :conditions => {:archived=>false, :deleted => false, :category_id=>nil})
@@ -34,6 +37,26 @@ class TodosController < ApplicationController
   def archive
     @title = "LifeHelpr - Todo List Archive"
     @user = current_user
+    if request.post?
+      @todo = Todo.find(params[:id])
+      unless @todo.user == current_user || admin?
+        render :action => "noperms"
+        return
+      end
+      @todo.archived = true
+      if @todo.save
+        flash[:notice] = "Todo has been archived"
+        redirect_to :action => :view, :id => @todo.id
+        return
+      else
+        flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
+        redirect_to :action => :view, :id => @todo.id
+        return
+      end
+    end
+    @categories = @user.categories
+    @uncat_undone_count = @user.todos.find(:all, :conditions => {:status => false, :archived=>false, :deleted => false, :category_id=>nil}).count
+    @uncat_archive_count = @user.todos.find(:all, :conditions => { :archived=>true, :deleted => false, :category_id=>nil}).count
     if params[:category]
       if params[:category] == "Uncategorized"
         @todos = @user.todos.find(:all, :conditions => {:archived=>true, :deleted => false, :category_id=>nil})

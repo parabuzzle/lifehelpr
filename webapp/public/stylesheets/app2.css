@@ -182,6 +182,11 @@ img {
 	width: 100%;
 	border-bottom: 2px #000 solid;
 }
+#helloblk {
+	margin-top:-23px;
+	float:right;
+	color:#66793c;
+}
 #logo {
 	padding-top:10px;
 	padding-left: 30px;
@@ -315,9 +320,10 @@ img {
 	padding-bottom:20px;
 }
 .register {
+	font-weight:bold;
 	margin-top:20px;
 	margin-bottom:20px;
-	color:#000;
+	color:#fff;
 	font-size: 20px;
 	background: url('/images/action_button_pink.png');
 	width:150px;
@@ -327,7 +333,7 @@ img {
 
 .register:hover{
 	cursor:pointer;
-	color:#fff;
+	color:#000;
 	font-size: 20px;
 	background: url('/images/action_button_pink.png');
 	width:150px;
@@ -404,9 +410,6 @@ img {
 }
 #leftnav > ul {
 	padding-left:20px;
-}
-#helloblk {
-	float:left;
 }
 #login {
 	margin:auto;
@@ -558,6 +561,7 @@ img {
 #todo_box {}
 #cat_box {
 	padding-top:27px;
+	width: 250px;
 }
 #lists_box {}
 #category_header{

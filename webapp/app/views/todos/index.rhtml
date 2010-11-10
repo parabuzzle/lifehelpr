@@ -1,14 +1,14 @@
-<h1>My Todo List</h1>
+<h1><%=image_tag('/headers/todo_list.png')%></h1>
 <%unless @todos_late.nil? || @todos_late.length == 0%>
 <div id="late_notice">
 	You have <%=@todos_late.length%> overdue todo item(s) that need your attention
 </div>
 <%end%>
 <%unless params[:category].nil?%>
-<h2>Filter Category: <%=params[:category]%> <span class="medium">(<%=link_to('clear', :category=>nil)%>)</span></h2>
+<h2>Category: <%=params[:category]%> <span class="medium">(<%=link_to('clear', :category=>nil)%>)</span></h2>
 <%end%>
-<div class="indent">
 	<div id="my-link"><%=link_to("Add New", :action => 'new')%></div>
+	<div id="dash_left_col">
 	<div class="pad15"></div>
 	<div class="todo_list">
 	<ul id="todo_list">
@@ -32,4 +32,28 @@
 	</ul>
 	</div><!-- todo_list -->
 	<%= sortable_element("todo_list", :url => sort_todos_path, :handle => "handle") %>
-</div><!--indent -->
+	</div><!--dash_left_col -->
+	<div id="dash_right_col">
+		<div id="cat_box">
+			<div id="category_header"><%=link_to(image_tag('/headers/categories.png', :class=>'unitPng'), :controller=>:categories,:action=>:index)%> <span class="small">(<%=link_to('new', :controller=>:categories,:action=>:new)%>)</span></div>
+			<div class="todo_list">
+				<ul id="cat_list">
+				<%@categories.each do |cat|%>
+				<%@category = cat%>
+					<li id="item_cat_<%=cat.id%>" class="todo_item_odd">
+						<%= in_place_editor_field :category, h('name') %> 
+						<div class="small"><%=link_to("undone: #{cat.todos_undone.count}", :controller=>:todos,:action=>:index,:category=>cat.name)%></div>
+							<div class="small"><%=link_to("archived: #{cat.todos_archived.count}", :controller=>:todos,:action=>:archive,:category=>cat.name)%></div>
+					</li>
+				<%end%>
+
+				<li id="uncat", class="todo_item_odd">
+						Uncategorized 
+						<div class="small"><%=link_to("undone: #{@uncat_undone_count}", :controller=>:todos,:action=>:index,:category=>"Uncategorized")%></div>
+						<div class="small"><%=link_to("archived: #{@uncat_archive_count}", :controller=>:todos,:action=>:archive,:category=>"Uncategorized")%></div>
+				</li>
+				</ul>
+			</div><!--todo_list-->
+		</div><!--cat_box-->
+	</div><!--dash_right_col-->
+

@@ -9,8 +9,15 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   helper_method :current_user, :format_time, :convert_to_12hour, :convert_to_24hour, :get_sms_carrier_list, :previous_or_default
-  before_filter :set_user_time_zone, :store_previous_location
-
+  before_filter :set_user_time_zone, :store_previous_location, :redirect_on_static
+  
+  def redirect_on_static
+    if request.url.match(/^http:\/\/static.*/)
+      render "public/404.html", :layout=>false, :status => 404
+      return
+    end
+  end
+  
   def set_user_time_zone
     Time.zone = current_user.setting.time_zone if current_user
   end
@@ -170,6 +177,22 @@ class ApplicationController < ActionController::Base
     @category.name = params[:value]
     @category.save
     render :inline => @category.name
+  end
+  
+  def set_list_name
+    @list = List.find(params[:id])
+    unless @list.user == current_user
+      render :action => "noperms"
+      return
+    end
+    if params[:value] == ''
+      flash[:error] = "You must name the list"
+      render :inline=>"ERROR: list name cannot be blank"
+      return
+    end
+    @list.name = params[:value]
+    @list.save
+    render :inline => @list.name
   end
   
 end

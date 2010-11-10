@@ -40,7 +40,7 @@
 		<h3><%=link_to(image_tag('/headers/my_lists.png'), :controller=>:lists,:action=>:new)%> <span class="small">(<%=link_to("new",:controller=>:lists,:action=>:new)%>)</span></h3>
 		<div class="todo_list">
 			<ul id="lists_list">
-			<%@categories.each do |cat|%>
+			<%@lists.each do |cat|%>
 				<%cat_bg=cycle('todo_item_odd', 'todo_item_even')%>
 				<li id="item_cat_<%=cat.id%>" class="<%=cat_bg%>">
 					<%=cat.name%>
@@ -57,14 +57,17 @@
 			<ul id="cat_list">
 			<%@categories.each do |cat|%>
 			<%@category = cat%>
-				<%@cat_bg=cycle('todo_item_odd', 'todo_item_even')%>
-				<li id="item_cat_<%=cat.id%>" class="<%=@cat_bg%>">
-					<%= in_place_editor_field :category, h('name') %> <span class="small">(<%=link_to("undone: #{cat.todos_undone.count}", :controller=>:todos,:action=>:index,:category=>cat.name)%>) (<%=link_to("archived: #{cat.todos_archived.count}", :controller=>:todos,:action=>:archive,:category=>cat.name)%>)</span>
+				<li id="item_cat_<%=cat.id%>" class="todo_item_odd">
+					<%= in_place_editor_field :category, h('name') %> 
+					<div class="small"><%=link_to("undone: #{cat.todos_undone.count}", :controller=>:todos,:action=>:index,:category=>cat.name)%></div>
+						<div class="small"><%=link_to("archived: #{cat.todos_archived.count}", :controller=>:todos,:action=>:archive,:category=>cat.name)%></div>
 				</li>
 			<%end%>
-			<%@cat_bg=cycle('todo_item_odd', 'todo_item_even')%>
-			<li id="uncat", class="<%=@cat_bg%>">
-					Uncategorized <span class="small">(<%=link_to("undone: #{@uncat_undone_count}", :controller=>:todos,:action=>:index,:category=>"Uncategorized")%>) (<%=link_to("archived: #{@uncat_archive_count}", :controller=>:todos,:action=>:archive,:category=>"Uncategorized")%>)</span>
+			
+			<li id="uncat", class="todo_item_odd">
+					Uncategorized 
+					<div class="small"><%=link_to("undone: #{@uncat_undone_count}", :controller=>:todos,:action=>:index,:category=>"Uncategorized")%></div>
+					<div class="small"><%=link_to("archived: #{@uncat_archive_count}", :controller=>:todos,:action=>:archive,:category=>"Uncategorized")%></div>
 			</li>
 			</ul>
 		</div><!--todo_list-->

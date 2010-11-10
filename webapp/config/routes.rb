@@ -60,6 +60,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :default_reminder_schedules
   map.resources :reminder_schedules
   map.resources :categories
+  map.resources :lists, :collection => { :sort => :post }
+  map.resources :list_items, :collection => { :sort => :post }
   map.resources :todos, :collection => { :sort => :post }
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
