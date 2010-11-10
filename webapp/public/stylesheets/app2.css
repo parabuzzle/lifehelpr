@@ -558,6 +558,11 @@ img {
 	width:220;
 	float:right;
 }
+
+#min_width {
+	width:820px;
+	margin-left:60px;
+}
 #todo_box {}
 #cat_box {
 	padding-top:27px;

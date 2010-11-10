@@ -53,6 +53,10 @@ ActionController::Routing::Routes.draw do |map|
   map.dashboard "dashboard", :controller => "users", :action => "index"
   map.archive "/todos/archive", :controller => :todos, :action=>:archive
   map.todo_categories "/todos/categories/:action/:id", :controller=>'categories'
+  #map.list "/lists/:id", :controller=>:lists, :action=>:view
+  map.list_items_new "/list/:id/new", :controller => :list_items, :action=>:new
+  map.list_items_view "/list/:list_id/item/:id", :controller=>:list_items, :action=>:view
+  map.list_items_edit "/list/:list_id/item/:id/edit", :controller=>:list_items, :action=>:edit
   map.resources :users
   map.resources :user_sessions
   map.resources :settings

@@ -37,13 +37,13 @@
 	</div><!-- todo_box -->
 	<div class="pad15"></div>
 	<div id="lists_box">
-		<h3><%=link_to(image_tag('/headers/my_lists.png'), :controller=>:lists,:action=>:new)%> <span class="small">(<%=link_to("new",:controller=>:lists,:action=>:new)%>)</span></h3>
+		<h3><%=link_to(image_tag('/headers/my_lists.png'), :controller=>:lists,:action=>:index)%> <span class="small">(<%=link_to("new",:controller=>:lists,:action=>:new)%>)</span></h3>
 		<div class="todo_list">
 			<ul id="lists_list">
 			<%@lists.each do |cat|%>
 				<%cat_bg=cycle('todo_item_odd', 'todo_item_even')%>
 				<li id="item_cat_<%=cat.id%>" class="<%=cat_bg%>">
-					<%=cat.name%>
+					<%=link_to(h(cat.name), :controller=>:lists, :action=>:view, :id=>cat.id)%>
 				</li>
 			<%end%>
 			</ul>

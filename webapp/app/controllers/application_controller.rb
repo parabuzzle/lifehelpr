@@ -179,9 +179,9 @@ class ApplicationController < ActionController::Base
     render :inline => @category.name
   end
   
-  def set_list_name
-    @list = List.find(params[:id])
-    unless @list.user == current_user
+  def set_list_item_name
+    @list = ListItem.find(params[:id])
+    unless @list.list.user == current_user
       render :action => "noperms"
       return
     end
@@ -194,5 +194,6 @@ class ApplicationController < ActionController::Base
     @list.save
     render :inline => @list.name
   end
+  
   
 end

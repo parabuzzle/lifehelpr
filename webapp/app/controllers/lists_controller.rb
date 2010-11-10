@@ -15,6 +15,50 @@ class ListsController < ApplicationController
     @list = @user.lists.new
   end
   
+  def view
+    @list = List.find(params[:id])
+    @title = "LifeHelpr - List::#{@list.name}"
+    unless @list.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
+    @items = @list.list_items
+  end
+  
+  def edit
+    @title = "LifeHelpr - Edit List"
+    @list = List.find(params[:id])
+    @user = current_user
+    unless @list.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
+  end
+  
+  def update
+    @title = "LifeHelpr - Edit List"
+    @list = List.find(params[:id])
+    @user = current_user
+    unless @list.user == current_user || admin?
+      render :action => "noperms"
+      return
+    end
+    if request.put?
+      if @list.update_attributes(params[:list])
+        flash[:notice] = "List Updated"
+        redirect_to :action=>:view, :id=>@list.id
+        return
+      else
+        flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
+        render :action => 'new'
+        return
+      end
+    else
+      render :action=>:edit
+      return
+    end
+  end
+  
   def create
     @title = "LifeHelpr - New List"
     @user = current_user
