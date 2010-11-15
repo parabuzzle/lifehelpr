@@ -1,6 +1,6 @@
 
-<h1>Register</h1>
 <div id="login">
+	<h1>Register</h1>
 <div id="loginform" class="fright">
 	<% form_for @user do |f|%>
 		<table style="margin:auto;">
@@ -35,7 +35,7 @@
 				<td><%= f.text_field :beta_token, :value =>params[:beta_token]%></td>
 			</tr>
 			<tr>
-				<td align='right'><%= f.submit "Submit"%></td>
+				<td align='center'><%= f.submit "Sign up!", :class=>'register'%></td>
 			</tr>
 		</table>
 	<% end %>

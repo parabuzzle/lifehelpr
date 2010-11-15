@@ -1,0 +1,48 @@
+<h1><%=image_tag('/headers/archive.png')%></h1>
+<%unless params[:category].nil?%>
+<h2>Category: <%=params[:category]%> <span class="medium">(<%=link_to('clear', :category=>nil)%>)</span></h2>
+<%end%>
+<div id="dash_left_col">
+	<div class="pad15"></div>
+	<div class="todo_list">
+	<ul id="todo_list">
+	  <% @todos.each do |f| %>
+		<%bg=cycle('todo_item_odd', 'todo_item_even')%>
+		<%unless f.duedate.nil?%>
+			<%if f.duedate < Time.zone.now; then overdue = "(overdue)";end%>
+		<%end%>
+			<li id="item_<%= f.id %>" class="<%=bg%>">
+				<table><tr><td>
+		<%@todo = f%>
+		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %></td><td>
+		 <%=link_to(image_tag('cancel.png'), {:action =>'delete', :id=>f.id}, :class=>'unitPng', :method=>'post', :confirm => 'Are you sure you want to delete this item?')%> </td><td>
+		<%= h(@todo.name) %>
+		<span class="small">(<%=link_to('more', :action => 'view', :id => f.id)%>)</span></td></tr></table>
+	    </li>
+	  <% end %>
+	</ul>
+	</div><!-- todo_list -->
+</div><!--dash_left_col-->
+	<div id="dash_right_col">
+		<div id="cat_box">
+			<div id="category_header"><%=link_to(image_tag('/headers/categories.png', :class=>'unitPng'), :controller=>:categories,:action=>:index)%> <span class="small">(<%=link_to('new', :controller=>:categories,:action=>:new)%>)</span></div>
+			<div class="todo_list">
+				<ul id="cat_list">
+				<%@categories.each do |cat|%>
+				<%@category = cat%>
+					<li id="item_cat_<%=cat.id%>" class="todo_item_odd">
+						<%= in_place_editor_field :category, h('name') %> 
+						<div class="small"><%=link_to("undone: #{cat.todos_undone.count}", :controller=>:todos,:action=>:index,:category=>cat.name)%></div>
+							<div class="small"><%=link_to("archived: #{cat.todos_archived.count}", :controller=>:todos,:action=>:archive,:category=>cat.name)%></div>
+					</li>
+				<%end%>
+
+				<li id="uncat", class="todo_item_odd">
+						Uncategorized 
+						<div class="small"><%=link_to("undone: #{@uncat_undone_count}", :controller=>:todos,:action=>:index,:category=>"Uncategorized")%></div>
+						<div class="small"><%=link_to("archived: #{@uncat_archive_count}", :controller=>:todos,:action=>:archive,:category=>"Uncategorized")%></div>
+				</li>
+				</ul>
+			</div><!--todo_list-->
+		</div><!--cat_box-->
+	</div><!--dash_right_col-->

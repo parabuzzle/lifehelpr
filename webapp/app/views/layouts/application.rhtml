@@ -5,17 +5,18 @@
     <title><%= @title %></title>
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-	<%= stylesheet_link_tag "app" %>
-	<%= stylesheet_link_tag "facebox"%>
+	<%= stylesheet_link_tag "app2" %>
+	<!-- <%= stylesheet_link_tag "facebox"%> -->
 	<%= stylesheet_link_tag "in_place_styles"%>
+	<%= stylesheet_link_tag "lightbox"%>
 	<!--[if IE]>
-		<%= stylesheet_link_tag "ie" %>
 		<%= javascript_include_tag 'unitpngfix'%>
 	<![endif]-->
 	<!-- javascript -->
-    <%= javascript_include_tag 'jquery.min'%>
-	<%= javascript_include_tag 'facebox'%>
+    <!-- <%= javascript_include_tag 'jquery.min'%> -->
+	<!-- <%= javascript_include_tag 'facebox'%> -->
 	<%= javascript_include_tag 'prototype'%>
+	<%= javascript_include_tag 'lightbox' %>
 	<%= javascript_include_tag 'application' %>
 	<%= javascript_include_tag 'effects' %>
 	<%= javascript_include_tag 'dragdrop' %>
@@ -24,6 +25,15 @@
   </head>
   
   <body>
+	<% if flash[:notice] %>
+	   <div id="notice"><%= flash[:notice] %></div>
+	<% end %>
+	<% if flash[:error] %>
+	    <div id="error"><%= flash[:error] %></div>
+	<% end %>
+	<div class="fright">
+		<%=image_tag('beta_banner.png',:class=>'unitPng')%>
+	</div>
 	<%if current_user%>
 		<%if current_user.is_admin%>
 		<div id="admin_header" class="black">
@@ -32,62 +42,142 @@
 		<%end%>
 	<%end%>
 	<div id="header">
-		<div id="logo"><%=link_to(image_tag('sketch_logo_trans_white_333.png', :class=>'unitPng'), :controller=>:site,:action=>:index)%></div>
+		
+		<div id="logo"><%=link_to(image_tag('logo_small_head.png', :class=>'unitPng'), :controller=>:site,:action=>:index)%></div>
+		<%if current_user%>
+			<div id="helloblk">
+				<span class="small">(logged in)</span> <%=current_user.login%>
+			</div>
+		<%end%>
 	</div>
 	<div id="container">
-		<div id="main">
-			<%if current_user%>
-				<div id="helloblk">
-					<%=current_user.login%> <span class="small">(logged in)</span>
-				</div>
-			<%end%>
-			
-			<div id="nav">
-				<%if current_user%>
-					<div id="top_nav">
-						<ul>
-							<li><%=link_to("dashboard", :controller => "users", :action => 'index')%> |</li>
-							<li><%=link_to("todos", :controller => "todos", :action => 'index')%> |</li>
-							<li><%=link_to('settings', settings_path)%> |</li>
-							<li><%=link_to('logout', logout_path)%></li>
-						</ul>
+		<%unless current_user%>
+		<div id="topper">
+			<div class="contain">
+				<div id="welcome_head">
+					<%=image_tag("welcome_head.png",:class=>'unitPng')%>
+					<div id="welcome_text">
+						With our innovative tools you can grab your life by the horns and stay organized
+					</div><!--welcome_text-->
+				</div><!--welcome_head-->
+				<div id="loginbox">
+					<div id="login_head">
+
+						<div id="splash_loginform">
+							<table align='right'>
+								<tr><td align='center'><%=image_tag('login.png', :class=>'unitPng')%></td></tr>
+								<%form_for 'user_session', :url=>'/user_sessions/create' do |f|%>
+								<tr><td align='right'><%= f.text_field :login,
+									      :style => "color:#aaa;",
+										  :class => 'front_field',
+									      :value => 'username',
+									      :onfocus => "if(this.getValue()=='#{'username'}'){this.clear();this.style.color = '#000';}",
+									      :onblur => "if(this.getValue()==''){this.setValue('#{'username'}');this.style.color = '#aaa';}"%></td></tr>
+								<tr><td align='right'><%= f.password_field :password,
+											      :style => "color:#aaa;",
+												  :class => 'front_field',
+											      :value => 'username',
+											      :onfocus => "if(this.getValue()=='#{'username'}'){this.clear();this.style.color = '#000';}",
+											      :onblur => "if(this.getValue()==''){this.setValue('#{'username'}');this.style.color = '#aaa';}"%></td></tr>
+								<tr><td align="right"><%= f.submit "Go!", :class=>'submit'%></td></tr>
+								<tr><td align='center'><%=link_to('create an account', register_path, :class=>'medium')%></td></tr>
+								<%end%>
+							</table>
+						</div><!--splash_loginform-->
+					</div><!--login_head-->
+
+				</div><!--loginbox-->
+			</div><!--topper:contain --> 
+		</div> <!--topper-->
+		<%end%>
+		<%if current_user%>
+			<div id="nav_bar">
+				<div class='contain'>
+					<div id="nav">
+						<div id="main_nav">
+							<ul>
+								<li class="split"><%=image_tag('/backgrounds/split.jpg')%></li>
+								<li><%=link_to(image_tag('/buttons/home.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/home-strong.png'", :onmouseout => "this.src='/buttons/home.png'"),{:controller=>'site', :action=>'index'})%></li>
+								<li class="split"><%=image_tag('/backgrounds/split.jpg')%></li>
+								<li><%=link_to(image_tag('/buttons/todos.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/todos-strong.png'", :onmouseout => "this.src='/buttons/todos.png'"), {:controller=>'todos', :action=>'index'})%></li>
+								<li class="split"><%=image_tag('/backgrounds/split.jpg')%></li>
+								<li><%=link_to(image_tag('/buttons/lists.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/lists-strong.png'", :onmouseout => "this.src='/buttons/lists.png'"), {:controller=>'lists', :action=>'index'})%></li>
+								<li class="split"><%=image_tag('/backgrounds/split.jpg')%></li>
+							</ul>
+						</div><!--main_nav-->
+						<div class="clear"></div>
 					</div>
+				</div><!--contain-->
+				
+			</div><!--nav_bar-->
+			<%end%>
+		<div id="main">
+			<div class="contain">
+				<%if current_user%>
+					<div id="content">
+						<!-- <%if @subnav%>
+						<div class="subnav">
+							<%@subnav.each do |item|%>
+								<%item.each do |name, action|%>
+									<%if action.class != String%>
+										
+											<%=link_to(name, action)%>
+										
+									<%else%>
+										<%=link_to(name,:action=>action)%>
+									<%end%>
+								<%end%>
+							<%end%>
+						</div>
+						<%end%> -->
+							<div id="right_nav">
+								<ul>
+									<li class="button"><%=link_to(image_tag('/buttons/logout.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/logout-strong.png'", :onmouseout => "this.src='/buttons/logout.png'"), logout_path)%></li>
+									<li class="button"><%=link_to(image_tag('/buttons/settings.png', :class=>'unitPng',:onmouseover => "this.src='/buttons/settings-strong.png'", :onmouseout => "this.src='/buttons/settings.png'"), {:controller=>'settings', :action=>'edit'})%><li>
+								</ul>
+							</div><!--right_nav-->
+						
+						
+						<%= @content_for_layout %>
+					</div><!-- content -->
+				<%else%>
+					<div id="no_login_content">
+						<%= @content_for_layout %>
+					</div><!--splash_content-->
 				<%end%>
-				<%if !current_user%>
-					<%=link_to('register', register_path)%> | <%=link_to('login', login_path)%>
-				<%end%>
-			</div>
+					
+			</div><!--main:contain -->
 			<div class="clear"></div>
-			<div id="content">
-				<% if flash[:notice] %>
-				   <div id="notice"><%= flash[:notice] %></div>
-				<% end %>
-				<% if flash[:error] %>
-				    <div id="error"><%= flash[:error] %></div>
-				<% end %>
-				<%= @content_for_layout %>
-			</div><!-- content -->
 		</div><!--main-->
-	</div> <!-- container-->
-	<div id="footer">
-		<div id="copyright">&copy; <%=Time.now.year%> by lifehelpr.com, all rights reserved</div>
-		<div id="foot_links">
-			<!-- <%=link_to("about", :controller => "site", :action => "about")%> | -->
-			<%=link_to("terms of service", :controller=>:site,:action=>:tos)%> | 
-			<%=link_to("privacy policy", :controller=>:site,:action=>:privacy)%> | 
-			<a href="http://twitter.com/lifehelpr">twitter</a> | 
-			<a href="http://www.facebook.com/pages/LifeHelpr/167163716632407">facebook</a>
-		</div>
-		<div class="clear"></div>
-	</div><!-- footer -->
-    
+		<div id="footer">
+			<div class="contain">
+				<div id="footlinks">
+					<div class='link'><%=link_to(image_tag('/buttons/about-white.png', :class=>'unitPng'),:controller=>:site,:action=>:about)%></div>
+					<div class='link'><%=link_to(image_tag('/buttons/blog-white.png', :class=>'unitPng'),'http://lifehelpr.wordpress.com')%></div>
+					<!-- <div class='link'><%=link_to(image_tag('/buttons/help-white.png', :class=>'unitPng'),:controller=>:site,:action=>:help)%></div>-->
+					<!--<div class='link'><%=link_to(image_tag('contact.png', :class=>'unitPng'),:controller=>:site,:action=>:contact)%></div>-->
+					
+				</div><!--footlinks-->
+				<div id="social_links">
+					<%=link_to(image_tag('twitter.png', :class=>'unitPng'), 'http://twitter.com/lifehelpr')%> 
+					<%=link_to(image_tag('facebook.png', :class=>'unitPng'), 'http://www.facebook.com/pages/LifeHelpr/167163716632407')%>
+				</div>
+				<div id="copyright">
+					copyright &copy; <%=Time.now.year%>, LifeHelpr.com
+					<br/><%=link_to('privacy policy',:controller=>:site,:action=>:privacy)%>
+					<br/><%=link_to('terms of service',:controller=>:site,:action=>:tos)%>
+				</div><!--copyright-->
+			</div><!--footer:contain -->
+		</div><!--footer-->
+	</div> <!--container-->
+
     <% if ENV["RAILS_ENV"] == "development"%>
     <!-- Dev stuff (outside container) -->
-    <div id="debug", class="white">
-		<a href='#' onclick="jQuery('#params_debug_info').toggle();return false;">params</a> |
-		<a href='#' onclick="jQuery('#session_debug_info').toggle();return false;">session</a> |
-		<a href='#' onclick="jQuery('#env_debug_info').toggle();return false;">env</a> |
-		<a href='#' onclick="jQuery('#request_debug_info').toggle();return false;">request</a>    
+    <div id="debug", class="black">
+		<a href='#' onclick="Element.toggle('params_debug_info');return false;">params</a> |
+		<a href='#' onclick="Element.toggle('session_debug_info');return false;">session</a> |
+		<a href='#' onclick="Element.toggle('env_debug_info');return false;">env</a> |
+		<a href='#' onclick="Element.toggle('request_debug_info');return false;">request</a>    
       <fieldset id="params_debug_info" class="debug_info" style="display:none;">
         <legend>params</legend>
         <%= debug(params) %>

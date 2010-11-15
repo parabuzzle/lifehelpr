@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :beta_invites
   has_many :todos
   has_many :default_reminder_schedules
+  has_many :categories
+  has_many :lists
   after_create :build_setting, :add_invites
   
   NUM_INVITES = 3

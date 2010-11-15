@@ -9,14 +9,14 @@
 		<td align="right"><%= select :time, :suf, ["A.M.", "P.M."], :selected => @suf%></td>
 	</tr>
 	<tr>
-		<td>Email this Alert: <%= f.check_box :email%></td>
+		<td>Email Alert: <%= f.check_box :email%></td>
 		<%if @settings.pager_email_active?%>
-			<td colspan="2">Page me this Alert: <%= f.check_box :pager%></td>
+			<td colspan="2">SMS Alert: <%= f.check_box :pager%></td>
 		<%else%>
-			<td colspan="2">Page me this Alert: <%= f.check_box :pager, :disabled => true%></td>
+			<td colspan="2">SMS Alert: <%= f.check_box :pager, :disabled => true%></td>
 		<%end%>
 	<tr>
-		<td colspan="3" align='right'><%= f.submit "Save"%></td>
+		<td colspan="3" align='right'><span class="small"><%=link_to('cancel', settings_path)%></span> <%= f.submit "Save", :class=>'submit'%></td>
 	</tr>
 </table>
 <%end%>

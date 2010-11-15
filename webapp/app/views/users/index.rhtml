@@ -1,35 +1,75 @@
-<h1>User Dashboard</h1>
-<div class="indent">
+<h1><%=image_tag('/headers/user_dashboard.png')%></h1>
+<%unless @todos_late.nil? || @todos_late.length == 0%>
+<div id="late_notice">
+	You have <%=@todos_late.length%> overdue todo item(s) that need your attention
+</div>
+<%end%>
 
-	<div id="stats_box">
-		<h3>Your Stats</h3>
-		<div class="stats_box">
-			Last Login: <%=@user.last_login_at.to_s(:pretty) unless @user.last_login_at.nil?%>
-			<br/>Available <%=link_to('Beta Invites', :controller => :beta_invites, :action => :index)%>: <%=@user.available_invites%>
-		<br/>New todos last 7 days: <%=@todos_created_this_week.length%>
-		<br/>Finished todos last 7 days: <%=@todos_closed_this_week.length%>
-		<br/>Total unfinished Todos: <%=@todos_undone.length%>
-		</div>
-	</div><!-- stats_box -->
+<div id="dash_left_col">
 	<div id="todo_box">
-	<h3>Your top 5 unfinished <%=link_to('Todo', :action =>'index', :controller =>'todos')%> items <span class="small">(<%=link_to("New", :action => 'new', :controller=>:todos)%>)</span></h3>
+	<h3><%=link_to(image_tag('/headers/top5todos.png'), :action =>'index', :controller =>'todos')%> <span class="small">(<%=link_to("New", :action => 'new', :controller=>:todos)%>)</span></h3>
 		<div class="todo_list">
 		<ul id="todo_list">
 	  <% @top5_todos.each do |f| %>
 	    <%bg=cycle('todo_item_odd', 'todo_item_even')%>
 		<%unless f.duedate.nil?%>
-			<%if f.duedate.to_i < Time.now.to_i; then overdue = "(overdue)";end%>
+			<%if f.duedate < Time.zone.now; then overdue = "(overdue)";end%>
 		<%end%>
 			<li id="item_<%= f.id %>" class="<%=bg%>">
-		<%@todo = f%>
-		 <%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :controller=>:todos, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
-		<span class="handle"><%=image_tag('drag.gif')%></span> <%=link_to(image_tag('delete_icon.gif'), {:action =>'delete',:controller=>:todos, :id=>f.id}, :method=>'post', :confirm => 'Are you sure you want to delete this item?')%> 
-		<%= in_place_editor_field :todo, h('name') %>
-		<span class="small">(<%=link_to('more', :action => 'view', :controller=>:todos, :id => f.id)%>) <%=overdue%></span>
+				<table>
+					<tr>
+						<td><%@todo = f%>
+		 					<%= check_box :todo, :status, {:onChange => remote_function(:update => 'mark_done', :url => {:action => :mark_done, :controller=>:todos, :id => @todo.id}, :with => "'task[completed]=' + value")}, @todo.status %>
+						</td><td>
+						 <%=link_to(image_tag('cancel.png'), {:controller=>'todos', :action =>'delete', :id=>f.id}, :class=>'unitPng', :method=>'post', :confirm => 'Are you sure you want to delete this item?')%>
+						</td>
+						<td>
+							<%= in_place_editor_field :todo, h('name') %>
+							<span class="small">(<%=link_to('more', :action => 'view', :controller=>:todos, :id => f.id)%>) <%=overdue%></span>
+						</td>
+					</tr>
+				</table>
 	    </li>
 	  <% end %>
+	<%reset_cycle%>
 	</ul>
 	</div><!-- todo_list -->
-	<%= sortable_element("todo_list", :url => sort_todos_path, :handle => "handle") %>
 	</div><!-- todo_box -->
-</div><!--indent -->
+	<div class="pad15"></div>
+	<div id="lists_box">
+		<h3><%=link_to(image_tag('/headers/my_lists.png'), :controller=>:lists,:action=>:index)%> <span class="small">(<%=link_to("new",:controller=>:lists,:action=>:new)%>)</span></h3>
+		<div class="todo_list">
+			<ul id="lists_list">
+			<%@lists.each do |cat|%>
+				<%cat_bg=cycle('todo_item_odd', 'todo_item_even')%>
+				<li id="item_cat_<%=cat.id%>" class="<%=cat_bg%>">
+					<%=link_to(h(cat.name), :controller=>:lists, :action=>:view, :id=>cat.id)%>
+				</li>
+			<%end%>
+			</ul>
+		</div><!--todo_list-->
+	</div><!--lists_box-->
+</div><!--dash_left_col-->
+<div id="dash_right_col">
+	<div id="cat_box">
+		<div id="category_header"><%=link_to(image_tag('/headers/categories.png', :class=>'unitPng'), :controller=>:categories,:action=>:index)%> <span class="small">(<%=link_to('new', :controller=>:categories,:action=>:new)%>)</span></div>
+		<div class="todo_list">
+			<ul id="cat_list">
+			<%@categories.each do |cat|%>
+			<%@category = cat%>
+				<li id="item_cat_<%=cat.id%>" class="todo_item_odd">
+					<%= in_place_editor_field :category, h('name') %> 
+					<div class="small"><%=link_to("undone: #{cat.todos_undone.count}", :controller=>:todos,:action=>:index,:category=>cat.name)%></div>
+						<div class="small"><%=link_to("archived: #{cat.todos_archived.count}", :controller=>:todos,:action=>:archive,:category=>cat.name)%></div>
+				</li>
+			<%end%>
+			
+			<li id="uncat", class="todo_item_odd">
+					Uncategorized 
+					<div class="small"><%=link_to("undone: #{@uncat_undone_count}", :controller=>:todos,:action=>:index,:category=>"Uncategorized")%></div>
+					<div class="small"><%=link_to("archived: #{@uncat_archive_count}", :controller=>:todos,:action=>:archive,:category=>"Uncategorized")%></div>
+			</li>
+			</ul>
+		</div><!--todo_list-->
+	</div><!--cat_box-->
+</div><!--dash_right_col-->

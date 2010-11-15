@@ -1,6 +1,12 @@
 class SettingsController < ApplicationController
+  before_filter :require_user
+  before_filter :subnav
+  
+  def subnav
+    #@subnav = [{'Change Password'=>{'controller'=>'user', 'action'=>'change_password'}}, {'Beta Invites'=>{'controller'=>'beta_invites', 'action'=>'index'}}]
+  end
+  
   def edit
-    require_user
     @title = "LifeHelpr - Edit Settings"
     @user = current_user
     @settings = @user.setting
@@ -13,11 +19,7 @@ class SettingsController < ApplicationController
       if @settings.pager_email != ""
         unless @settings.pager_email_active?
           @display_code = true
-          notice = flash[:notice]
-          if notice.nil? then notice = "" end
-          unless notice.match(/Resent/)
-            flash[:notice] = "Your pager email hasn't been activated yet. Please enter your activation code to start using your pager reminders."
-          end
+          @pagernotice = "Your mobile phone hasn't been activated yet. Please enter your activation code to start using your sms reminders."
         end
       end
     end
@@ -26,7 +28,8 @@ class SettingsController < ApplicationController
   def resend_pager_activation
     @settings = current_user.setting
     unless @settings.pager_email == '' || @settings.pager_email.nil?
-      Emails.deliver_pager_activation(@settings.pager_email, @settings.pager_email_token)
+      carriers = get_sms_carrier_list
+      Emails.deliver_pager_activation(@settings.pager_email + '@' + carriers[@settings.phone_carrier], @settings.pager_email_token)
       flash[:notice] = "Resent pager activation code"
     else
       flash[:error] = "There is no pager email address set"
@@ -35,7 +38,6 @@ class SettingsController < ApplicationController
   end
   
   def update
-    require_user
     @title = "LifeHelpr - Edit Settings"
     @user = current_user
     @settings = @user.setting
@@ -44,6 +46,11 @@ class SettingsController < ApplicationController
       return
     end
     tz = @settings.time_zone
+    unless params[:setting][:phone_carrier] == ''
+      @settings.phone_carrier = params[:setting][:phone_carrier]
+    else
+      @settings.phone_carrier = nil
+    end
     if @settings.pager_email_token == params[:setting][:pager_email_activation_code]
       @settings.pager_email_active = true
     end
@@ -51,7 +58,14 @@ class SettingsController < ApplicationController
       @settings.pager_email_active = false
       @settings.pager_email_token = rand(10000).to_s[0,5].to_i
       unless params[:setting][:pager_email] == ''
-        Emails.deliver_pager_activation(params[:setting][:pager_email], @settings.pager_email_token)
+        unless @settings.phone_carrier.nil?
+          carriers = get_sms_carrier_list
+          Emails.deliver_pager_activation(params[:setting][:pager_email] + '@' + carriers[@settings.phone_carrier], @settings.pager_email_token)
+        else
+          flash[:error] = 'Phone Carrier must be selected'
+          redirect_to :action=>'edit'
+          return
+        end
       end
     end
     params[:setting].delete(:pager_email_activation_code)

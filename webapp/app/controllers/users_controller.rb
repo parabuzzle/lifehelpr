@@ -1,17 +1,23 @@
 class UsersController < ApplicationController
   
+  before_filter :require_user, :except => [:new, :create, :forgot_password, :reset_password]
+  before_filter :require_no_user, :only => [:new, :create, :forgot_password]
+  
   def index
     @title = "LifeHelpr - Dashboard"
-    require_user
     @user = current_user
     @top5_todos = @user.todos.top5
     @todos_undone = @user.todos.undone
     @todos_closed_this_week = @user.todos.last_week_closed
     @todos_created_this_week = @user.todos.last_week_created
+    @todos_late = @user.todos.due_now
+    @lists = @user.lists
+    @categories = @user.categories
+    @uncat_undone_count = @user.todos.find(:all, :conditions => {:status => false, :archived=>false, :deleted => false, :category_id=>nil}).count
+    @uncat_archive_count = @user.todos.find(:all, :conditions => { :archived=>true, :deleted => false, :category_id=>nil}).count
   end
   
   def new
-    require_no_user
     @title = "LifeHelpr - Register"
     @user = User.new
     if params[:facebox]
@@ -25,6 +31,7 @@ class UsersController < ApplicationController
     @beta = BetaInvite.find_by_beta_token(params[:user][:beta_token])
     if @beta and @beta.email_address == params[:user][:email]
       @user = User.new(params[:user])
+      @user.beta_token = params[:user][:beta_token]
       if @user.save
         flash[:notice] = "Registration Successful"
         redirect_to root_url
@@ -42,7 +49,6 @@ class UsersController < ApplicationController
   end
   
   def edit
-    require_user
     @title = "LifeHelpr - Edit Account"
     @user = current_user
     unless @user == current_user || admin?
@@ -52,7 +58,6 @@ class UsersController < ApplicationController
   end
   
   def update
-    require_user
     @title = "LifeHelpr - Edit Accout"
     @user = current_user
     @settings = @user.setting
@@ -107,7 +112,6 @@ class UsersController < ApplicationController
   end
   
   def forgot_password
-    require_no_user
     @title = "LifeHelpr - Forgot Password"
     if request.post?
       flash[:notice] = nil

@@ -30,7 +30,7 @@ end
 #extend the numeric class to include some helper methods
 class Numeric
   def positive?
-    self > 0
+    self >= 0
   end
 
   def negative?

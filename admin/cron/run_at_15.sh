@@ -1,7 +1,6 @@
 # This should be run every hour at :16
-
-RAILS_ROOT=../../webapp
-cd $RAILS_ROOT
+. ~/.bash_profile
+cd $LIFEHELPR_ROOT
 
 hour=`date -u +%H`
 min="15"

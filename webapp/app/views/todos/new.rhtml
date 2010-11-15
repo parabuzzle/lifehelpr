@@ -15,8 +15,14 @@
                                 <td align=right>Due Date:</td>
                                 <td align=left><%= calendar_date_select_tag :duedate%></td>
                         </tr>
+						<tr>
+                                <td align='right' style="vertical-align:top;">Category:</td>
+								<%form_for 'category' do |cat|%>
+                                <td align=left><%= cat.select :name, @categories, :include_blank => true, :value => ''%> (<%=link_to('new', :controller=>'categories', :action=>:new)%>)</td>
+								<%end%>
+                        </tr>
                         <tr>
-                                <td colspan=2 align=right><%= f.submit "Save"%></td>
+                                <td colspan=2 align=right><span class="small"><%=link_to('cancel', todos_path)%></span> <%= f.submit "Save", :class=>'submit'%></td>
                         </tr>
                 </table>
         <% end %>

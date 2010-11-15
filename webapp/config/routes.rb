@@ -46,17 +46,26 @@ ActionController::Routing::Routes.draw do |map|
   map.logout "logout", :controller => "user_sessions", :action => 'destroy'
   map.register "register", :controller => "users", :action => "new"
   map.settings "settings", :controller => "settings", :action => "edit"
-  map.change_password "user/change_password", :controller=>:users, :action=>:edit
+  map.change_password "/user/change_password", :controller=>:users, :action=>:edit
   map.forgot_password "/user/forgot_password", :controller=>:users, :action=>:forgot_password
   map.reset_password "/user/reset_password", :controller=>:users, :action=>:reset_password
   map.resend_pager_activation "settings/resend_pager_activation", :controller=>:settings, :action=>:resend_pager_activation
   map.dashboard "dashboard", :controller => "users", :action => "index"
+  map.archive "/todos/archive", :controller => :todos, :action=>:archive
+  map.todo_categories "/todos/categories/:action/:id", :controller=>'categories'
+  #map.list "/lists/:id", :controller=>:lists, :action=>:view
+  map.list_items_new "/list/:id/new", :controller => :list_items, :action=>:new
+  map.list_items_view "/list/:list_id/item/:id", :controller=>:list_items, :action=>:view
+  map.list_items_edit "/list/:list_id/item/:id/edit", :controller=>:list_items, :action=>:edit
   map.resources :users
   map.resources :user_sessions
   map.resources :settings
   map.resources :beta_invites
   map.resources :default_reminder_schedules
   map.resources :reminder_schedules
+  map.resources :categories
+  map.resources :lists, :collection => { :sort => :post }
+  map.resources :list_items, :collection => { :sort => :post }
   map.resources :todos, :collection => { :sort => :post }
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
