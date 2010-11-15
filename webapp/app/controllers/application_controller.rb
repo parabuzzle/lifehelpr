@@ -8,9 +8,16 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   
-  helper_method :current_user, :format_time, :convert_to_12hour, :convert_to_24hour, :get_sms_carrier_list
-  before_filter :set_user_time_zone
-
+  helper_method :current_user, :format_time, :convert_to_12hour, :convert_to_24hour, :get_sms_carrier_list, :previous_or_default
+  before_filter :set_user_time_zone, :store_previous_location, :redirect_on_static
+  
+  def redirect_on_static
+    if request.url.match(/^http:\/\/static.*/)
+      render "public/404.html", :layout=>false, :status => 404
+      return
+    end
+  end
+  
   def set_user_time_zone
     Time.zone = current_user.setting.time_zone if current_user
   end
@@ -92,6 +99,9 @@ class ApplicationController < ActionController::Base
     return @current_user if defined?(@current_user)
     @current_user = current_user_session && current_user_session.record
   end
+  def current_user_id
+    current_user.id
+  end
   def admin?
     unless current_user.nil?
       return current_user.is_admin
@@ -120,10 +130,21 @@ class ApplicationController < ActionController::Base
   def store_location
     session[:return_to] = request.request_uri
   end
+  def store_previous_location
+    session[:previous] = request.referer
+  end
   
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
+  end
+  def previous_or_default(default)
+    if session[:previous] == request.url
+      return default
+    else
+      return session[:previous]
+    end
+    #session[:previous] = nil
   end
   
   def set_todo_name
@@ -141,5 +162,38 @@ class ApplicationController < ActionController::Base
     @todo.save
     render :inline => @todo.name
   end
+  
+  def set_category_name
+    @category = Category.find(params[:id])
+    unless @category.user == current_user
+      render :action => "noperms"
+      return
+    end
+    if params[:value] == ''
+      flash[:error] = "You must name the category"
+      render :inline=>"ERROR: Category name cannot be blank"
+      return
+    end
+    @category.name = params[:value]
+    @category.save
+    render :inline => @category.name
+  end
+  
+  def set_list_item_name
+    @list = ListItem.find(params[:id])
+    unless @list.list.user == current_user
+      render :action => "noperms"
+      return
+    end
+    if params[:value] == ''
+      flash[:error] = "You must name the list"
+      render :inline=>"ERROR: list name cannot be blank"
+      return
+    end
+    @list.name = params[:value]
+    @list.save
+    render :inline => @list.name
+  end
+  
   
 end

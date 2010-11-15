@@ -1,0 +1,27 @@
+<h1>Categories</h1>
+<div class="indent">
+	<div id="my-link"><%=link_to("Add New", :action => 'new')%></div>
+	<div class="pad15"></div>
+	<div class="todo_list">
+	<ul id="todo_list">
+	  <% @categories.each do |f| %>
+		<%@bg=cycle('todo_item_odd', 'todo_item_even')%>
+			<li id="item_<%= f.id %>" class="<%=@bg%>">
+				<table><tr><td>
+					<%@category = f%>
+		<%=link_to(image_tag('cancel.png'), {:action =>'delete', :id=>f.id}, :class=>'unitPng', :method=>'post', :confirm => 'Are you sure you want to delete this item?')%></td><td>
+		<%= in_place_editor_field :category, h('name') %></td><td>
+		<span class="small">(<%=link_to("undone: #{f.todos_undone.count}",:controller=>:todos, :action=>:index, :category=>f.name)%>)</span></td><td>
+		<span class="small">(<%=link_to("archived: #{f.todos_archived.count}",:controller=>:todos, :action=>:archive, :category=>f.name)%>)</span></td></tr></table>
+	    </li>
+	  <% end %>
+		<%@bg=cycle('todo_item_odd', 'todo_item_even')%>
+		<li id="uncat", class="<%=@bg%>">
+			<table><tr><td>
+				Uncategorized</td><td>
+				<span class="small">(<%=link_to("undone: #{@uncat_undone_count}",:controller=>:todos, :action=>:index, :category=>"Uncategorized")%>)</span></td><td>
+				<span class="small">(<%=link_to("archived: #{@uncat_archive_count}",:controller=>:todos, :action=>:archive, :category=>"Uncategorized")%>)</span></td></tr></table>
+		</li>
+	</ul>
+	</div><!-- todo_list -->
+</div><!--indent -->
