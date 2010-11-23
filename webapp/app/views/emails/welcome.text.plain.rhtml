@@ -1,3 +1,19 @@
-Emails#welcome
+Hello <%=@user.login%>,
 
-Find me in app/views/emails/welcome.erb
+Welcome to LifeHelpr.com. At LifeHelpr we are here to help you stay organized and ultimately make your life easier.
+
+If you haven't done so yet, you may want to visit http://<%=@host%>/overview for a brief overview of how our tools work and to get some tips and tricks on organizational bliss. If you need additional help, go ahead and send an email to help@lifehelpr.com and we will be glad to give you a hand.
+
+We are glad you decided to give us a try and we hope you find organizational zen.
+
+Sincerly,
+LifeHelpr.com
+
+---
+<%=@footer['plain']%>
+
+
+This email has been sent to <%=@user.email%>
+You are receiving this email because you have chosen to receive it.
+If you would like to prevent this mail in the future you can control your reminder preferences here:
+http://lifehelpr.com/settings

@@ -34,6 +34,7 @@ class UsersController < ApplicationController
       @user.beta_token = params[:user][:beta_token]
       if @user.save
         flash[:notice] = "Registration Successful"
+        Emails.deliver_welcome(@user)
         redirect_to root_url
         return
       else

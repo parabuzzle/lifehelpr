@@ -68,7 +68,6 @@ class Emails < ActionMailer::Base
     body       :user => user, :host => @@mail['host'], :footer =>@@mail['footer']
   end
   
-  #Unimplemented stuff...
   def welcome(user, sent_at=Time.now)
     subject    'Welcome to LifeHelpr.com'
     recipients user.email
@@ -78,6 +77,7 @@ class Emails < ActionMailer::Base
     body       :user => user, :host => @@mail['host'], :footer =>@@mail['footer']
   end
 
+  #Unimplemented stuff...
   def change_email(user, sent_at=Time.now)
     subject    'LifeHelpr email change information'
     recipients user.email
