@@ -1,38 +1,40 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<title>Email Reminder</title>
-</head>
-<body bgcolor="#eee">
-<div id="back" style="background:#eee; padding:10px">
-<div id="main" style="font-size:20px; background:#ffffff; padding:6px;">
+	<head>
+		<title>Email Reminder</title>
+	</head>
+	<body bgcolor="#c6beaa">
+		<div id="back" style="background:#c6beaa;">
+			<div id="container" style="margin:auto;width:600px;min-height:400px;background:#ffffff;border:1px solid #333;padding:5px;font-family:helvetica;">
+				<div id="logo" style="margin:auto;text-align:center"><img src="http://static0.lifehelpr.com/images/logo_small_head.png" alt="LifeHelpr"/></div>
+				<div id="main" style="margin-top:10px;padding:5px;">
+					<div id="intro" style="font-weight:bold;padding-bottom:10px;">Hello <%=@user.login%>,</div>
+					
+					Your todo item "<b><%=@todo.name%></b>" is due and has not been marked complete. You may want to finish the item, or if you have... you should mark it complete to prevent these mails in the future
+					
+					<div id="infobox" style="background:#FFC; border: 1px solid #aaaaaa; padding:4px; margin-top: 20px; font-weight:bold; font-size:15px">
+					You can go to <a href="http://<%=@host%>/todos/view/<%=@todo.id%>">http://<%=@host%>/todos/view/<%=@todo.id%></a> to view your item or mark it complete now.
+					</div>
 
-<div id="start" style="font-weight:bold;">Hello <%=@user.email%>,</div>
+					<div id="sin" style="font-weight:bold; margin-top:20px;">Sincerly,</div>
+					<div id="sig" style="font-size:16px; padding-left:6px;">LifeHelpr.com</div>
+					</div>
+					<div id="tag" style="font-size:14px; font-weight:bold;"><a style="text-decoration:none;"href="http://lifehelpr.com">lifehelpr.com</a></div>
+					<div id="footer" style="border-top:2px solid #333; font-size:14px; padding-left: 10px; padding-top:2px;">
+						<%=@footer['html']%>
+					</div>
+					<div id="optout" style="font-size:9px; color:#555555; font-weight:none; padding:10px;">
+						This email has been sent to <%=@user.email%><br/>
+						You are receiving this email because you have chosen to receive it.
+						<br/>If you would like to prevent this mail in the future you can control your reminder preferences here:<br/>
+						<a href="http://lifehelpr.com/settings">http://lifehelpr.com/settings</a>
+					</div>
+					
+					
+				</div><!--main-->
+			</div><!--container-->
+		</div> <!--back-->
 
-
-
-<div id="body" style="padding:16px;">
-Your todo item "<%=@todo.name%>" is due and has not been marked completed. you may want to finish the item, or if you have.. you should mark it complete to prevent these mails in the future
-<div id="beta" style="background:#CCCCFF; border: 1px solid #aaaaaa; padding:4px; margin-top: 20px; font-weight:bold; font-size:15px">
-You can go to <a href="http://<%=@host%>/todos/view/<%=@todo.id%>">http://<%=@host%>/todos/view/<%=@todo.id%></a> to view your item or mark it complete.
-</div>
-
-<div id="sin" style="font-weight:bold; margin-top:20px;">Sincerly,</div>
-<div id="sig" style="font-size:16px; padding-left:6px;">LifeHelpr.com</div>
-</div>
-<div id="tag" style="font-size:14px; font-weight:bold;"><a style="text-decoration:none;"href="http://lifehelpr.com">lifehelpr.com</a></div>
-<div id="footer" style="border-top:2px solid #333; font-size:14px; padding-left: 10px; padding-top:2px;">
-<%=@footer['html']%>
-</div>
-<div id="optout" style="font-size:9px; color:#555555; font-weight:none; padding:10px;">
-This email has been sent to <%=@user.email%><br/>
-You are receiving this email because you have chosen to receive it.
-<br/>If you would like to prevent this mail in the future you can control your reminder preferences here:<br/>
-<a href="http://lifehelpr.com/settings">http://lifehelpr.com/settings</a>
-</div>
-
-</div>
-</div>
-</body>
+	</body>
 </html>

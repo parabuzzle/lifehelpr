@@ -1,3 +1,17 @@
-Emails#change_email
+Hello <%=@user.login%>,
 
-Find me in app/views/emails/change_email.erb
+Your default email was successfully changed.
+
+If you did not intend for your default email to change, please forward this email to admin@lifehelpr.com with an explaination of your concerns so that we may investigate what happened as soon as possible.
+
+Sincerly,
+LifeHelpr.com
+
+---
+<%=@footer['plain']%>
+
+
+This email has been sent to <%=@user.email%>
+You are receiving this email because you have chosen to receive it.
+If you would like to prevent this mail in the future you can control your reminder preferences here:
+http://lifehelpr.com/settings

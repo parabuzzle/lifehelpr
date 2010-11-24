@@ -1,6 +1,6 @@
-Hello <%=@user.email%>,
+Hello <%=@user.login%>,
 
-Your todo item "<%=@todo.name%>" is due and has not been marked completed. you may want to finish the item, or if you have.. you should mark it complete to prevent these mails in the future
+Your todo item "<%=@todo.name%>" is due and has not been marked complete. You may want to finish the item, or if you have.. you should mark it complete to prevent these mails in the future.
 
 You can go to http://<%=@host%>/todos/view/<%=@todo.id%> to view your item or mark it complete.
 
@@ -13,3 +13,6 @@ LifeHelpr.com
 
 
 This email has been sent to <%=@user.email%>
+You are receiving this email because you have chosen to receive it.
+If you would like to prevent this mail in the future you can control your reminder preferences here:
+http://lifehelpr.com/settings

@@ -7,7 +7,8 @@
 		<div id="my-link">You don't have any available invites at this time.</div>
 		<%end%>
 		<div class="pad15"></div>
-		<h3>Your previous Invites <span class="fright">Invite Code</span></h3>
+		<h3>Your previous Invites <span class="invite_code">Invite Code</span></h3>
+		<div class="clear"></div>
 		<div class="todo_list">
 		<ul id="todo_list">
 		  <% @invites.reverse.each do |f| %>
@@ -15,12 +16,13 @@
 			<%@invite = f%>
 			 <%=@invite.email_address%> 
 			<%if @invite.invite_user%>
-				(active) <span class="fright"><%=@invite.beta_token%></span>
+				(active) <span class="invite_code"><%=@invite.beta_token%></span>
 			<%else%>
-				(pending) <span class="fright"><%=@invite.beta_token%></span> 
+				(pending) <span class="invite_code"><%=@invite.beta_token%></span> 
 			<%end%>
 		    </li>
 		  <% end %>
+		
 		</ul>
 		</div><!-- todo_list -->
 	</div><!--indent -->
