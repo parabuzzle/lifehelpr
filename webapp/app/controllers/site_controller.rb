@@ -34,8 +34,10 @@ class SiteController < ApplicationController
       p = params['wish']
       page = p['page']
       msg = p['msg']
-      user = current_user || User.first
-      Emails.deliver_page_wish(msg,user,page)
+      if current_user
+        user = current_user
+        Emails.deliver_page_wish(msg,user,page)
+      end
       redirect_back_or_default(:action=>:index, :controller=>:users)
     else
       redirect_to :action=>'index'
