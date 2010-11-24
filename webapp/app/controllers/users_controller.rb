@@ -159,4 +159,27 @@ class UsersController < ApplicationController
     end
   end
   
+  def close_first_login
+    session[:return_to] = session[:previous]
+    if request.post?
+      @user = current_user
+      @user.first_time_login = true
+      @user.save
+      redirect_back_or_default(:action=>:index, :controller=>:users)
+    else
+      redirect_back_or_default(:action=>:index, :controller=>:users)
+    end
+  end
+  def close_first_settings
+    session[:return_to] = session[:previous]
+    if request.post?
+      @user = current_user
+      @user.first_time_settings = true
+      @user.save
+      redirect_back_or_default(:action=>:index, :controller=>:users)
+    else
+      redirect_back_or_default(:action=>:index, :controller=>:users)
+    end
+  end
+  
 end

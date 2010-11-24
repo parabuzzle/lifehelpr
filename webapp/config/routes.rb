@@ -46,11 +46,14 @@ ActionController::Routing::Routes.draw do |map|
   map.logout "logout", :controller => "user_sessions", :action => 'destroy'
   map.register "register", :controller => "users", :action => "new"
   map.settings "settings", :controller => "settings", :action => "edit"
+  map.overview "overview", :controller=>"site",:action=>"overview"
   map.change_password "/user/change_password", :controller=>:users, :action=>:edit
   map.forgot_password "/user/forgot_password", :controller=>:users, :action=>:forgot_password
   map.reset_password "/user/reset_password", :controller=>:users, :action=>:reset_password
   map.resend_pager_activation "settings/resend_pager_activation", :controller=>:settings, :action=>:resend_pager_activation
   map.dashboard "dashboard", :controller => "users", :action => "index"
+  map.close_first_login "/user/close_first_login", :controller=>"users", :action=>"close_first_login"
+  map.close_first_settings "/user/close_first_settings", :controller=>"users", :action=>"close_first_settings"
   map.archive "/todos/archive", :controller => :todos, :action=>:archive
   map.todo_categories "/todos/categories/:action/:id", :controller=>'categories'
   #map.list "/lists/:id", :controller=>:lists, :action=>:view

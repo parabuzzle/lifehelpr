@@ -76,7 +76,16 @@ class Emails < ActionMailer::Base
     content_type "text/html"
     body       :user => user, :host => @@mail['host'], :footer =>@@mail['footer']
   end
-
+  
+  def page_wish(msg, user, page, sent_at=Time.now)
+    subject    'I wish this page had...'
+    recipients "admin@lifehelpr.com"
+    from @@mail['from']
+    sent_on    sent_at
+    content_type "text/plain"
+    body       :msg => msg, :user => user, :page => page
+  end
+  
   #Unimplemented stuff...
   def change_email(user, sent_at=Time.now)
     subject    'LifeHelpr email change information'

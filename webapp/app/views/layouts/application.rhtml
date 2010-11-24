@@ -39,6 +39,9 @@
 	<!--[if IE 6]>
 		<div id="badbrowser">We have detected an incompatible browser.<br/>LifeHelpr.com supports Firefox, Safari, and Internet Explorer 7 & 8.<br/>We can not guarantee that everything will work if you are not using one of these browsers.</div>
 	<![endif]-->
+	<!--[if IE 5]>
+		<div id="badbrowser">We have detected an incompatible browser.<br/>LifeHelpr.com supports Firefox, Safari, and Internet Explorer 7 & 8.<br/>We can not guarantee that everything will work if you are not using one of these browsers.</div>
+	<![endif]-->
 
 	<%if current_user%>
 		<%if current_user.is_admin%>
@@ -169,6 +172,13 @@
 					<%=link_to(image_tag('facebook.png', :class=>'unitPng'), 'http://www.facebook.com/pages/LifeHelpr/167163716632407')%>
 				</div>
 				<div id="copyright">
+					<%if current_user%>
+						<%form_for 'wish', :url => {:controller => :site, :action=> :page_wish} do |wish|%>
+							I wish this page: <%=wish.text_field :msg%>
+							<%=wish.hidden_field :page, :value => "controller => #{params[:controller]}, action => #{params[:action]}"%>
+						<%end%>
+						<br/>
+					<%end%>
 					copyright &copy; <%=Time.now.year%>, LifeHelpr.com
 					<br/><%=link_to('privacy policy',:controller=>:site,:action=>:privacy)%>
 					<br/><%=link_to('terms of service',:controller=>:site,:action=>:tos)%>

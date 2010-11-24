@@ -9,6 +9,10 @@ class SettingsController < ApplicationController
   def edit
     @title = "LifeHelpr - Edit Settings"
     @user = current_user
+    if @user.first_time_settings == false
+      @user.first_time_settings = true
+      @user.save
+    end
     @settings = @user.setting
     unless @settings.user == current_user || admin?
       render :action => "noperms"
