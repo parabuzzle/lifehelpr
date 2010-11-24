@@ -1,4 +1,22 @@
+
+
 <h1><%=image_tag('/headers/user_dashboard.png')%></h1>
+<%unless @user.first_time_login%>
+<div id="first_login_box">
+	Thank you for signing up for LifeHelpr.com. We would like to welcome you to the site. If you haven't already done so, you should check out the <%=link_to("overview", :controller=>:site,:action=>:overview)%> page for a quick overview to get you kickstarted in the right direction.
+	<br/>
+	<div class="fright"><%=link_to(image_tag('cancel.png'), {:controller=>'users', :action =>'close_first_login'}, :method=>'post')%></div>
+	<div class="clear"></div>
+</div>
+<%end%>
+<%if @user.first_time_settings != true and @user.first_time_login == true%>
+<div id="first_setting_box">
+	We noticed that you haven't visited your <%=link_to("settings", :controller=>:settings,:action=>:index)%> page yet. You way want to do that to setup your reminder schedule and SMS reminders.
+	<br/>
+	<div class="fright"><%=link_to(image_tag('cancel.png'), {:controller=>'users', :action =>'close_first_settings'}, :method=>'post')%></div>
+	<div class="clear"></div>
+</div>
+<%end%>
 <%unless @todos_late.nil? || @todos_late.length == 0%>
 <div id="late_notice">
 	You have <%=@todos_late.length%> overdue todo item(s) that need your attention
@@ -73,3 +91,4 @@
 		</div><!--todo_list-->
 	</div><!--cat_box-->
 </div><!--dash_right_col-->
+<div class="clear"></div>

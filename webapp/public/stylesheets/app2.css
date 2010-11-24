@@ -150,6 +150,23 @@ img {
 	background-repeat:repeat-x;
 	border-top:#fff solid 1px;
 }
+#first_login_box {
+	width: 650px;
+	margin: 20px;
+	padding: 10px;
+	border: 1px solid #333;
+	background:#c6beaa;
+	color:#333;
+}
+#first_setting_box {
+	width: 650px;
+	margin: 20px;
+	padding: 10px;
+	border: 1px solid #333;
+	background:#c6beaa;
+	color:#333;
+}
+
 .contain {
 	margin:auto;
 	width:960px;
