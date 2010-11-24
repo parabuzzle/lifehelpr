@@ -1,0 +1,64 @@
+<%= stylesheet_link_tag "facebox"%>
+<%= javascript_include_tag 'jquery.min'%>
+<%= javascript_include_tag 'facebox'%>
+<script>jQuery(document).ready(function($) {
+  $('a[rel*=facebox]').facebox()
+})</script>
+<div id="min_width">
+LifeHelpr.com is your personal space to keep organized. You will find a number of tools here to help you get things done and this page should give you a good overview of what each one does, how to use it, and why we do it that way.
+<br/><br/>
+<h1>User Dashboard</h1>
+The user dashboard is your home for everything LifeHelpr. We have made it a one stop glance in to your LifeHelpr organized world.
+<br/><br/>
+You will notice that you have your "Top 5 Todos" that are undone, you have all of your lists to view, and you can see your categories with their stats. You can also add to anything with the convenient "new" links.
+<div class="center">
+	<br/>
+	<%=link_to(image_tag("/screenshots/dashboard1_small.png"), "/screenshots/dashboard1.png", :rel=>"facebox")%>
+</div>
+<br/><br/>
+<h1>Todo List</h1>
+Your Todo list is a singular list of todo items that you specify. Why is it singular? You can read this <a href="http://lifehelpr.wordpress.com/2010/10/29/todos-vs-lists/" target="blank">blog post</a> to find out why.
+<br/><br/>
+You can categorize Todo items and filter by category to view things that just pertain to a specific category you care about at the moment.
+<br/><br/>
+Further more, you will notice "archived items". We auto archive all of your todos that have been marked complete for over an hour. We do this so that your current working todo list stays fresh and clean. If you want to resurrect something from the archive, you simply mark it undone and it will pop back in to your working todo list.
+<div class="center">
+	<br/>
+	<%=link_to(image_tag("/screenshots/todo_list1_small.png"), "/screenshots/todo_list1.png", :rel=>"facebox")%>
+</div>
+<br/><br/>
+<h1>Adding a Todo Item</h1>
+When you add a new Todo Item, the only required field is the Name. You don't have to provide anything else. Everything else is optional. 
+<br/><br/>
+The Due Date and how reminders work is something we get confusion on. When you set a Due Date, magic happens. As your item gets closer to the date it is due, you will notice it will climb up your list in priority automatically. The day your item is due, we will mark it as overdue and start sending you reminders on the reminder schedule you set on your settings page. You will get reminders at the times of day you have set until the item is marked complete or its due date is changed.
+<div class="center">
+	<br/>
+	<%=link_to(image_tag("/screenshots/new_todo1_small.png"), "/screenshots/new_todo1.png", :rel=>"facebox")%>
+</div>
+<br/><br/>
+<h1>Lists</h1>
+A list (sometimes called a Simple List) is a collection of things you need. More info can be found <a href="http://lifehelpr.wordpress.com/2010/10/29/todos-vs-lists/" target="blank">here</a>. You can create as many of these "Simple Lists" as you need or want.
+<div class="center">
+	<br/>
+	Viewing all of your Lists<br/>
+	<%=link_to(image_tag("/screenshots/lists1_small.png"), "/screenshots/lists1.png", :rel=>"facebox")%>
+	<br/><br/>
+	Viewing a single List<br/>
+	<%=link_to(image_tag("/screenshots/list_view1_small.png"), "/screenshots/list_view1.png", :rel=>"facebox")%>
+</div>
+<br/><br/>
+
+<h1>Settings</h1>
+Your settings page is everything you need to control your experience on LifeHelpr.com. This is where you control what emails you want to receive, what your reminder schedule is, and even where you change your email address or password.
+<br/><br/>
+<h2>SMS reminders</h2>
+You can elect to set reminders to be sent via SMS. When you put in your mobile number and carrier, we will send you an SMS with an activation code. You must return to the page with your activation code and put that in the box that appears and click save to activate your phone. Once activated, you will be able to select SMS related options for reminders. Just remember that standard text rates apply.
+<br/><br/>
+<h2>Reminders</h2>
+Some confusion arises when users try to setup reminders. Since Todo Items aren't bound to a specific time of day (you would use a calendar for that), we use abstract times for reminders. After much research we have found that almost everyone has specific times of the day that they are most likely to be able to take care of things they have forgotten about. If you think about what times of the day are best for you and put those times as your reminder times, you will find that things tend to get done. What we are doing is allowing you to work your reminders in to your schedule. So when an item is due, you will start receiving reminders for those items at these times.
+
+<div class="center">
+	<br/>
+	<%=link_to(image_tag("/screenshots/settings1_small.png"), "/screenshots/settings1.png", :rel=>"facebox")%>
+</div>
+</div>

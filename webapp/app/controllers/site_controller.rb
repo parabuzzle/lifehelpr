@@ -27,6 +27,10 @@ class SiteController < ApplicationController
     @title = "LifeHelpr - Help"
     render :layout => "splash"
   end
+  def overview
+    @title = "LifeHelpr - Overview"
+    render :layout => "splash"
+  end
   
   def page_wish
     if request.post?
