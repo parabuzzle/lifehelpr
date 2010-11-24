@@ -166,7 +166,9 @@ img {
 	background:#c6beaa;
 	color:#333;
 }
-
+.info_note {
+	margin-left: 40px;
+}
 .contain {
 	margin:auto;
 	width:960px;
