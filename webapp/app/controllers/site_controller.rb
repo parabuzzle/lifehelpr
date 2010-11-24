@@ -27,6 +27,17 @@ class SiteController < ApplicationController
     @title = "LifeHelpr - Help"
     render :layout => "splash"
   end
+  def overview
+    @title = "LifeHelpr - Overview"
+    if current_user
+      @user = current_user
+      if @user.first_time_login == false
+        @user.first_time_login = true
+        @user.save
+      end
+    end
+    render :layout => "splash"
+  end
   
   def page_wish
     if request.post?
