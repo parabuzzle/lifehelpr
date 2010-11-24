@@ -139,9 +139,17 @@
 					<%=link_to(image_tag('facebook.png', :class=>'unitPng'), 'http://www.facebook.com/pages/LifeHelpr/167163716632407')%>
 				</div>
 				<div id="copyright">
+					<%if current_user%>
+						<%form_for 'wish', :url => {:controller => :site, :action=> :page_wish} do |wish|%>
+							I wish this page: <%=wish.text_field :msg%>
+							<%=wish.hidden_field :page, :value => "controller => #{params[:controller]}, action => #{params[:action]}"%>
+						<%end%>
+						<br/>
+					<%end%>
 					copyright &copy; <%=Time.now.year%>, LifeHelpr.com
 					<br/><%=link_to('privacy policy',:controller=>:site,:action=>:privacy)%>
 					<br/><%=link_to('terms of service',:controller=>:site,:action=>:tos)%>
+					
 				</div><!--copyright-->
 			</div><!--footer:contain -->
 		</div><!--footer-->
