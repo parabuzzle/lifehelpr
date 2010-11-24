@@ -89,6 +89,20 @@ img {
 .center{
 	text-align:center;
 }
+.invite_code{
+	float:right;
+}
+#beta {
+	position:absolute;
+	right:0px;
+}
+#badbrowser {
+	background:red;
+	color:#fff;
+	padding-left:100px;
+	padding-right:100px;
+	text-align:center;
+}
 #notice{
 	position:absolute;
 	color:#fff;
@@ -183,6 +197,7 @@ img {
 	border-bottom: 2px #000 solid;
 }
 #helloblk {
+	margin-right:75px;
 	margin-top:-23px;
 	float:right;
 	color:#66793c;

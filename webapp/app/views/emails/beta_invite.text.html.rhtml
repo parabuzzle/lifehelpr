@@ -4,16 +4,16 @@
 	<head>
 		<title>Beta Invite</title>
 	</head>
-	<body bgcolor="#eeeeee">
-		<div id="back" style="background:#eee;">
+	<body bgcolor="#c6beaa">
+		<div id="back" style="background:#c6beaa;">
 			<div id="container" style="margin:auto;width:600px;min-height:400px;background:#ffffff;border:1px solid #333;padding:5px;font-family:helvetica;">
 				<div id="logo" style="margin:auto;text-align:center"><img src="http://static0.lifehelpr.com/images/logo_small_head.png" alt="LifeHelpr"/></div>
 				<div id="main" style="margin-top:10px;padding:5px;">
 					<div id="intro" style="font-weight:bold;padding-bottom:10px;">Hello <%=@friend_name%>,</div>
 					
-					Your friend <b><%=@from_name%></b> thought you would benefit from an easier life and decided to invite you to become a beta member of LifeHelpr.com. Consider yourself in the fold
+					Your awesome friend <b><%=@from_name%></b> thought you would like what we are doing at LifeHelpr.com and decided to invite you to become a beta member. Consider yourself in the fold.
 					<div id="infobox" style="background:#FFC; border: 1px solid #aaaaaa; padding:4px; margin-top: 20px; font-weight:bold; font-size:15px">
-					Your beta code is: 1234dsaf<br/><br/>
+					Your beta code is: <%=@beta_invite.beta_token%><br/><br/>
 					You can go to: <a href="http://<%=@host%>/register?beta_token=<%=@beta_invite.beta_token%>&email=<%=@beta_invite.email_address%>">http://<%=@host%>/register?beta_token=<%=@beta_invite.beta_token%>&email=<%=@beta_invite.email_address%></a> to sign up.
 					</div>
 

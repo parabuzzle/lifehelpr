@@ -38,6 +38,7 @@ class UsersController < ApplicationController
         redirect_to root_url
         return
       else
+        logger.error @user.errors.inspect
         flash[:error] = "There was an error processing your request at this time. If you are expierencing this issue for more than 24 hours please send an email with a short description of the problem to <a href='mailto:help@lifehelpr.com'>help@lifehelpr.com</a>."
         render :action => 'new'
         return
